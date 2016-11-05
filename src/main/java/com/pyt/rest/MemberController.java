@@ -41,9 +41,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.pyt.data.MemberRepository;
+import com.pyt.dao.MemberDao;
 import com.pyt.model.Member;
-import com.pyt.service.MemberRegistration;
+import com.pyt.service.MemberService;
 
 /**
  * JAX-RS Example
@@ -53,7 +53,7 @@ import com.pyt.service.MemberRegistration;
 @Path("/members")
 @RequestScoped
 @Stateful
-public class MemberService {
+public class MemberController {
     @Inject
     private Logger log;
 
@@ -61,22 +61,19 @@ public class MemberService {
     private Validator validator;
 
     @Inject
-    private MemberRepository repository;
-
-    @Inject
-    MemberRegistration registration;
+    MemberService memberService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Member> listAllMembers() {
-        return repository.findAllOrderedByName();
+        return memberService.findAllOrderedByName();
     }
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
     public Member lookupMemberById(@PathParam("id") long id) {
-        Member member = repository.findById(id);
+        Member member = memberService.findById(id);
         if (member == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
@@ -98,7 +95,7 @@ public class MemberService {
             // Validates member using bean validation
             validateMember(member);
 
-            registration.register(member);
+            memberService.register(member);
 
             // Create an "ok" response
             builder = Response.ok().entity(member);
@@ -177,7 +174,7 @@ public class MemberService {
     public boolean emailAlreadyExists(String email) {
         Member member = null;
         try {
-            member = repository.findByEmail(email);
+            member = memberService.findByEmail(email);
         } catch (NoResultException e) {
             // ignore
         }

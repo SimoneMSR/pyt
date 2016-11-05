@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pyt.data;
+package com.pyt.dao;
 
 import com.pyt.model.Member;
 
@@ -25,13 +25,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.logging.Logger;
 
 @ApplicationScoped
-public class MemberRepository {
+public class MemberDao extends BaseDao<Member> {
 
     @Inject
-    private EntityManager em;
-
+    private Logger log;
+    
     public Member findById(Long id) {
         return em.find(Member.class, id);
     }
@@ -44,7 +45,12 @@ public class MemberRepository {
         // feature in JPA 2.0
         // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
         criteria.select(member).where(cb.equal(member.get("email"), email));
-        return em.createQuery(criteria).getSingleResult();
+        try{
+        	return em.createQuery(criteria).getSingleResult();        	
+        }catch(Exception e){
+        	log.warning(e.getMessage());
+        	return null;
+        }
     }
 
     public List<Member> findAllOrderedByName() {

@@ -16,30 +16,45 @@
  */
 package com.pyt.service;
 
+import com.pyt.dao.MemberDao;
 import com.pyt.model.Member;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import java.util.List;
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class MemberRegistration {
+public class MemberService {
 
     @Inject
     private Logger log;
 
     @Inject
-    private EntityManager em;
+    private MemberDao dao;
 
     @Inject
     private Event<Member> memberEventSrc;
 
     public void register(Member member) throws Exception {
         log.info("Registering " + member.getName());
-        em.persist(member);
+        dao.Save(member);
         memberEventSrc.fire(member);
     }
+
+	public List<Member> findAllOrderedByName() {
+		return dao.findAllOrderedByName();
+	}
+
+	public Member findById(long id) {
+		return dao.findById(id);
+	}
+
+	public Member findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
 }

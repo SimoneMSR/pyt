@@ -28,9 +28,9 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import com.pyt.data.MemberRepository;
-import com.pyt.rest.MemberService;
-import com.pyt.service.MemberRegistration;
+
+import com.pyt.rest.MemberController;
+import com.pyt.service.MemberService;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -38,6 +38,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.pyt.dao.MemberDao;
 import com.pyt.model.Member;
 import com.pyt.util.Resources;
 
@@ -52,13 +53,13 @@ public class MemberRegistrationTest {
     public static Archive<?> createTestArchive() {
         return ShrinkWrap
                 .create(WebArchive.class, "test.war")
-                .addClasses(Member.class, MemberService.class, MemberRepository.class, MemberRegistration.class,
+                .addClasses(Member.class, MemberController.class, MemberDao.class, MemberService.class,
                         Resources.class).addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource("arquillian-ds.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Inject
-    MemberService memberRegistration;
+    MemberController memberRegistration;
 
     @Inject
     Logger log;
