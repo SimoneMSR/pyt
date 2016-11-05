@@ -29,6 +29,10 @@
     <url>http://jboss.org/aerogear</url>
 
     <properties>
+    
+    <liquibase.version>3.4.2</liquibase.version>
+    <log4j-over-slf4j.version>1.7.2</log4j-over-slf4j.version>
+    
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -189,6 +193,27 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>5.1.23</version>
 		</dependency>
+		
+	    <!-- Production dependency -->
+	
+	    <dependency>
+	      <groupId>org.liquibase</groupId>
+	      <artifactId>liquibase-core</artifactId>
+	      <version>${liquibase.version}</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.liquibase</groupId>
+	      <artifactId>liquibase-cdi</artifactId>
+	      <version>${liquibase.version}</version>
+	    </dependency>
+	
+	
+	    <dependency>
+	      <groupId>org.slf4j</groupId>
+	      <artifactId>log4j-over-slf4j</artifactId>
+	      <version>${log4j-over-slf4j.version}</version>
+	    </dependency>
 
     </dependencies>
 
