@@ -43,7 +43,7 @@ public class MemberDao extends BaseDao<Member> {
         Root<Member> member = criteria.from(Member.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
-        // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
+        //criteria.select(member).where(cb.equal(member.get(Member_.name), email));
         criteria.select(member).where(cb.equal(member.get("email"), email));
         try{
         	return em.createQuery(criteria).getSingleResult();        	

@@ -21,5 +21,46 @@
 			
 		</createTable>
 	</changeSet>  
+	
+    <changeSet id="2" author="Simone D'Amario">
+		<comment>Creazione tabelle Quartieri, Annunci, QuartieriAnnunci</comment>
+		<createTable tableName="Quarter">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column> 			
+		</createTable>
+		<createTable tableName="Announcement">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="title" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="clob">
+				<constraints nullable="false" />
+			</column> 			
+		</createTable>
+		<createTable tableName="QuarterAnnouncement">
+			<column name="idQuarter" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="idAnnouncement" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>		
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="idQuarter"
+	            baseTableName="QuarterAnnouncement"
+	            constraintName="fk_quarter_id"
+	            referencedColumnNames="id"
+	            referencedTableName="Quarter"/>
+	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
+	            baseTableName="QuarterAnnouncement"
+	            constraintName="fk_announcement_id"
+	            referencedColumnNames="id"
+	            referencedTableName="Announcement"/>
+	</changeSet>  
         
 </databaseChangeLog>

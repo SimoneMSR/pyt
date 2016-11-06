@@ -63,4 +63,11 @@
 		<nature>org.jboss.tools.ws.jaxrs.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>model</name>
+			<type>2</type>
+			<location>/media/simone/1352EA6B369E5163/Progetti/UrbanistiSpa/pyt/target/generated-sources/annotations/com/pyt/model</location>
+		</link>
+	</linkedResources>
 </projectDescription>

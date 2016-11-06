@@ -22,7 +22,6 @@ import com.pyt.model.Member;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import java.util.List;
 import java.util.logging.Logger;
