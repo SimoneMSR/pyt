@@ -8,5 +8,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<include file="database-changelog/creation.xml" />
+	<include file="database-changelog/population.xml" />
 
 </databaseChangeLog>

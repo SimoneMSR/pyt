@@ -17,6 +17,7 @@
 package com.pyt.dao;
 
 import com.pyt.model.Member;
+import com.pyt.model.Member_;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,23 +29,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class MemberDao extends BaseDao<Member> {
+public class MemberDao extends BaseDao<Member,Member_> {
 
     @Inject
     private Logger log;
     
-    public Member findById(Long id) {
+    public Member getById(Long id) {
         return em.find(Member.class, id);
     }
 
-    public Member findByEmail(String email) {
+    public Member getByEmail(String email) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
         Root<Member> member = criteria.from(Member.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-        // feature in JPA 2.0
-        //criteria.select(member).where(cb.equal(member.get(Member_.name), email));
-        criteria.select(member).where(cb.equal(member.get("email"), email));
+        criteria.select(member).where(cb.equal(member.get(Member_.email), email));
         try{
         	return em.createQuery(criteria).getSingleResult();        	
         }catch(Exception e){
@@ -53,14 +51,11 @@ public class MemberDao extends BaseDao<Member> {
         }
     }
 
-    public List<Member> findAllOrderedByName() {
+    public List<Member> getAllOrderedByName() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
         Root<Member> member = criteria.from(Member.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-        // feature in JPA 2.0
-        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-        criteria.select(member).orderBy(cb.asc(member.get("name")));
+        criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
         return em.createQuery(criteria).getResultList();
     }
 }

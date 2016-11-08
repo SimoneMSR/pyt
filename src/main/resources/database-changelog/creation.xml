@@ -25,7 +25,7 @@
     <changeSet id="2" author="Simone D'Amario">
 		<comment>Creazione tabelle Quartieri, Annunci, QuartieriAnnunci</comment>
 		<createTable tableName="Quarter">
-			<column name="id" type="INT" autoIncrement="true">
+			<column name="idQuarter" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="name" type="VARCHAR(255)">
@@ -33,7 +33,7 @@
 			</column> 			
 		</createTable>
 		<createTable tableName="Announcement">
-			<column name="id" type="INT" autoIncrement="true">
+			<column name="idAnnouncement" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="title" type="VARCHAR(255)">
@@ -54,12 +54,12 @@
 	    <addForeignKeyConstraint baseColumnNames="idQuarter"
 	            baseTableName="QuarterAnnouncement"
 	            constraintName="fk_quarter_id"
-	            referencedColumnNames="id"
+	            referencedColumnNames="idQuarter"
 	            referencedTableName="Quarter"/>
 	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
 	            baseTableName="QuarterAnnouncement"
 	            constraintName="fk_announcement_id"
-	            referencedColumnNames="id"
+	            referencedColumnNames="idAnnouncement"
 	            referencedTableName="Announcement"/>
 	</changeSet>  
         

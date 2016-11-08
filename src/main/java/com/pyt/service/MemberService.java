@@ -46,14 +46,14 @@ public class MemberService {
     }
 
 	public List<Member> findAllOrderedByName() {
-		return dao.findAllOrderedByName();
+		return dao.getAllOrderedByName();
 	}
 
 	public Member findById(long id) {
-		return dao.findById(id);
+		return dao.getById(id);
 	}
 
 	public Member findByEmail(String email) {
-		return dao.findByEmail(email);
+		return dao.getByEmail(email);
 	}
 }

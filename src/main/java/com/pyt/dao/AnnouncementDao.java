@@ -13,13 +13,13 @@ import com.pyt.model.Announcement_;
 import com.pyt.model.Quarter;
 import com.pyt.model.Quarter_;
 
-public class AnnouncementDao extends BaseDao<Announcement>{
+public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 	
 	public Announcement getById(Long id){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);
-        criteria.select(announcement).where(cb.equal(announcement.get(Announcement_.id), id));
+        criteria.select(announcement).where(cb.equal(announcement.get(Announcement_.idAnnouncement), id));
         return em.createQuery(criteria).getSingleResult();
 	}
 	
@@ -27,7 +27,7 @@ public class AnnouncementDao extends BaseDao<Announcement>{
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Quarter> criteria = cb.createQuery(Quarter.class);
         Root<Quarter> quarter = criteria.from(Quarter.class);
-        criteria.select(quarter).where(cb.equal(quarter.get(Quarter_.id), quarterId));
+        criteria.select(quarter).where(cb.equal(quarter.get(Quarter_.idQuarter), quarterId));
         try {
         	return em.createQuery(criteria).getSingleResult().getAnnouncements();
         }catch(Exception e){

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,17 +26,39 @@ public class Quarter implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idQuarter;
     
     @NotNull
     @NotEmpty
     private String name;
     
 	@ManyToMany
-	@JoinTable(name="QuarterAnnouncement")
-	private Set<Announcement> Announcements;
-	
-	public Set<Announcement> getAnnouncements(){
-		return Announcements;
+	@JoinTable(name="QuarterAnnouncement",
+	        joinColumns=@JoinColumn(name="idQuarter"),
+	        inverseJoinColumns=@JoinColumn(name="idAnnouncement"))
+	private Set<Announcement> announcements;
+
+	public Long getId() {
+		return idQuarter;
+	}
+
+	public void setId(Long id) {
+		this.idQuarter = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Announcement> getAnnouncements() {
+		return announcements;
+	}
+
+	public void setAnnouncements(Set<Announcement> announcements) {
+		this.announcements = announcements;
 	}
 }

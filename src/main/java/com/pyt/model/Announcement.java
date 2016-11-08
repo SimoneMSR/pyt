@@ -1,8 +1,10 @@
 package com.pyt.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +27,7 @@ public class Announcement implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idAnnouncement;
 	
 	@NotNull
 	@NotEmpty
@@ -35,7 +37,33 @@ public class Announcement implements Serializable{
 	@NotEmpty
 	private String description;
 	
-	@ManyToMany
-	@JoinTable(name="QuarterAnnouncement")
-	private Set<Quarter> Quarters;
+	@ManyToMany(mappedBy = "announcements")
+	private Collection<Quarter> quarters;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Collection<Quarter> getQuarters() {
+		return quarters;
+	}
+
+	public void setQuarters(Collection<Quarter> quarters) {
+		this.quarters = quarters;
+	}
+	
+	
+	
 }

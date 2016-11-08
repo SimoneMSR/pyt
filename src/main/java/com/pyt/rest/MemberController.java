@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -37,6 +37,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,13 +50,10 @@ import com.pyt.service.MemberService;
  * <p/>
  * This class produces a RESTful service to read/write the contents of the members table.
  */
-@Path("/members")
-@RequestScoped
-@Stateful
-public class MemberController {
+@Path("member")
+@Stateless
+public class MemberController extends BaseController {
 	
-    @Inject
-    private Logger log;
 
     @Inject
     private Validator validator;
@@ -70,9 +68,9 @@ public class MemberController {
     }
 
     @GET
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("single")
     @Produces(MediaType.APPLICATION_JSON)
-    public Member lookupMemberById(@PathParam("id") long id) {
+    public Member lookupMemberById(@QueryParam("id") long id) {
         Member member = memberService.findById(id);
         if (member == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -153,7 +151,7 @@ public class MemberController {
      * @return JAX-RS response containing all violations
      */
     private Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
-        log.fine("Validation completed. violations found: " + violations.size());
+        logger.error("Validation completed. violations found: " + violations.size());
 
         Map<String, String> responseObj = new HashMap<String, String>();
 
