@@ -24,6 +24,7 @@ public class AnnouncementController extends BaseController {
 	QuarterService quarterService;
 	
 	@POST
+	@Path("publish")
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response publishAnnouncement(@QueryParam("quarterId") int quarterId, AnnouncementDto announcement){
@@ -33,6 +34,17 @@ public class AnnouncementController extends BaseController {
 		}catch(Exception e){
 			return Response.serverError().build();
 		}
-		
+	}
+	
+	@POST
+	@Path("unpublish")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response unpublishAnnouncement(@QueryParam("quarterId") int quarterId,@QueryParam("announcementId") int announcementId){
+		try{
+			quarterService.unpublishAnnouncement(quarterId, announcementId);
+			return Response.ok().build();
+		}catch(Exception e){
+			return Response.serverError().build();
+		}
 	}
 }

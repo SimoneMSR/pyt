@@ -39,6 +39,13 @@ public class Announcement implements Serializable{
 	
 	@ManyToMany(mappedBy = "announcements")
 	private Collection<Quarter> quarters;
+	
+	
+
+	public Long getIdAnnouncement() {
+		return idAnnouncement;
+	}
+
 
 	public String getTitle() {
 		return title;

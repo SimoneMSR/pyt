@@ -36,8 +36,13 @@ public class QuarterService {
 		quarter.setAnnouncements(announcements);
 		announcementDao.Save(announcement);
 		quarterDao.merge(quarter);
-		
-		
+	}
+	
+	public void unpublishAnnouncement(int quarterId,int announcementId){
+		Quarter quarter = getById(quarterId);
+		Set<Announcement> announcements = quarter.getAnnouncements();
+		announcements.removeIf(entity -> entity.getIdAnnouncement() == announcementId);
+		quarterDao.merge(quarter);
 	}
 
 }
