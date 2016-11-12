@@ -2,7 +2,7 @@
 target/*
 
 #eclipse stuff
-.settings/*
+.settings/**/*
 .classpath
 .project
 /target/
