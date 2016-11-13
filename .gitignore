@@ -2,6 +2,8 @@
 server/target/
 
 #eclipse stuff
+server/.cheatsheet.xml
+server/.factorypath
 server/.settings/
 server/.classpath
 server/.project
