@@ -1,0 +1,21 @@
+BACKEND
+1) Scaricare java
+2) Scaricare eclipse
+3) Scaricare wildfly
+4)Scaricare mysql (all'utente root dare password: simone)
+5)Scaricare il connettore mysql-connector
+6)Aggiungere utente amministratore a wildfly (/bin/add_user.sh)
+7)Loggarsi a wildfly con l'utente creato e 1) aggiungere il connettore ai deployments e 2)configurare il datasource (seguendo questa guida http://www.techpaste.com/2014/05/how-to-configure-datasource-in-jboss-wildfly)
+8)Avviare il servizio mysql
+9)Creare un nuovo database di nome pyt
+100) avviare wildlfy con ./bin/standalone.sh --server-config=standalone-full-ha.xml
+
+FRONTEND
+0) rimuovere completamente node se già presente
+1) aprire una bash
+2) cd PATH_TO_REPOSITORY/frontend
+3) wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+4) nvm install -g node
+6) chiudere la bash ed aprirne un'altra
+5) sudo npm install -g angular-cli
+

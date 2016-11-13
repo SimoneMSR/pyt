@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        
+    <changeSet id="1" author="Simone D'Amario">
+		<comment>Creazione tabella Member</comment>
+		<createTable tableName="Member">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column> 
+			<column name="email" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column> 
+			<column name="phone_number" type="VARCHAR(50)">
+			</column> 
+			
+		</createTable>
+	</changeSet>  
+	
+    <changeSet id="2" author="Simone D'Amario">
+		<comment>Creazione tabelle Quartieri, Annunci, QuartieriAnnunci</comment>
+		<createTable tableName="Quarter">
+			<column name="idQuarter" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column> 			
+		</createTable>
+		<createTable tableName="Announcement">
+			<column name="idAnnouncement" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="title" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="clob">
+				<constraints nullable="false" />
+			</column> 			
+		</createTable>
+		<createTable tableName="QuarterAnnouncement">
+			<column name="idQuarter" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="idAnnouncement" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>		
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="idQuarter"
+	            baseTableName="QuarterAnnouncement"
+	            constraintName="fk_quarter_id"
+	            referencedColumnNames="idQuarter"
+	            referencedTableName="Quarter"/>
+	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
+	            baseTableName="QuarterAnnouncement"
+	            constraintName="fk_announcement_id"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+	</changeSet>  
+        
+</databaseChangeLog>
