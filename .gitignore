@@ -2,9 +2,9 @@
 server/target/
 
 #eclipse stuff
-server/settings/
-server/classpath
-server/project
+server/.settings/
+server/.classpath
+server/.project
 server/.generated-sources/
 server/.apt_generated/
 frontend/node_modules
