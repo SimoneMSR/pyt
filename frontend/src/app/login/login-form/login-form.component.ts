@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Member} from '../member.model';
+import {LoginService} from '../login.service';
 
 @Component({
   selector: 'app-login-form',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
+	public member : Member;
+	public submitted : boolean;
+
+  constructor(){
+  	this.member = new Member('simone','password');
+  	this.submitted = false;
+	}
+  	onSubmit() { this.submitted = true;}
 
   ngOnInit() {
   }

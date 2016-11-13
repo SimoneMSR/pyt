@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoginModule} from './login/login.module';
+import { CoreModule} from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,7 +24,8 @@ import { ToolsComponent } from './tools/tools.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    LoginModule
+    LoginModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
