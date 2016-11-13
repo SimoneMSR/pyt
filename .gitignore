@@ -1,11 +1,10 @@
 #build files
-target/*
+server/target/
 
 #eclipse stuff
-.settings/**/*
-.classpath
-.project
-/target/
-/.generated-sources/
-/.apt_generated/
-/frontend/node_modules
+server/settings/
+server/classpath
+server/project
+server/.generated-sources/
+server/.apt_generated/
+frontend/node_modules
