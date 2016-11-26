@@ -7,12 +7,9 @@ import { BaseService} from './base.service';
   imports: [
     CommonModule
   ],
-  exports : [
-  	BaseService
-  ],
   providers : [
   	BaseService
   ], 
-  declarations: [BaseService, CoreComponent]
+  declarations: [CoreComponent]
 })
 export class CoreModule { }

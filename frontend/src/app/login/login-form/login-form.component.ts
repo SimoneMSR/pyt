@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Member} from '../member.model';
-import {LoginService} from '../login.service';
+import { Login} from './login.model';
+import { LoginService} from '../login.service';
+import { AuthService} from '../../core/auth/auth.service';
+
+ 
+
 
 @Component({
   selector: 'app-login-form',
@@ -9,11 +13,11 @@ import {LoginService} from '../login.service';
 })
 export class LoginFormComponent implements OnInit {
 
-	public member : Member;
+	public credential : Login;
 	public submitted : boolean;
 
-  constructor(){
-  	this.member = new Member('simone','password');
+  constructor(private auth:AuthService){
+  	this.credential = new Login('simone','password');
   	this.submitted = false;
 	}
   	onSubmit() { this.submitted = true;}

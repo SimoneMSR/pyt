@@ -1,6 +1,7 @@
 export class Member {
+	public username : string;
 	constructor (
-		public username : string,
+		public email : string,
 		public password : string
 	){}
 }
