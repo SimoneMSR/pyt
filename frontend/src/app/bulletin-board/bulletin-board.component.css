@@ -1,0 +1,9 @@
+.map-button {
+	margin : auto;
+	display : block;
+}
+
+.map {
+	position: fixed;
+    top: 0;
+}

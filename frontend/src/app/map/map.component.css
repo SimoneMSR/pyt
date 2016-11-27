@@ -1,0 +1,14 @@
+  svg .quartiere {
+    stroke-width: 1;
+    stroke: #fff;
+    -webkit-transition: stroke 0.5s, stroke-width 0.5s;
+    -o-transition: stroke 0.5s, stroke-width 0.5s;
+    transition: stroke 0.5s, stroke-width 0.5s;
+	}
+
+	svg .quartiere:hover , .quartiere.active {
+	    cursor: pointer !important;
+		fill-opacity: 0.7 !important;
+	    stroke-width: 2 !important;
+	    stroke: #000 !important;
+	}

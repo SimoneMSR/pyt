@@ -7,6 +7,7 @@ import { CoreModule} from './core/core.module';
 import { RouterModule, Routes } from '@angular/router'; 
 import { BulletinBoardModule} from './bulletin-board/bulletin-board.module';
 
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -17,8 +18,10 @@ import { ToolsComponent } from './tools/tools.component';
 import { AUTH_PROVIDERS }      from 'angular2-jwt';
 
 const appRoutes: Routes = [
-  { path: '', component: AppComponent }
-];
+  { path: '', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent }
+
+]; 
 
 @NgModule({
   declarations: [
