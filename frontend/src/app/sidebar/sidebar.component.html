@@ -1,15 +1,15 @@
       <!-- Sidebar -->
-      <section id='sidebar'>
+      <div class="sidebar-wrapper">
         <i class='icon-align-justify icon-large' id='toggle'></i>
-        <ul id='dock'>
-          <li class='active launcher'>
+        <ul class="sidebar-nav">
+          <li>
             <i class='icon-dashboard'></i>
-            <a [routerLink]="['dashboard']">Dashboard</a>
+            <a [routerLink]="['dashboard']" tooltipPlacement="right" tooltip="Dashboard"></a>
           </li>
-          <li class='launcher'>
-            <i class='icon-file-text-alt'></i>
-            <a [routerLink]="['board']">Bulletin</a>
+          <li>
+            <i class="fa fa-home"></i>
+            <a [routerLink]="['board']" tooltipPlacement="right" tooltip="Bulletin"></a>
           </li>
         </ul>
         <div data-toggle='tooltip' id='beaker' title='Made by lab2023'></div>
-      </section>
+      </div>

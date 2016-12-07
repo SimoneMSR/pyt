@@ -1,0 +1,14 @@
+.map-button {
+	margin : auto;
+	display : block;
+}
+
+.map {
+	position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.main-page.opaco {
+	opacity: 0.2;
+}

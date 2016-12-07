@@ -1,9 +1,38 @@
-<div class="col-xs-6 col-xs-offset-3 map">
-	<app-map [visible]=mapVisible></app-map>
-    <button type="button" class="btn btn-default map-button glyphicon" 
-    [ngClass]="{ ' glyphicon-chevron-down' : mapVisible==false , 
-    ' glyphicon-chevron-up' : mapVisible}" (click)="toggleMap()"></button>
-</div>
-<div>
-ciao!
+<div class="bulletin-page">
+	<div class="left-pole col-xs-1">
+		left-pole
+		<ul>
+			<li>
+				operation left 1
+			</li>
+			<li>
+				operation left 2
+			</li>
+			<li>
+				operation left 3
+			</li>
+		</ul>
+	</div>
+	<div class="main-content col-xs-10">
+		main-content
+		<div class="announcement-wrapper">
+			<div *ngFor="let announcement of announcements">
+				<app-announcement class="col-xs-8" [announcement]="announcement"></app-announcement>
+			</div>
+		</div>
+	</div>
+	<div class="right-pole col-xs-1">
+		right-pole
+		<ul>
+			<li>
+				operation right 1
+			</li>
+			<li>
+				operation right 2
+			</li>
+			<li>
+				operation right 3
+			</li>
+		</ul>
+	</div>
 </div>

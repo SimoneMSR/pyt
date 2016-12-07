@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TooltipModule, TooltipDirective } from 'ng2-bootstrap/components/tooltip';
 
 @Component({
   selector: 'app-sidebar',

@@ -5,12 +5,17 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { LoginService} from './login.service';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '../core/auth/auth.module';
+import { RouterModule, Routes } from '@angular/router'; 
+
+const appRoutes: Routes = [
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AuthModule
+    AuthModule,
+    RouterModule.forRoot(appRoutes)
   ],
   exports : [
   	LoginComponent

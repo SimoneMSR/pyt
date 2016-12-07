@@ -1,0 +1,11 @@
+<div class="title">
+  {{announcement.name}}
+</div>
+<div class="description">
+  {{announcement.description}}
+</div>
+<div class="tags-wrapper">
+	<span *ngFor="let tag of announcement.tags">
+		<span class="label" [ngStyle]="{'background-color': tag.color }">{{tag.title}}</span>
+	</span>
+</div>

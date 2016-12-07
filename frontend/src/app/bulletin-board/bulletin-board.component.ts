@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AnnouncementComponent} from './announcement/announcement.component';
+import { Announcement} from './announcement/announcement.model';
 
 
 @Component({
@@ -8,15 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BulletinBoardComponent implements OnInit {
 
-	public mapVisible : boolean;
+
+  public announcements : Announcement[];
   constructor() { 
-  	this.mapVisible = false;
+    this.announcements = [ new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo')],new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),
+      new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),
+      new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),
+      new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),
+      new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo'),
+      new Announcement('rinasco'),
+      new Announcement('trionfo'),
+      new Announcement('risolvo');
   }
 
   ngOnInit() {
   }
 
-  toggleMap(){
-  	this.mapVisible = !this.mapVisible;
-  }
+
 }

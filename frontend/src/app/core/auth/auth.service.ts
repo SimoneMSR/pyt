@@ -18,7 +18,10 @@ export class AuthService {
 	  callbackURL: 'https://localhost:8080/pyt/rest/login',
   });
 
+  private loggedIn : boolean;
+
   constructor(private router: Router) {
+    this.loggedIn = false;
     var result = this.auth0.parseHash(window.location.hash);
 
     if (result && result.idToken) {
@@ -28,9 +31,14 @@ export class AuthService {
       alert('error: ' + result.error);
     }
   }
+
+  public isLoggedIn(){
+    return this.loggedIn;
+  }
  
  public login(username, password) {
-  this.auth0.login({
+  this.loggedIn = true;
+  return this.auth0.login({
     connection: 'Username-Password-Authentication',
     responseType: 'token',
     email: username,
