@@ -5,3 +5,12 @@ ul {
 body {
 	overflow : hidden;
 }
+
+.announcements-list-wrapper .announcement-wrapper {
+    margin-bottom: 10px;
+}
+
+
+.announcements-list-wrapper .rushpin{
+	visibility:	hidden;
+}
