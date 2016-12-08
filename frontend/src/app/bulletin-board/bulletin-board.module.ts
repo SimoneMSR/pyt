@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BulletinBoardComponent } from './bulletin-board.component';
 import { RouterModule, Routes } from '@angular/router'; 
-import { AnnouncementComponent } from './announcement/announcement.component';
+import { AnnouncementsModule} from '../announcements/announcements.module';
 
 const appRoutes: Routes = [
   { path: '', component: BulletinBoardComponent },
@@ -12,8 +12,9 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule, 
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AnnouncementsModule
   ],
-  declarations: [BulletinBoardComponent, AnnouncementComponent]
+  declarations: [BulletinBoardComponent]
 })
 export class BulletinBoardModule { }

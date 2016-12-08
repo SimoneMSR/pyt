@@ -1,8 +1,5 @@
 <div class="col-xs-6 col-xs-offset-3 map">
-	<app-map [visible]=mapVisible></app-map>
-    <button type="button" class="btn btn-default map-button glyphicon" 
-    [ngClass]="{ ' glyphicon-chevron-down' : mapVisible==false , 
-    ' glyphicon-chevron-up' : mapVisible}" (click)="toggleMap()"></button>
+	<app-map [(visible)]=mapVisible></app-map>
 </div>
 <div class='main-page' [ngClass]="{'opaco' : mapVisible}">
  	<app-navbar></app-navbar>

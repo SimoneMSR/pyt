@@ -1,18 +1,18 @@
 import { Component, 
 	  OnInit,
 	  Input,
+    Output,
 	  trigger,
 	  state,
 	  style,
 	  transition,
-	  animate } from '@angular/core';
+	  animate,
+    EventEmitter } from '@angular/core';
 
 
 @Component({
   selector: 'app-map',
-  template: `
-  	<div [inlineSVG]="'/app/map/map.svg'" [@collapse]="mapState"></div>
-  `,
+  templateUrl: 'map.component.html',
   styleUrls: ['./map.component.css'],
   animations : [
   	trigger('collapse', [
@@ -28,10 +28,19 @@ export class MapComponent implements OnInit {
   viewBox : string;
   defaultViewBox :  string;
   defaultCollapsedViewBox : string;
+  _visible : boolean;
+  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>()
+
 
   constructor() { 
-  	this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
-  	this.defaultViewBox = '0 0 749.09998 617.09998';
+    this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
+    this.defaultViewBox = '0 0 749.09998 617.09998';
+    this._visible=false;
+  }
+
+    toggleMap(){
+      this._visible = !this._visible;
+      this.visibleChange.emit(this._visible);
   }
 
   ngOnInit() {
@@ -39,7 +48,14 @@ export class MapComponent implements OnInit {
 
   @Input()
   set visible(visible : boolean){
-  	this.mapState = visible ? 'visible' : 'collapsed';
-  	this.viewBox = visible ? this.defaultViewBox : this.defaultCollapsedViewBox;
+    this.mapState = visible ? 'visible' : 'collapsed';
+    this.viewBox = visible ? this.defaultViewBox : this.defaultCollapsedViewBox;
+    this._visible = visible;
+    this.visibleChange.emit(visible);
   }
+
+  get visible() : boolean{
+    return this._visible;
+  }
+
 }

@@ -21,8 +21,4 @@ export class AppComponent implements OnInit{
 		if(!this.loggedIn)
 			this.router.navigate(['login']);
 	}
-
-	toggleMap(){
-  	this.mapVisible = !this.mapVisible;
-  }
 }

@@ -1,36 +1,35 @@
 <div class="bulletin-page">
 	<div class="left-pole col-xs-1">
 		left-pole
-		<ul>
-			<li>
+		<ul class="pole">
+			<li class="btn btn-default btn-xs">
 				operation left 1
-			</li>
-			<li>
+			</li >
+			<li class="btn btn-primary btn-xs">
 				operation left 2
-			</li>
-			<li>
+			</li >
+			<li class="btn btn-success btn-xs">
 				operation left 3
 			</li>
 		</ul>
 	</div>
 	<div class="main-content col-xs-10">
-		main-content
-		<div class="announcement-wrapper">
+		<div class="announcements-wrapper">
 			<div *ngFor="let announcement of announcements">
-				<app-announcement class="col-xs-8" [announcement]="announcement"></app-announcement>
+				<app-announcement class="col-xs-4 bulletin-announcement" [announcement]="announcement"></app-announcement>
 			</div>
 		</div>
 	</div>
 	<div class="right-pole col-xs-1">
 		right-pole
-		<ul>
-			<li>
+		<ul class="pole">
+			<li class="btn btn-default btn-xs">
 				operation right 1
 			</li>
-			<li>
+			<li class="btn btn-primary btn-xs">
 				operation right 2
 			</li>
-			<li>
+			<li class="btn btn-success btn-xs">
 				operation right 3
 			</li>
 		</ul>

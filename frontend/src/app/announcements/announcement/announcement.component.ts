@@ -25,6 +25,12 @@ export class AnnouncementComponent implements OnInit {
 	  				else
 	  					tag.color = "#d9534f";
   	}
+  	switch(this.announcement.cathegory){
+  		case 'idea' : {this.announcement.color = '#66FF66'; break}
+  		case 'problem' : {this.announcement.color = '#66B2FF'; break}
+  		case 'proposal' : {this.announcement.color = '#FF9933'; break}
+      default : {this.announcement.color = '#C0C0C0';}
+  	}
 
   }
 

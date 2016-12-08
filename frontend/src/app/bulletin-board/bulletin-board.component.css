@@ -1,6 +1,13 @@
-
+.bulletin-announcement{
+	padding:15px;
+	margin-top:10px;
+}
 
 .main-content {
 	overflow-y: auto;
     max-height: 70vh;
+}
+
+.pole {
+	-webkit-padding-start: 0px;
 }
