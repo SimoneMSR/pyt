@@ -30,6 +30,8 @@ export class MapComponent implements OnInit {
   defaultCollapsedViewBox : string;
   _visible : boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>()
+ 
+ public quartiere: string;
 
 
   constructor() { 
@@ -42,6 +44,15 @@ export class MapComponent implements OnInit {
       this._visible = !this._visible;
       this.visibleChange.emit(this._visible);
   }
+    /* restetiusce L'ID */
+    onClick(event) {
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id;
+    var value = idAttr.nodeValue;
+    this.quartiere = value;
+    console.log(value);
+    }
+   
 
   ngOnInit() {
   }
