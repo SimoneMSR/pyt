@@ -1,9 +1,13 @@
 package com.pyt.rest;
 
+import java.util.Collection;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,17 +27,33 @@ public class AnnouncementController extends BaseController {
 	@Inject
 	QuarterService quarterService;
 	
+	@Inject
+	AnnouncementService announcementService;
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") int quarterId){
+		return AnnouncementConverter.to(announcementService.getByQuaterI(quarterId));
+	}
+	
 	@POST
 	@Path("publish")
-	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Response publishAnnouncement(@QueryParam("quarterId") int quarterId, AnnouncementDto announcement){
+	public Response publishAnnouncement(@QueryParam("quarterId") int quarterId, @QueryParam("announcementId") int announcementId){
 		try{
-			quarterService.publishAnnouncement(quarterId, AnnouncementConverter.from(announcement));
+			quarterService.publishAnnouncement(quarterId, announcementId);
 			return Response.ok().build();
 		}catch(Exception e){
 			return Response.serverError().build();
 		}
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response createOrUpdate(AnnouncementDto announcement){
+		quarterService.createOrUpdate(AnnouncementConverter.from(announcement));
+		return Response.ok().build();
 	}
 	
 	@POST

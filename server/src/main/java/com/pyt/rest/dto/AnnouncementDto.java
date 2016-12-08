@@ -1,11 +1,16 @@
 package com.pyt.rest.dto;
 
+import java.util.Collection;
+
+import Enums.AnnouncementCathegory;
 
 public class AnnouncementDto {
 	
 	public int id;
 	public String title;
 	public String description;
+	public AnnouncementCathegory cathegory; 
+	public Collection<Integer> tags;
 	
     @Override
     public String toString() {

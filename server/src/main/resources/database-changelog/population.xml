@@ -16,5 +16,18 @@
 		    <column name="name" value="Lettere"/>
 		</insert>
 	</changeSet> 
+	
+    <changeSet id="2" author="Simone D'Amario">
+    	<comment> Aggiungo Tag di default</comment>
+		<insert tableName="Tag" >
+		    <column name="name" value="pedagogia"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="fast-food"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="soddisfazione"/>
+		</insert>
+	</changeSet> 
         
 </databaseChangeLog>

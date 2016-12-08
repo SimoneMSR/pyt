@@ -27,15 +27,18 @@ public class QuarterService {
 		return quarterDao.getAll();
 	}
 	
-	public void publishAnnouncement(int quarterId, Announcement announcement){
+	public void publishAnnouncement(int quarterId, int announcementId){
 		Quarter quarter = getById(quarterId);
 		Set<Announcement> announcements = quarter.getAnnouncements();
 		if(announcements == null)
 			announcements=new HashSet<Announcement>();
-		announcements.add(announcement);
+		announcements.add(new Announcement(announcementId));
 		quarter.setAnnouncements(announcements);
-		announcementDao.Save(announcement);
 		quarterDao.merge(quarter);
+	}
+	
+	public void createOrUpdate(Announcement entity){		
+		announcementDao.merge(entity);
 	}
 	
 	public void unpublishAnnouncement(int quarterId,int announcementId){
