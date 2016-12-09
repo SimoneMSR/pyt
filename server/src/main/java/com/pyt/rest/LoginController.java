@@ -26,6 +26,6 @@ public class LoginController extends BaseController{
 		Member user = memberService.findByEmail(credentials.email);
 		if(user == null)
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-		return MemberConverter.from(user);
+		return MemberConverter.to(user);
 	}
 }

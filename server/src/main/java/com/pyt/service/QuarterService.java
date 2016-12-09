@@ -37,9 +37,6 @@ public class QuarterService {
 		quarterDao.merge(quarter);
 	}
 	
-	public void createOrUpdate(Announcement entity){		
-		announcementDao.merge(entity);
-	}
 	
 	public void unpublishAnnouncement(int quarterId,int announcementId){
 		Quarter quarter = getById(quarterId);

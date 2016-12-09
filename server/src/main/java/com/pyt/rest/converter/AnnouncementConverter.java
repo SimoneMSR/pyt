@@ -8,6 +8,7 @@ import java.util.Set;
 import com.pyt.model.Announcement;
 import com.pyt.model.Tag;
 import com.pyt.rest.dto.AnnouncementDto;
+import com.pyt.rest.dto.TagDto;
 
 public class AnnouncementConverter {
 
@@ -18,8 +19,8 @@ public class AnnouncementConverter {
 		entity.setTitle(dto.title);
 		Set<Tag> tags = new HashSet<Tag>();
 		if(dto.tags !=null){
-			for (Integer t : dto.tags) {
-				tags.add(new Tag(t));
+			for (TagDto t : dto.tags) {
+				tags.add(new Tag(t.id));
 			}
 			entity.setTags(tags);			
 		}
@@ -37,11 +38,11 @@ public class AnnouncementConverter {
 	public static AnnouncementDto to(Announcement entity) {
 		AnnouncementDto dto = new AnnouncementDto();
 		dto.id= entity.getIdAnnouncement();
-		dto.tags = new ArrayList<Integer>();
+		dto.tags = new ArrayList<TagDto>();
 		dto.title = entity.getTitle();
 		dto.description = entity.getDescription();
 		for (Tag t : entity.getTags())
-			dto.tags.add(t.getIdTag());
+			dto.tags.add(TagConverter.to(t));
 		return dto;
 	}
 

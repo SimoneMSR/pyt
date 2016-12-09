@@ -16,7 +16,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.pyt.rest.converter.AnnouncementConverter;
+import com.pyt.rest.converter.TagConverter;
 import com.pyt.rest.dto.AnnouncementDto;
+import com.pyt.rest.dto.TagDto;
 import com.pyt.service.AnnouncementService;
 import com.pyt.service.QuarterService;
 
@@ -36,6 +38,14 @@ public class AnnouncementController extends BaseController {
 		return AnnouncementConverter.to(announcementService.getByQuaterI(quarterId));
 	}
 	
+	@GET
+	@Path("tags")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TagDto> getAll(){
+		return TagConverter.to(announcementService.getAllTagsOrdered());
+	}
+	
+
 	@POST
 	@Path("publish")
     @Produces(MediaType.APPLICATION_JSON)
@@ -52,7 +62,7 @@ public class AnnouncementController extends BaseController {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response createOrUpdate(AnnouncementDto announcement){
-		quarterService.createOrUpdate(AnnouncementConverter.from(announcement));
+		announcementService.createOrUpdate(AnnouncementConverter.from(announcement));
 		return Response.ok().build();
 	}
 	

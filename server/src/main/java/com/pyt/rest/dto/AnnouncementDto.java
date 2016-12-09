@@ -10,7 +10,7 @@ public class AnnouncementDto {
 	public String title;
 	public String description;
 	public AnnouncementCathegory cathegory; 
-	public Collection<Integer> tags;
+	public Collection<TagDto> tags;
 	
     @Override
     public String toString() {
