@@ -16,7 +16,7 @@ export class BulletinBoardComponent implements OnInit {
   private viewContainerRef: ViewContainerRef;
   public announcements : Announcement[];
   constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
-    this.announcementsService.getAll().subscribe( list => this.announcements = list);
+    this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
     this.viewContainerRef = viewContainerRef;
     //this.announcements = this.announcementsService.Announcements;
   }

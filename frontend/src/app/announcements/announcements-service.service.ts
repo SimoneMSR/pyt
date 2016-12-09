@@ -18,9 +18,9 @@ export class AnnouncementsService extends  BaseService{
   	this.getAllTags().subscribe(tags => this.Tags = tags);
   }
 
-  public  getAll(): Observable<Announcement[]>{
+  public  getAll(quarterId): Observable<Announcement[]>{
     return this.http
-      .get(`${this.baseUrl}/`+this.url+"?quarterId=1", {headers: this.getHeaders()})
+      .get(`${this.baseUrl}/`+this.url+"?quarterId="+quarterId, {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
   }
 

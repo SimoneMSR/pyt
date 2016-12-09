@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnnouncementsModule} from '../announcements/announcements.module';
 import { AnnouncementModalComponent } from './announcement-modal/announcement-modal.component';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+import { ComponentsHelper, ModalBackdropComponent} from 'ng2-bootstrap';
 
 const appRoutes: Routes = [
   { path: '', component: BulletinBoardComponent },
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AnnouncementsModule
   ],
+  providers : [ComponentsHelper, ModalBackdropComponent],
   declarations: [BulletinBoardComponent, AnnouncementModalComponent, ModalDirective]
 })
 export class BulletinBoardModule { }
