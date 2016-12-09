@@ -11,19 +11,7 @@ export class AnnouncementComponent implements OnInit {
 
   ngOnInit() {
   	for( let tag of this.announcement.tags){
-	  	if(tag.title < 1/5)
-	  		tag.color = "#337ab7";
-	  	else 
-	  		if(tag.title < 2/5)
-	  			tag.color = "#5cb85c";
-	  		else 
-	  			if(tag.title < 3/5)
-	  				tag.color = "#5bc0de";
-	  			else
-	  				if(tag.title < 4/5)
-	  					tag.color = "#f0ad4e";
-	  				else
-	  					tag.color = "#d9534f";
+	  	tag.color= this.hashStringToColor(tag.name);
   	}
   	switch(this.announcement.cathegory){
   		case 'idea' : {this.announcement.color = '#66FF66'; break}
@@ -33,6 +21,22 @@ export class AnnouncementComponent implements OnInit {
   	}
 
   }
+
+private djb2(str){
+  var hash = 5381;
+  for (var i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash) + str.charCodeAt(i); /* hash * 33 + c */
+  }
+  return hash;
+}
+
+private hashStringToColor(str) {
+  var hash = this.djb2(str);
+  var r = (hash & 0xFF0000) >> 16;
+  var g = (hash & 0x00FF00) >> 8;
+  var b = hash & 0x0000FF;
+  return "#" + ("0" + r.toString(16)).substr(-2) + ("0" + g.toString(16)).substr(-2) + ("0" + b.toString(16)).substr(-2);
+}
 
   @Input() announcement;
 

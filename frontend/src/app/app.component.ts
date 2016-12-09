@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { AuthService} from './core/auth/auth.service';
 import { Router }          from '@angular/router';
 
@@ -11,9 +11,12 @@ export class AppComponent implements OnInit{
 
 	public loggedIn : boolean;
 	public mapVisible : boolean;
-	constructor(private auth: AuthService, private router:Router) { 
+	private viewContainerRef: ViewContainerRef;
+
+	constructor(private auth: AuthService, private router:Router, viewContainerRef:ViewContainerRef) { 
 		this.mapVisible = false;
 		this.loggedIn = false;
+		this.viewContainerRef = viewContainerRef;
 	}
 
 	ngOnInit(){

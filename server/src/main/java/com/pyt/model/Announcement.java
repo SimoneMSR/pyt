@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -27,7 +28,7 @@ public class Announcement implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idAnnouncement;
+	private int idAnnouncement;
 	
 	@NotNull
 	@NotEmpty
@@ -40,9 +41,13 @@ public class Announcement implements Serializable{
 	@ManyToMany(mappedBy = "announcements")
 	private Collection<Quarter> quarters;
 	
+	@ManyToMany
+	@JoinTable(name="AnnouncementTag",
+	        joinColumns=@JoinColumn(name="idAnnouncement"),
+	        inverseJoinColumns=@JoinColumn(name="idTag"))
+	private Set<Tag> tags;
 	
-
-	public Long getIdAnnouncement() {
+	public int getIdAnnouncement() {
 		return idAnnouncement;
 	}
 
@@ -69,6 +74,27 @@ public class Announcement implements Serializable{
 
 	public void setQuarters(Collection<Quarter> quarters) {
 		this.quarters = quarters;
+	}
+
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+
+	public void setIdAnnouncement(int idAnnouncement) {
+		this.idAnnouncement = idAnnouncement;
+	}
+	
+	public Announcement(){}
+	
+	public Announcement(int id){
+		this.idAnnouncement = id;
 	}
 	
 	

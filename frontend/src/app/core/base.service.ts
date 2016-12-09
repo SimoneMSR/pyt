@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class BaseService {
 
 	 protected baseUrl : string;
-	 protected http;
+	 protected url : string;
+
 
   constructor() { 
-  	this.http = Http;
-  	this.baseUrl = 'http://localhotst:8080/pyt/rest';
+  	this.baseUrl = 'http://localhost:8080/pyt/rest';
   }
+
+  protected getHeaders(){
+    let headers = new Headers();
+    headers.append('accept', 'application/json');
+    return headers;
+  }
+
 
 }

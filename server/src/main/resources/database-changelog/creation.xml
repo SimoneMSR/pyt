@@ -62,5 +62,35 @@
 	            referencedColumnNames="idAnnouncement"
 	            referencedTableName="Announcement"/>
 	</changeSet>  
+	
+	 <changeSet id="3" author="Simone D'Amario">
+		<comment>Creazione tabelle Tag, AnnunciTag</comment>
+		<createTable tableName="Tag">
+			<column name="idTag" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column> 			
+		</createTable>
+		<createTable tableName="AnnouncementTag">
+			<column name="idAnnouncement" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="idTag" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>		
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
+	            baseTableName="AnnouncementTag"
+	            constraintName="fk_tag_announcement_id"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+	    <addForeignKeyConstraint baseColumnNames="idTag"
+	            baseTableName="AnnouncementTag"
+	            constraintName="fk_tag_id"
+	            referencedColumnNames="idTag"
+	            referencedTableName="Tag"/>
+	</changeSet>
         
 </databaseChangeLog>
