@@ -81,5 +81,5 @@
 </div>
 <div class="col-xs-3 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
 	<div ><h3> {{ quartiere }} </h3> </div>
-	<app-announcements [ngClass]="{ 'invisible' : !_visible}"></app-announcements>
+	<app-announcements [quarterId]="quartiere" [ngClass]="{ 'invisible' : !_visible}"></app-announcements>
 </div>
