@@ -12,7 +12,7 @@ export class AnnouncementsComponent implements OnInit {
 
   public announcements : Announcement[];
   constructor(private announcementsService : AnnouncementsService) { 
-  	this.announcements = announcementsService.Announcements;
+  	this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
   }
 
   ngOnInit() {
