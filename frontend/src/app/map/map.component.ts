@@ -10,7 +10,7 @@ import { Component,
     EventEmitter } from '@angular/core';
 import { AnnouncementsService} from '../announcements/announcements-service.service';
 import { Announcement} from '../announcements/announcement/announcement.model';
-//import { AnnouncementModalComponent} from './announcement-modal/announcement-modal.component';
+import {Quarter, QuarterService} from '../quarters';
 
 
 @Component({
@@ -35,11 +35,11 @@ export class MapComponent implements OnInit {
   _visible : boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>()
  
-  public quartiere: string;
+  public quartiere: String;
 
   public announcements : Announcement[];
 
-  constructor(private announcementsService : AnnouncementsService) { 
+  constructor(private announcementsService : AnnouncementsService, private quarterService: QuarterService) { 
     this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
     this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
     this.defaultViewBox = '0 0 749.09998 617.09998';
@@ -54,9 +54,10 @@ export class MapComponent implements OnInit {
     onClick(event) {
     var target = event.target || event.srcElement || event.currentTarget;
     var idAttr = target.attributes.id;
-    var value = idAttr.nodeValue;
-    this.quartiere = value;
-    console.log(value);
+    var quarterId = idAttr.nodeValue;
+    var quarter = this.quarterService.QuarterIdMap[quarterId];
+    this.quartiere = quarter.name;
+    this.announcementsService.getAll(quarter.id).subscribe( list => this.announcements = list);
     }
    
 

@@ -14,6 +14,7 @@ public class QuarterConverter {
 	public static QuarterDto to(Quarter entity){
 		QuarterDto dto=new QuarterDto();
 		dto.name = entity.getName();
+		dto.id = entity.getId().intValue();
 		return dto;
 	}
 	

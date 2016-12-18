@@ -5,14 +5,17 @@ import { BaseService} from './base.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { UserService} from "./user.service";
+import { QuartersModule} from '../quarters/quarters.module';
 
 
 @NgModule({
   imports: [
-    CommonModule, HttpModule, FormsModule, BrowserModule
+    CommonModule, HttpModule, FormsModule, BrowserModule, QuartersModule
   ],
   providers : [
-  	BaseService
+  	BaseService,
+  	UserService
   ], 
   declarations: [CoreComponent]
 })

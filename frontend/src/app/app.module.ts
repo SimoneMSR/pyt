@@ -16,6 +16,7 @@ import { ToolsComponent } from './tools/tools.component';
 import { LoginComponent } from './login/login.component';
 
 
+
 import { AUTH_PROVIDERS }      from 'angular2-jwt';
 
 const appRoutes: Routes = [

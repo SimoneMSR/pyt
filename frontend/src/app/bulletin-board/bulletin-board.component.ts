@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
-import { Announcement} from '../announcements/announcement/announcement.model';
-import { AnnouncementsService} from '../announcements/announcements-service.service';
-import { AnnouncementModalComponent} from './announcement-modal/announcement-modal.component';
-import { AnnouncementModalDirective} from './announcement-modal/announcement-modal.directive';
+import { Announcement, AnnouncementsService} from '../announcements';
+import { AnnouncementModalComponent, AnnouncementModalDirective} from './';
+import {UserService} from "../core";
 
 
 @Component({
@@ -19,7 +18,9 @@ export class BulletinBoardComponent implements OnInit {
   private viewContainerRef: ViewContainerRef;
   public announcements : Announcement[];
   constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
-    this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
+    this.announcementsService.getAllForUser().subscribe( list => {
+      this.announcements = list;
+    });
     this.viewContainerRef = viewContainerRef;
     //this.announcements = this.announcementsService.Announcements;
   }

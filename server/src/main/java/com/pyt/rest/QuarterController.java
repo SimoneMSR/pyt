@@ -25,6 +25,7 @@ public class QuarterController extends BaseController{
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("")
 	public List<QuarterDto> getAll(){
 		return QuarterConverter.to(quarterService.getAll());
 	}
