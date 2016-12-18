@@ -1,5 +1,18 @@
-import { Directive, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Directive, 
+	Component, 
+	OnInit, 
+	OnDestroy, 
+	ViewChild, 
+	ViewContainerRef, 
+	Input, 
+	Output, 
+	EventEmitter,
+	Injector} from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+import { Announcement} from '../../announcements/announcement/announcement.model';
+import { Tag} from '../../announcements/announcement/tag.model';
+import { AnnouncementsService} from '../../announcements/announcements-service.service';
+
 
 @Component({
   selector: 'app-announcement-modal',
@@ -7,11 +20,37 @@ import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
   styleUrls: ['./announcement-modal.component.css'],
   exportAs : 'announcementmodal'
 })
-export class AnnouncementModalComponent implements OnInit {
-  @ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
-  constructor(private viewContainerRef: ViewContainerRef) { }
+export class AnnouncementModalComponent implements OnInit , OnDestroy{
+	public announcement  : Announcement;
+	public cathegories : String[];
+	public tags : String[];
+	public availableTags : string[];
+	@ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
+  	@Input() announcementInput : Announcement;
+
+	@Output() close = new EventEmitter();
+
+    onClickedExit() {
+        this.close.emit('event');
+    }
+  constructor(private injector: Injector,private viewContainerRef: ViewContainerRef, private service : AnnouncementsService) { 
+  	this.cathegories = ['Idea','Proposal' ,'Problem'];
+  }
 
   ngOnInit() {
+  	this.announcementInput = this.injector.get('announcementInput');
+  	this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement();
+  	this.tags = this.announcement.tags ? Announcement.extractTags(this.announcement.tags) :[];
+  	this.availableTags = [];
+  	this.service.getAllTags().subscribe(ts => {
+  		this.service.Tags=ts;
+  		this.availableTags = Announcement.extractTags(ts);
+  		this.newAnnouncementModal.show();
+  	});
+  }
+
+  ngOnDestroy(){
+  	console.log("viva gianni");
   }
 
   public showModal():void {
@@ -21,5 +60,14 @@ export class AnnouncementModalComponent implements OnInit {
   public hideModal():void {
     this.newAnnouncementModal.hide();
   }
+
+  public createOrUpdate(){
+  		this.announcement.tags= [];
+  		for(let t of this.tags)
+  			this.announcement.tags.push(this.service.Tags[0]);
+  		this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
+  		this.service.createOrUpdate(this.announcement)
+  			.subscribe(result => { console.log(result);});
+  } 
 
 }

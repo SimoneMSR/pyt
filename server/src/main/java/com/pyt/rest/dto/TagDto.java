@@ -9,6 +9,11 @@ public class TagDto {
 		this.id = id;
 		this.name = name;
 	}
+
+	public TagDto(String name){
+		this.name = name;	
+	}
 	
+	public TagDto(){}
 	
 }

@@ -3,7 +3,7 @@ import { Announcement} from './announcement/announcement.model';
 import { BaseService} from '../core/base.service';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Tag} from './announcement/tag.model.ts';
+import { Tag} from './announcement/tag.model';
 
 
 @Injectable()
@@ -15,7 +15,6 @@ export class AnnouncementsService extends  BaseService{
   constructor(private http : Http) { 
   	super();
   	this.url='announcement';
-  	this.getAllTags().subscribe(tags => this.Tags = tags);
   }
 
   public  getAll(quarterId): Observable<Announcement[]>{
@@ -28,6 +27,11 @@ export class AnnouncementsService extends  BaseService{
   	return this.http
       .get(`${this.baseUrl}/`+this.url+"/tags", {headers: this.getHeaders()})
       .map(res => <Tag[]>res.json());
+  }
+
+  public createOrUpdate(form: Announcement){
+  	return this.http
+  		.put(`${this.baseUrl}/`+this.url,form, {headers: this.getHeaders()});
   }
 
 

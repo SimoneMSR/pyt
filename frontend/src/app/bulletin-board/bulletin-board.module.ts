@@ -4,8 +4,15 @@ import { BulletinBoardComponent } from './bulletin-board.component';
 import { RouterModule, Routes } from '@angular/router'; 
 import { AnnouncementsModule} from '../announcements/announcements.module';
 import { AnnouncementModalComponent } from './announcement-modal/announcement-modal.component';
-import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+import { ModalDirective, ModalModule } from 'ng2-bootstrap';
 import { ComponentsHelper, ModalBackdropComponent} from 'ng2-bootstrap';
+import { CoreModule} from '../core/core.module';
+import { FormsModule } from '@angular/forms';
+import {RlTagInputModule} from 'angular2-tag-input';
+import { BrowserModule } from '@angular/platform-browser';
+import { TagNamePipe } from './announcement-modal/tagName.pipe';
+import {AnnouncementModalDirective} from './announcement-modal/announcement-modal.directive';
+import  'rxjs/add/operator/do';
 
 const appRoutes: Routes = [
   { path: '', component: BulletinBoardComponent },
@@ -14,11 +21,16 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, 
     RouterModule.forRoot(appRoutes),
-    AnnouncementsModule
+    AnnouncementsModule,
+    ModalModule,
+    CommonModule,
+    CoreModule,
+    FormsModule,
+    RlTagInputModule,
+    BrowserModule
   ],
   providers : [ComponentsHelper, ModalBackdropComponent],
-  declarations: [BulletinBoardComponent, AnnouncementModalComponent, ModalDirective]
+  declarations: [BulletinBoardComponent, AnnouncementModalComponent,AnnouncementModalDirective, TagNamePipe]
 })
 export class BulletinBoardModule { }

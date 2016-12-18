@@ -2,7 +2,7 @@
 	<div class="left-pole col-xs-1">
 		left-pole
 		<ul class="pole">
-			<li class="btn btn-default btn-xs" (click)="childModal.showModal()">
+			<li class="btn btn-default btn-xs" (click)="create()">
 				create
 			</li >
 			<li class="btn btn-primary btn-xs">
@@ -14,10 +14,11 @@
 		</ul>
 	</div>
 	<div class="main-content col-xs-10">
-		<app-announcement-modal #childModal="announcementmodal"></app-announcement-modal>
+		<!--<app-announcement-modal [announcementInput]="selectedAnnouncement" #childModal="announcementmodal"></app-announcement-modal> -->
+		<modal [modalData]="modalData"></modal>
 		<div class="announcements-wrapper">
-			<div *ngFor="let announcement of announcements">
-				<app-announcement class="col-xs-4 bulletin-announcement" [announcement]="announcement"></app-announcement>
+			<div  *ngFor="let announcement of announcements" (click)="select(announcement)">
+				<app-announcement  class="col-xs-4 bulletin-announcement" [announcement]="announcement"></app-announcement>
 			</div>
 		</div>
 	</div>
