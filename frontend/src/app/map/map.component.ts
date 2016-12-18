@@ -8,6 +8,9 @@ import { Component,
 	  transition,
 	  animate,
     EventEmitter } from '@angular/core';
+import { AnnouncementsService} from '../announcements/announcements-service.service';
+import { Announcement} from '../announcements/announcement/announcement.model';
+//import { AnnouncementModalComponent} from './announcement-modal/announcement-modal.component';
 
 
 @Component({
@@ -20,7 +23,8 @@ import { Component,
 			state('collapsed', style({height: '0'})),
 			transition('visible <=> collapsed', animate('500ms'))
   		])
-  ]
+  ],
+  providers : [AnnouncementsService],
 })
 export class MapComponent implements OnInit {
 
@@ -30,9 +34,13 @@ export class MapComponent implements OnInit {
   defaultCollapsedViewBox : string;
   _visible : boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>()
+ 
+  public quartiere: string;
 
+  public announcements : Announcement[];
 
-  constructor() { 
+  constructor(private announcementsService : AnnouncementsService) { 
+    this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
     this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
     this.defaultViewBox = '0 0 749.09998 617.09998';
     this._visible=false;
@@ -42,6 +50,15 @@ export class MapComponent implements OnInit {
       this._visible = !this._visible;
       this.visibleChange.emit(this._visible);
   }
+    /* restetiusce L'ID */
+    onClick(event) {
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id;
+    var value = idAttr.nodeValue;
+    this.quartiere = value;
+    console.log(value);
+    }
+   
 
   ngOnInit() {
   }
