@@ -25,8 +25,10 @@ export class QuarterService  extends BaseService{
 
   	private refresh(){
   		this.getAll()
-  		    .do(res => this.Quarters = res)
-  		    .do(() => this.buildQuarterIdMap());
+	  		.subscribe( res => {
+	  			this.Quarters = res;
+	  			this.buildQuarterIdMap();
+  		});
   	}
 
   	private buildQuarterIdMap(){

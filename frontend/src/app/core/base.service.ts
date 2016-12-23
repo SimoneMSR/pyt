@@ -9,7 +9,7 @@ export class BaseService {
 
 
   constructor() { 
-  	this.baseUrl = 'http://192.168.1.65:8080/pyt/rest';
+  	this.baseUrl = 'http://192.168.1.65:8080/pyt/rest'; //2.235.209.213
   }
 
   protected getHeaders(){

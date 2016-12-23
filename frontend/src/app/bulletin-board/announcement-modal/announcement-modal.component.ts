@@ -12,7 +12,7 @@ import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 import { Announcement} from '../../announcements/announcement/announcement.model';
 import { Tag} from '../../announcements/announcement/tag.model';
 import { AnnouncementsService} from '../../announcements/announcements-service.service';
-
+import { QuarterService} from "../../quarters";
 
 @Component({
   selector: 'app-announcement-modal',
@@ -24,7 +24,9 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
 	public announcement  : Announcement;
 	public cathegories : String[];
 	public tags : String[];
+  public quarters : String[];
 	public availableTags : string[];
+  public availableQuarters : string[];
 	@ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
   	@Input() announcementInput : Announcement;
 
@@ -33,7 +35,10 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
     onClickedExit() {
         this.close.emit('event');
     }
-  constructor(private injector: Injector,private viewContainerRef: ViewContainerRef, private service : AnnouncementsService) { 
+
+  constructor(private injector: Injector,private viewContainerRef: ViewContainerRef, 
+    private service : AnnouncementsService,
+    private quarterService : QuarterService) { 
   	this.cathegories = ['Idea','Proposal' ,'Problem'];
   }
 
@@ -42,11 +47,13 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
   	this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement();
   	this.tags = this.announcement.tags ? Announcement.extractTags(this.announcement.tags) :[];
   	this.availableTags = [];
-  	this.service.getAllTags().subscribe(ts => {
-  		this.service.Tags=ts;
-  		this.availableTags = Announcement.extractTags(ts);
-  		this.newAnnouncementModal.show();
-  	});
+    this.availableQuarters = this.quarterService.Quarters.map(q=> q.name.toString());
+    this.service.getAllTags().subscribe(ts => {
+      this.service.Tags=ts;
+      this.availableTags = Announcement.extractTags(ts);
+      this.newAnnouncementModal.show();
+    });
+
   }
 
   ngOnDestroy(){
@@ -67,7 +74,9 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
   			this.announcement.tags.push(this.service.Tags[0]);
   		this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
   		this.service.createOrUpdate(this.announcement)
-  			.subscribe(result => { console.log(result);});
+  			.subscribe(result => { console.log(result);
+          this.hideModal();
+      });
   } 
 
 }

@@ -27,6 +27,10 @@
         	<label for="tags">Tags</label>
         	<rl-tag-input name="tags" [(ngModel)]="tags" placeholder="Add any tag!" [autocomplete]="true" [autocompleteItems]="availableTags"></rl-tag-input>
         </div>
+        <div class=form-group>
+          <label for="quarters">Pubblicato su quartieri</label>
+          <rl-tag-input name="quarters" [(ngModel)]="quarters" placeholder="" [autocomplete]="true" [autocompleteItems]="availableQuarters"><rl-tag-input>
+        </div>
         <button type="submit" class="btn btn-default" [disabled]="!form.form.valid">Create</button>
       </form>
       </div>
