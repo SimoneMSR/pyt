@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {BaseService} from '../core';
+import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import {BaseService, UserService} from '../core';
 import {Quarter} from './';
 
 @Injectable()
@@ -9,10 +9,15 @@ export class QuarterService  extends BaseService{
 
 	public Quarters : Quarter[];
 	public QuarterIdMap : {[key:string]:Quarter};
-  constructor(private http: Http) { 
+  public currentQuarterObservable : BehaviorSubject<Quarter>;
+  public currentQuarter : Quarter;
+  constructor(private http: Http,
+              private userService:UserService) { 
   	super();
   	this.url = "quarter";
-  	this.refresh();
+    this.currentQuarter = new Quarter();
+    this.currentQuarterObservable = new BehaviorSubject<Quarter>(this.currentQuarter);
+    this.setupObservables();
   	}
 
 
@@ -37,5 +42,22 @@ export class QuarterService  extends BaseService{
   			this.QuarterIdMap[q.id] = q;
   		}
   	}
+
+    public setCurrentQuarter(q : Quarter){
+      this.currentQuarterObservable.next(q);
+    }
+
+    private setupObservables(){
+      this.getAll()
+        .subscribe( res => {
+          this.Quarters = res;
+          this.buildQuarterIdMap();
+          //currentQuarter -> currentUser
+          this.userService.user.subscribe(user => {
+            this.currentQuarterObservable.next(this.QuarterIdMap[user.quarterId]);
+          });
+      });
+        
+    }
 
 }

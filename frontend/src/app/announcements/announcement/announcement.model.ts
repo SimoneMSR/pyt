@@ -5,6 +5,7 @@ export class Announcement{
 	public description : string;
 	public tags : Tag[];
 	public cathegory : string;
+	public quarterIds : number[];
 
 	public static extractTags(tags : Tag[]){
 		let retval = [];

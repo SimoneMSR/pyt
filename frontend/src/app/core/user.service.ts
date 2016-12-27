@@ -17,4 +17,9 @@ export class UserService {
   	this.user.next(this._user);
   }
 
+  public setUser(user : User){
+    this._user=user;
+    this.user.next(this._user);
+  }
+
 }

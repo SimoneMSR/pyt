@@ -39,11 +39,12 @@ export class MapComponent implements OnInit {
 
   public announcements : Announcement[];
 
-  constructor(private announcementsService : AnnouncementsService, private quarterService: QuarterService) { 
-    this.announcementsService.getAll(1).subscribe( list => this.announcements = list);
+  constructor(private announcementsService : AnnouncementsService, 
+      private quarterService: QuarterService) { 
     this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
     this.defaultViewBox = '0 0 749.09998 617.09998';
     this._visible=false;
+    this.observeAnnouncements();
   }
 
     toggleMap(){
@@ -57,7 +58,7 @@ export class MapComponent implements OnInit {
     var quarterId = idAttr.nodeValue;
     var quarter = this.quarterService.QuarterIdMap[quarterId];
     this.quartiere = quarter.name;
-    this.announcementsService.getAll(quarter.id).subscribe( list => this.announcements = list);
+    this.quarterService.setCurrentQuarter(quarterId);
     }
    
 
@@ -74,6 +75,12 @@ export class MapComponent implements OnInit {
 
   get visible() : boolean{
     return this._visible;
+  }
+
+  private observeAnnouncements(){
+    this.announcementsService.announcementsByCurrentQuarter.subscribe(list =>{
+      this.announcements = list;
+    });
   }
 
 }

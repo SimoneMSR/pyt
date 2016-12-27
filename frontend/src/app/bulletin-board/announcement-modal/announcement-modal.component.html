@@ -16,8 +16,8 @@
         <div class="form-group">
           <label for="cathegory">Cathegory</label>
             <select name="cathegory" [(ngModel)]="announcement.cathegory">
-			   <option *ngFor="let c of cathegories" [value]="c" require>{{c}}</option>
-			</select>
+			       <option *ngFor="let c of cathegories" [value]="c" require>{{c}}</option>
+			      </select>
         </div>
         <div class="form-group">
           <label for="description">Description</label>
@@ -29,7 +29,7 @@
         </div>
         <div class=form-group>
           <label for="quarters">Pubblicato su quartieri</label>
-          <rl-tag-input name="quarters" [(ngModel)]="quarters" placeholder="" [autocomplete]="true" [autocompleteItems]="availableQuarters"><rl-tag-input>
+          <rl-tag-input name="quarters" [(ngModel)]="quarters" placeholder="" [autocomplete]="true" [autocompleteItems]="availableQuarters"></rl-tag-input>
         </div>
         <button type="submit" class="btn btn-default" [disabled]="!form.form.valid">Create</button>
       </form>
