@@ -61,4 +61,9 @@ public class Quarter implements Serializable{
 	public void setAnnouncements(Set<Announcement> announcements) {
 		this.announcements = announcements;
 	}
+	
+	public Quarter(){}
+	public Quarter(int id){
+		this.idQuarter = (long)id;
+	}
 }

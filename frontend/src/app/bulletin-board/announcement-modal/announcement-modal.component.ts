@@ -20,7 +20,7 @@ import { QuarterService} from "../../quarters";
   styleUrls: ['./announcement-modal.component.css'],
   exportAs : 'announcementmodal'
 })
-export class AnnouncementModalComponent implements OnInit , OnDestroy{
+export class AnnouncementModalComponent implements OnInit{
 	public announcement  : Announcement;
 	public cathegories : String[];
 	public tags : String[];
@@ -44,9 +44,10 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
 
   ngOnInit() {
   	this.announcementInput = this.injector.get('announcementInput');
-  	this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement();
+  	this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement(null);
   	this.tags = this.announcement.tags ? Announcement.extractTags(this.announcement.tags) :[];
-  	this.availableTags = [];
+  	this.quarters = this.announcement.tags ? this.quarterService.Quarters.filter(q=> this.announcement.quarters.indexOf(q.id)>=0).map(q=>q.name) : [];
+    this.availableTags = [];
     this.availableQuarters = this.quarterService.Quarters.map(q=> q.name.toString());
     this.service.getAllTags().subscribe(ts => {
       this.service.Tags=ts;
@@ -54,10 +55,6 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
       this.newAnnouncementModal.show();
     });
 
-  }
-
-  ngOnDestroy(){
-  	console.log("viva gianni");
   }
 
   public showModal():void {
@@ -69,14 +66,20 @@ export class AnnouncementModalComponent implements OnInit , OnDestroy{
   }
 
   public createOrUpdate(){
-  		this.announcement.tags= [];
-  		for(let t of this.tags)
-  			this.announcement.tags.push(this.service.Tags[0]);
-  		this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
+      this.formatDto();
   		this.service.createOrUpdate(this.announcement)
   			.subscribe(result => { console.log(result);
           this.hideModal();
       });
   } 
+
+  private formatDto(){
+      this.announcement.tags= [];
+      for(let t of this.tags)
+        this.announcement.tags.push(this.service.Tags[0]);
+      //this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
+      this.announcement.quarters = this.quarterService.Quarters.filter(q=> this.quarters.indexOf(q.name)>=0).map(q=>q.id);
+      this.announcement = new Announcement(this.announcement);
+  }
 
 }

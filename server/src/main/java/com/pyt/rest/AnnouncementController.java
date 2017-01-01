@@ -35,7 +35,13 @@ public class AnnouncementController extends BaseController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") int quarterId){
-		return AnnouncementConverter.to(announcementService.getByQuaterI(quarterId));
+		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId));
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public AnnouncementDto getById(@QueryParam("announcementId") int announcementId){
+		return AnnouncementConverter.toComplete(announcementService.getById(announcementId));
 	}
 	
 	@GET

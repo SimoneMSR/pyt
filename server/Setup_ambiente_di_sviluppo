@@ -3,11 +3,21 @@ BACKEND
 2) Scaricare eclipse
 3) Scaricare wildfly
 4)Scaricare mysql (all'utente root dare password: simone)
-5)Scaricare il connettore mysql-connector
+4.1) avviare servizio mysql
+4.2) cambiare password di root a 'mysql'
+4.3) ./mysql create database pyt;
+
+5)Scaricare il connettore mysql-connector (file *.bin.jar)
 6)Aggiungere utente amministratore a wildfly (/bin/add_user.sh)
-7)Loggarsi a wildfly con l'utente creato e 1) aggiungere il connettore ai deployments e 2)configurare il datasource (seguendo questa guida http://www.techpaste.com/2014/05/how-to-configure-datasource-in-jboss-wildfly)
-8)Avviare il servizio mysql
-9)Creare un nuovo database di nome pyt
+7)Loggarsi a wildfly con l'utente creato e
+7.1) aggiungere il connettore ai deployments
+7.2) spostarsi sulla cartella di installazione di wildfly
+7.3) bin/jboss-cli --connect --controller=localhost:9990
+7.4) data-source add --name=pyt --jndi-name=java:jboss/datasources/pyt 
+	--driver-name=mysql-connector-java-5.1.40-bin.jar_com.mysql.jdbc.Driver_5_1 
+	--connection-url=jdbc:mysql://localhost:3306/pyt --user-name=root --password=mysql
+
+
 100) avviare wildlfy con ./bin/standalone.sh --server-config=standalone-full-ha.xml
 
 FRONTEND

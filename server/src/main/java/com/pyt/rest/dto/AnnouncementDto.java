@@ -11,6 +11,7 @@ public class AnnouncementDto {
 	public String description;
 	public AnnouncementCathegory cathegory; 
 	public Collection<TagDto> tags;
+	public Collection<Integer> quarters;
 	
     @Override
     public String toString() {

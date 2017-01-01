@@ -19,8 +19,12 @@ public class AnnouncementService {
 	@Inject
 	private TagDao tagDao;
 	
-	public Collection<Announcement> getByQuaterI(int quarterId){
+	public Collection<Announcement> getByQuaterId(int quarterId){
 		return dao.getByQuarterId((long)quarterId);
+	}
+	
+	public Announcement getById(int announcementId){
+		return dao.getById((long)announcementId);
 	}
 	
 	public void createOrUpdate(Announcement entity){		
