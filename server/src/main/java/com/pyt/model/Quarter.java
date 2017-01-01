@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,6 +35,9 @@ public class Quarter implements Serializable{
     
 	@ManyToMany(mappedBy = "quarters")
 	private Set<Announcement> announcements;
+	
+	@OneToMany(mappedBy="quarter")
+	private Set<Member> members;
 
 	public Long getId() {
 		return idQuarter;
@@ -59,6 +63,16 @@ public class Quarter implements Serializable{
 		this.announcements = announcements;
 	}
 	
+	
+	
+	public Set<Member> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Set<Member> members) {
+		this.members = members;
+	}
+
 	public Quarter(){}
 	public Quarter(int id){
 		this.idQuarter = (long)id;

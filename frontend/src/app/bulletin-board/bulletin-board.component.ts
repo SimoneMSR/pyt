@@ -47,7 +47,7 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   private refreshAnnouncements(){
-    this.announcementsService.getAllForUser().subscribe( list => {
+    this.announcementsService.getAllForQuarter().subscribe( list => {
       this.announcements = list;
     });
   }

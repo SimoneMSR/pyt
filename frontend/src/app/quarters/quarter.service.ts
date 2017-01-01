@@ -46,6 +46,7 @@ export class QuarterService  extends BaseService{
   	}
 
     public setCurrentQuarter(q : Quarter){
+      this.currentQuarter = q;
       this.currentQuarterObservable.next(q);
     }
 

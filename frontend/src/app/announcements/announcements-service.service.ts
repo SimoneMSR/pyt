@@ -40,6 +40,10 @@ export class AnnouncementsService extends  BaseService{
     }
   }
 
+  public getFiltered(quarterId : number, orderBy : String, filterBy : String, top : number, skip : number ){
+
+  }
+
   public getSingle(announcementId) : Observable<Announcement>{
     return this.http
       .get(this.baseUrl +"/"+this.url+ "/single" + "?announcementId="+announcementId)
@@ -53,8 +57,8 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement[]>res.json());
   }
 
-  public getAllForUser() : Observable<Announcement[]>{
-  	return this.announcementByUser;
+  public getAllForQuarter() : Observable<Announcement[]>{
+  	return this.announcementsByCurrentQuarter;
   }
 
   public getAllTags() : Observable<Tag[]> {
@@ -66,6 +70,9 @@ export class AnnouncementsService extends  BaseService{
   private createOrUpdatePrivate(form: Announcement){
   	return this.http
   		.put(`${this.baseUrl}/`+this.url,form, {headers: this.getHeaders()})
+      .finally( () =>{
+          this.refreshAnnouncementsByCurrentQuarter(this.quarterService.currentQuarter);
+      });
   }
 
   public createOrUpdate(form: Announcement, quarterId : number){

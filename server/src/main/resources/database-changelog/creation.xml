@@ -92,5 +92,16 @@
 	            referencedColumnNames="idTag"
 	            referencedTableName="Tag"/>
 	</changeSet>
+	<changeSet id="4" author="Simone D'Amario">
+		<comment>Aggiungo colonna quarterId alla tabella Member</comment>
+		<addColumn tableName="Member">
+    	    <column name="quarterId" type="INT"/>
+	    </addColumn>
+	    <addForeignKeyConstraint baseColumnNames="quarterId"
+	            baseTableName="Member"
+	            constraintName="fk_member_quarter"
+	            referencedColumnNames="idQuarter"
+	            referencedTableName="Quarter"/>
+	</changeSet>
         
 </databaseChangeLog>

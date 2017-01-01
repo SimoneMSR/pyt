@@ -1,6 +1,7 @@
 package com.pyt.rest.converter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import com.pyt.model.Quarter;
 import com.pyt.rest.dto.AnnouncementDto;
 import com.pyt.model.Announcement;
+import com.pyt.model.Member;
 import com.pyt.rest.dto.QuarterDto;
 
 public class QuarterConverter {
@@ -15,6 +17,9 @@ public class QuarterConverter {
 		QuarterDto dto=new QuarterDto();
 		dto.name = entity.getName();
 		dto.id = entity.getId().intValue();
+		dto.annnouncementsCounter = entity.getAnnouncements().size();
+		Collection<Member> mem = entity.getMembers();
+		dto.memberCounter = mem!=null ? mem.size() : 0;
 		return dto;
 	}
 	

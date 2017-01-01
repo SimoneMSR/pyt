@@ -78,7 +78,7 @@ export class MapComponent implements OnInit {
   }
 
   private observeAnnouncements(){
-    this.announcementsService.announcementsByCurrentQuarter.subscribe(list =>{
+    this.announcementsService.announcementsByCurrentQuarter.take(5).subscribe(list =>{
       this.announcements = list;
     });
   }

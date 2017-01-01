@@ -19,6 +19,9 @@
 			<div  *ngFor="let announcement of announcements" (click)="select(announcement)">
 				<app-announcement  class="col-xs-4 bulletin-announcement" [announcement]="announcement"></app-announcement>
 			</div>
+			<div *ngIf="announcements.length==0">
+				Annunci mancanti
+			</div>
 		</div>
 	</div>
 	<div class="right-pole col-xs-1">

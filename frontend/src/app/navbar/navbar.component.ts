@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {QuarterService} from "../quarters";
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+	public quarterName : String;
+  constructor(private quarterService : QuarterService) {
+  	this.quarterService.currentQuarterObservable.subscribe(q=>{
+  		this.quarterName = q.name;
+  	});
+  }
 
   ngOnInit() {
   }
