@@ -80,6 +80,13 @@
 	</div>
 </div>
 <div class="col-xs-3 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
-	<div ><h3> {{ quartiere }} </h3> </div>
-	<app-announcements [quarterId]="quartiere" [ngClass]="{ 'invisible' : !_visible}"></app-announcements>
+	<div>
+		<h3> {{ quartiere }} </h3>
+	</div>
+	<div class="announcement-wrapper" *ngFor="let announcement of announcements" [ngClass]="{ 'invisible' : !_visible}">
+		<app-announcement  [announcement]="announcement"></app-announcement>
+	</div>
+	<div *ngIf="announcements.length==0">
+		<p>Annunci mancanti</p>
+	</div>
 </div>

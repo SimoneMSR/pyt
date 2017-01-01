@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
     var quarterId = idAttr.nodeValue;
     var quarter = this.quarterService.QuarterIdMap[quarterId];
     this.quartiere = quarter.name;
-    this.quarterService.setCurrentQuarter(quarterId);
+    this.quarterService.setCurrentQuarter(quarter);
     }
    
 

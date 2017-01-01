@@ -14,7 +14,6 @@
 		</ul>
 	</div>
 	<div class="main-content col-xs-10">
-		<!--<app-announcement-modal [announcementInput]="selectedAnnouncement" #childModal="announcementmodal"></app-announcement-modal> -->
 		<modal [modalData]="modalData"></modal>
 		<div class="announcements-wrapper">
 			<div  *ngFor="let announcement of announcements" (click)="select(announcement)">
