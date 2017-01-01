@@ -18,10 +18,9 @@ export class BulletinBoardComponent implements OnInit {
   private viewContainerRef: ViewContainerRef;
   public announcements : Announcement[];
   constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
-    this.announcementsService.getAllForUser().subscribe( list => {
-      this.announcements = list;
-    });
+    
     this.viewContainerRef = viewContainerRef;
+    this.refreshAnnouncements();
     //this.announcements = this.announcementsService.Announcements;
   }
 
@@ -47,4 +46,19 @@ export class BulletinBoardComponent implements OnInit {
     };
   }
 
+  private refreshAnnouncements(){
+    this.announcementsService.getAllForUser().subscribe( list => {
+      this.announcements = list;
+    });
+  }
+
+  orderByLikes(criterium){
+    this.announcementsService.params.orderBy = criterium;
+    this.refreshAnnouncements();
+  }
+
+  filterBy(criterium){
+    this.announcementsService.params.filterBy = criterium;
+    this.refreshAnnouncements();
+  }
 }

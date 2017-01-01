@@ -66,8 +66,11 @@ export class AnnouncementModalComponent implements OnInit{
   }
 
   public createOrUpdate(){
-      this.formatDto();
-  		this.service.createOrUpdate(this.announcement)
+  		this.announcement.tags= [];
+  		for(let t of this.tags)
+  			this.announcement.tags.push(this.service.Tags[0]);
+  		this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
+  		this.service.createOrUpdate(this.announcement, this.quarterService.currentQuarter.id)
   			.subscribe(result => { console.log(result);
           this.hideModal();
       });
