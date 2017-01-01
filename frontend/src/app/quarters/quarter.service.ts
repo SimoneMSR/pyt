@@ -11,12 +11,14 @@ export class QuarterService  extends BaseService{
 	public QuarterIdMap : {[key:string]:Quarter};
   public currentQuarterObservable : BehaviorSubject<Quarter>;
   public currentQuarter : Quarter;
+  public serviceInitialized : BehaviorSubject<Boolean>;
   constructor(private http: Http,
               private userService:UserService) { 
   	super();
   	this.url = "quarter";
     this.currentQuarter = new Quarter();
     this.currentQuarterObservable = new BehaviorSubject<Quarter>(this.currentQuarter);
+    this.serviceInitialized = new BehaviorSubject(false);
     this.setupObservables();
   	}
 
@@ -52,6 +54,7 @@ export class QuarterService  extends BaseService{
         .subscribe( res => {
           this.Quarters = res;
           this.buildQuarterIdMap();
+          this.serviceInitialized.next(true);
           //currentQuarter -> currentUser
           this.userService.user.subscribe(user => {
             this.currentQuarterObservable.next(this.QuarterIdMap[user.quarterId]);

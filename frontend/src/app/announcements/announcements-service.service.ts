@@ -12,6 +12,7 @@ export class AnnouncementsService extends  BaseService{
 
   public Announcements : Announcement[];
   public Tags : Tag[];
+  public serviceInitialized : BehaviorSubject<boolean>;
   public announcementByUser : BehaviorSubject<Announcement[]>;
   public announcementsByCurrentQuarter : BehaviorSubject<Announcement[]>;
   public params;
@@ -24,8 +25,25 @@ export class AnnouncementsService extends  BaseService{
   	this.url='announcement';
   	this.announcementByUser = new BehaviorSubject([]);
     this.announcementsByCurrentQuarter = new BehaviorSubject([]);
+    this.serviceInitialized = new BehaviorSubject<boolean>(false);
+    this.initialize();
     this.setupObservables();
 
+  }
+
+  public initialize(){
+    if(this.Tags == null || this.Tags.length==0){
+          this.getAllTags().subscribe(ts => {
+            this.Tags=ts;
+            this.serviceInitialized.next(true);
+    });
+    }
+  }
+
+  public getSingle(announcementId) : Observable<Announcement>{
+    return this.http
+      .get(this.baseUrl +"/"+this.url+ "/single" + "?announcementId="+announcementId)
+      .map(res => <Announcement>res.json());
   }
 
 

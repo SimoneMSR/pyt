@@ -1,6 +1,7 @@
 import { Tag} from './tag.model';
 
 export class Announcement{
+	public id : number;
 	public title : string;
 	public description : string;
 	public tags : Tag[];
@@ -16,11 +17,12 @@ export class Announcement{
 
 	public constructor(ann : Announcement){
 		if(ann!= null){
-		this.title = ann.title;
-		this.description = ann.description;
-		this.tags = ann.tags;
-		this.cathegory = ann.cathegory;
-		this.quarters = ann.quarters;
+			this.id = ann.id;
+			this.title = ann.title;
+			this.description = ann.description;
+			this.tags = ann.tags;
+			this.cathegory = ann.cathegory;
+			this.quarters = ann.quarters;
 	}
 	}
 

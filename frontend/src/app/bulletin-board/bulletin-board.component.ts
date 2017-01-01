@@ -13,7 +13,6 @@ import {UserService} from "../core";
 })
 export class BulletinBoardComponent implements OnInit {
 
- public selectedAnnouncement : Announcement;
  public modalData : any;
   private viewContainerRef: ViewContainerRef;
   public announcements : Announcement[];
@@ -28,13 +27,14 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   select(ann:Announcement){
-    this.selectedAnnouncement =ann;
-    this.modalData = {
-      component : AnnouncementModalComponent,
-      inputs : {
-        announcementInput : ann
-      }
-    };
+    this.announcementsService.getSingle(ann.id).subscribe(announcement => {
+      this.modalData = {
+        component : AnnouncementModalComponent,
+        inputs : {
+          announcementInput : announcement
+        }
+      };
+    });
   }
 
   create(){

@@ -39,6 +39,7 @@ public class AnnouncementController extends BaseController {
 	}
 	
 	@GET
+	@Path("single")
 	@Produces(MediaType.APPLICATION_JSON)
 	public AnnouncementDto getById(@QueryParam("announcementId") int announcementId){
 		return AnnouncementConverter.toComplete(announcementService.getById(announcementId));

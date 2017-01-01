@@ -32,10 +32,7 @@ public class Quarter implements Serializable{
     @NotEmpty
     private String name;
     
-	@ManyToMany
-	@JoinTable(name="QuarterAnnouncement",
-	        joinColumns=@JoinColumn(name="idQuarter"),
-	        inverseJoinColumns=@JoinColumn(name="idAnnouncement"))
+	@ManyToMany(mappedBy = "quarters")
 	private Set<Announcement> announcements;
 
 	public Long getId() {

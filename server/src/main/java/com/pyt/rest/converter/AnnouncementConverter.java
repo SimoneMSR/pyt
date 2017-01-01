@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.pyt.model.Announcement;
 import com.pyt.model.Quarter;
@@ -12,6 +13,8 @@ import com.pyt.rest.dto.AnnouncementDto;
 import com.pyt.rest.dto.TagDto;
 
 public class AnnouncementConverter {
+
+	private static Logger log = Logger.getLogger("org.jboss.as.config");
 
 	public static Announcement from(AnnouncementDto dto) {
 		Announcement entity = new Announcement();
@@ -28,6 +31,9 @@ public class AnnouncementConverter {
 		Set<Quarter> quarters = new HashSet<Quarter>();
 		if(dto.quarters!=null){
 			dto.quarters.forEach(x -> quarters.add(new Quarter(x)));
+			entity.setQuarters(quarters);
+			for(Quarter qq:entity.getQuarters())
+				log.info(""+qq.getId());
 		}
 		return entity;
 	}
