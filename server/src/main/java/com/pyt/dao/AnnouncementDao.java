@@ -1,5 +1,6 @@
 package com.pyt.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -55,12 +56,15 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 	public List<Announcement> applyParams(CriteriaQuery<Announcement> query,AnnouncementParams params, CriteriaBuilder cb,Root<Announcement> announcement){
 		if(params != null){
 			//order
-			if(params.filterBy !=null){
-				switch (params.filterBy){
-					case IDEA : query.where(cb.equal(announcement.get(Announcement_.cathegory),0)); break;
-					case PROBLEM : query.where(cb.equal(announcement.get(Announcement_.cathegory),1)); break;
-					case PROPOSAL : query.where(cb.equal(announcement.get(Announcement_.cathegory),2)); break;
-				}
+			if(params.filterBy !=null && !params.filterBy.isEmpty()){
+				List<Integer> cathegories = new ArrayList<Integer>();
+				if(params.filterBy.indexOf(AnnouncementCathegory.IDEA.name())>=0)
+					cathegories.add(0);
+				if(params.filterBy.indexOf(AnnouncementCathegory.PROBLEM.name())>=0)
+					cathegories.add(1);
+				if(params.filterBy.indexOf(AnnouncementCathegory.PROPOSAL.name())>=0)
+					cathegories.add(2);
+				query.where(announcement.get(Announcement_.cathegory).in(cathegories));
 			}
 			if(params.orderBy!=null){
 				switch (params.orderBy){

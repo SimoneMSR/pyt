@@ -15,11 +15,15 @@ export class BulletinBoardComponent implements OnInit {
   public grid : boolean = true; // variabile per vista lista / grid 
   public modalData : any;
   private viewContainerRef: ViewContainerRef;
+  public filterCathegory : any;
   public announcements : Announcement[];
   constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
     
     this.viewContainerRef = viewContainerRef;
-    this.refreshAnnouncements();
+    this.filterCathegory = { Idea : true, Proposal : true, Problem : true};
+    this.announcementsService.getAllForQuarter().subscribe( list => {
+      this.announcements = list;
+    });
     //this.announcements = this.announcementsService.Announcements;
   }
 
@@ -46,19 +50,20 @@ export class BulletinBoardComponent implements OnInit {
     };
   }
 
-  private refreshAnnouncements(){
-    this.announcementsService.getAllForQuarter().subscribe( list => {
-      this.announcements = list;
-    });
+  applyFilter(){
+    let filter="";
+    if(this.filterCathegory.Idea)
+      filter=filter+"IDEA";
+    if(this.filterCathegory.Proposal)
+      filter=filter+"PROPOSAL";
+    if(this.filterCathegory.Problem)
+      filter=filter+"PROBLEM";
+    this.announcementsService.params.filterBy = filter;
+    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
   }
 
-  orderByLikes(criterium){
+  orderBy(criterium){
     this.announcementsService.params.orderBy = criterium;
-    this.refreshAnnouncements();
-  }
-
-  filterBy(criterium){
-    this.announcementsService.params.filterBy = criterium;
-    this.refreshAnnouncements();
+    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
   }
 }

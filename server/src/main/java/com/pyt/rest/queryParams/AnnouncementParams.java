@@ -1,12 +1,11 @@
 package com.pyt.rest.queryParams;
 
-import Enums.AnnouncementCathegory;
 
 public class AnnouncementParams extends BaseParams{
-	public AnnouncementCathegory filterBy;
+	public String filterBy;
 	public String orderBy;
 	
-	public AnnouncementParams(Integer top,Integer skip,AnnouncementCathegory filterBy, String orderBy){
+	public AnnouncementParams(Integer top,Integer skip, String filterBy, String orderBy){
 		this.top=top;
 		this.skip = skip;
 		this.filterBy = filterBy;

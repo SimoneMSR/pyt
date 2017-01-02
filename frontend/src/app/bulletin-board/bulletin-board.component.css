@@ -13,6 +13,7 @@
 }
 
 
+
 /*  Inizio grid & list view da rivedere e sistemare */
 
 .glyphicon { margin-right:5px; }
@@ -75,3 +76,11 @@
 
 
 /* fine grid & list view */
+
+.cathegory-filter{
+	float: right;
+}
+
+.cathegory-filter-container{
+	overflow: auto;
+}

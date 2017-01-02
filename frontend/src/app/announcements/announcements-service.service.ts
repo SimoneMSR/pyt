@@ -46,8 +46,10 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement>res.json());
   }
 
-  public  getAll(quarterId : number);
-  public  getAll(quarterId : number, params? : any): Observable<Announcement[]>{
+
+  public  getAll(quarterId : number) : Observable<Announcement[]>;
+  public  getAll(quarterId : number, params?): Observable<Announcement[]>{
+
     return this.http
       .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId +
         AnnouncementsService.extractParams(params)
@@ -88,7 +90,7 @@ export class AnnouncementsService extends  BaseService{
   private setupObservables(){
     //annunciQ -> currentQuarter
       this.quarterService.currentQuarterObservable.subscribe(quarter => {
-          this.refreshAnnouncementsByCurrentQuarter(quarter);
+          this.refreshAnnouncementsByCurrentQuarter();
       });
       
     //annunciU -> currentUser
@@ -103,8 +105,8 @@ export class AnnouncementsService extends  BaseService{
           });
   }
 
-  private refreshAnnouncementsByCurrentQuarter(quarter : Quarter){
-        this.getAll(quarter.id).subscribe(announcements =>
+  public refreshAnnouncementsByCurrentQuarter(){
+        this.getAll(this.quarterService.currentQuarter.id,this.params).subscribe(announcements =>
             this.announcementsByCurrentQuarter.next(announcements));
   }
 

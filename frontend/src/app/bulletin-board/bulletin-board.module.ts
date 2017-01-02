@@ -14,6 +14,8 @@ import { TagNamePipe } from './announcement-modal/tagName.pipe';
 import {AnnouncementModalDirective} from './announcement-modal/announcement-modal.directive';
 import  'rxjs/add/operator/do';
 import { TabsModule } from 'ng2-bootstrap';
+import { UiSwitchModule } from 'angular2-ui-switch'
+
 
 const appRoutes: Routes = [
   { path: '', component: BulletinBoardComponent },
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     CoreModule,
     FormsModule,
     RlTagInputModule,
-    BrowserModule
+    BrowserModule,
+    UiSwitchModule
   ],
   providers : [ComponentsHelper, ModalBackdropComponent],
   declarations: [BulletinBoardComponent, AnnouncementModalComponent,AnnouncementModalDirective, TagNamePipe]
