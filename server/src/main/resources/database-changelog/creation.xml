@@ -103,5 +103,17 @@
 	            referencedColumnNames="idQuarter"
 	            referencedTableName="Quarter"/>
 	</changeSet>
+	<changeSet id="5" author="Simone D'Amario">
+		<comment> Aggiungo colonna categoria e creatore all'annuncio</comment>
+		<addColumn tableName="Announcement">
+			<column name="cathegory" type="INT"/>
+			<column name="creatorId" type="INT"/>
+		</addColumn>
+	    <addForeignKeyConstraint baseColumnNames="creatorId"
+	            baseTableName="Announcement"
+	            constraintName="fk_announcement_mermberId"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	</changeSet>
         
 </databaseChangeLog>

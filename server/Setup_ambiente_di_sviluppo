@@ -4,8 +4,7 @@ BACKEND
 3) Scaricare wildfly
 4)Scaricare mysql (all'utente root dare password: simone)
 4.1) avviare servizio mysql
-4.2) cambiare password di root a 'mysql'
-4.3) ./mysql create database pyt;
+4.2) ./mysql create database pyt;
 
 5)Scaricare il connettore mysql-connector (file *.bin.jar)
 6)Aggiungere utente amministratore a wildfly (/bin/add_user.sh)
@@ -17,7 +16,7 @@ BACKEND
 	--driver-name=mysql-connector-java-5.1.40-bin.jar_com.mysql.jdbc.Driver_5_1 
 	--connection-url=jdbc:mysql://localhost:3306/pyt --user-name=root --password=mysql
 
-
+8) copiare il file pyt/server/src/main/resources/doc/standalone-full-ha.xml nella cartella di wildfly standalone/configuration
 100) avviare wildlfy con ./bin/standalone.sh --server-config=standalone-full-ha.xml
 
 FRONTEND

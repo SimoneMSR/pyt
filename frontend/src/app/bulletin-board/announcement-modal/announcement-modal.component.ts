@@ -41,7 +41,7 @@ export class AnnouncementModalComponent implements OnInit {
   constructor(private injector: Injector,private viewContainerRef: ViewContainerRef, 
     private service : AnnouncementsService,
     private quarterService : QuarterService) { 
-  	this.cathegories = ['Idea','Proposal' ,'Problem'];
+  	this.cathegories = ['IDEA','PROPOSAL' ,'PROBLEM'];
   }
 
   ngOnInit(){

@@ -10,6 +10,7 @@ import com.pyt.dao.AnnouncementDao;
 import com.pyt.dao.TagDao;
 import com.pyt.model.Announcement;
 import com.pyt.model.Tag;
+import com.pyt.rest.queryParams.AnnouncementParams;
 
 @Stateless
 public class AnnouncementService {
@@ -19,8 +20,8 @@ public class AnnouncementService {
 	@Inject
 	private TagDao tagDao;
 	
-	public Collection<Announcement> getByQuaterId(int quarterId){
-		return dao.getByQuarterId((long)quarterId);
+	public Collection<Announcement> getByQuaterId(int quarterId, AnnouncementParams params){
+		return dao.getByQuarterId((long)quarterId,params);
 	}
 	
 	public Announcement getById(int announcementId){

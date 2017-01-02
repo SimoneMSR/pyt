@@ -12,6 +12,8 @@ import com.pyt.model.Tag;
 import com.pyt.rest.dto.AnnouncementDto;
 import com.pyt.rest.dto.TagDto;
 
+import Enums.AnnouncementCathegory;
+
 public class AnnouncementConverter {
 
 	private static Logger log = Logger.getLogger("org.jboss.as.config");
@@ -35,6 +37,11 @@ public class AnnouncementConverter {
 			for(Quarter qq:entity.getQuarters())
 				log.info(""+qq.getId());
 		}
+		switch(dto.cathegory){
+		case IDEA : entity.setCathegory(0); break;
+		case PROBLEM : entity.setCathegory(1); break;
+		case PROPOSAL : entity.setCathegory(2); break;
+	}
 		return entity;
 	}
 	
@@ -56,6 +63,11 @@ public class AnnouncementConverter {
 		dto.description = entity.getDescription();
 		for (Tag t : entity.getTags())
 			dto.tags.add(TagConverter.to(t));
+		switch(entity.getCathegory()){
+			case 0 : dto.cathegory=AnnouncementCathegory.IDEA; break;
+			case 1 : dto.cathegory=AnnouncementCathegory.PROBLEM; break;
+			case 2 : dto.cathegory=AnnouncementCathegory.PROPOSAL; break;
+		}
 		
 		return dto;
 	}

@@ -19,8 +19,11 @@ import com.pyt.rest.converter.AnnouncementConverter;
 import com.pyt.rest.converter.TagConverter;
 import com.pyt.rest.dto.AnnouncementDto;
 import com.pyt.rest.dto.TagDto;
+import com.pyt.rest.queryParams.AnnouncementParams;
 import com.pyt.service.AnnouncementService;
 import com.pyt.service.QuarterService;
+
+import Enums.AnnouncementCathegory;
 
 @Path("announcement")
 @Stateless
@@ -34,8 +37,11 @@ public class AnnouncementController extends BaseController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") int quarterId){
-		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId));
+	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") Integer quarterId, 
+			@QueryParam("top") Integer top, @QueryParam("skip") Integer skip, @QueryParam("filterBy") AnnouncementCathegory filterBy,
+			@QueryParam("orderBy") String orderBy){
+		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy);
+		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
 	}
 	
 	@GET
