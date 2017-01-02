@@ -10,3 +10,4 @@ server/.project
 server/.generated-sources/
 server/.apt_generated/
 frontend/node_modules
+frontend/dist
