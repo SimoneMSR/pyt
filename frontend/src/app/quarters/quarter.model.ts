@@ -4,8 +4,7 @@ export class Quarter {
 	public id : number;
 	public announcements : Announcement[];
 
-
-	public Quarter(id){
+	public Quarter(id : number){
 		this.id = id;
 	}
 }

@@ -17,6 +17,7 @@ export class QuarterService  extends BaseService{
   	super();
   	this.url = "quarter";
     this.currentQuarter = new Quarter();
+    this.currentQuarter.id=1;
     this.currentQuarterObservable = new BehaviorSubject<Quarter>(this.currentQuarter);
     this.serviceInitialized = new BehaviorSubject(false);
     this.setupObservables();

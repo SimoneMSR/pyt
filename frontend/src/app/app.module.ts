@@ -20,7 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { AUTH_PROVIDERS }      from 'angular2-jwt';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '', component: AppComponent }
 
 ]; 
 

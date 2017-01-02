@@ -8,6 +8,7 @@ import { CoreModule} from '../core/core.module';
 import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
+{ path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

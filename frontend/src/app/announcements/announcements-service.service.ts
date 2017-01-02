@@ -40,20 +40,18 @@ export class AnnouncementsService extends  BaseService{
     }
   }
 
-  public getFiltered(quarterId : number, orderBy : String, filterBy : String, top : number, skip : number ){
-
-  }
-
   public getSingle(announcementId) : Observable<Announcement>{
     return this.http
       .get(this.baseUrl +"/"+this.url+ "/single" + "?announcementId="+announcementId)
       .map(res => <Announcement>res.json());
   }
 
-
-  public  getAll(quarterId): Observable<Announcement[]>{
+  public  getAll(quarterId : number);
+  public  getAll(quarterId : number, params?): Observable<Announcement[]>{
     return this.http
-      .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId + AnnouncementsService.extractParams((this.params)), {headers: this.getHeaders()})
+      .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId +
+        AnnouncementsService.extractParams(params)
+        , {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
   }
 
@@ -112,12 +110,16 @@ export class AnnouncementsService extends  BaseService{
 
   private static extractParams(params) : String{
     let thisParams= "";
-    if(params.filterBy)
-      thisParams = thisParams + "&filterBy=" + params.filterBy;
-    if(params.top)
-      thisParams = thisParams + "&top=" + params.top;
-    if(params.skip)
-      thisParams = thisParams + "&skip=" + params.skip;
+    if(params!=null){
+      if(params.filterBy)
+        thisParams = thisParams + "&filterBy=" + params.filterBy;
+      if(params.orderBy)
+        thisParams = thisParams + "&orderBy=" + params.orderBy;
+      if(params.top)
+        thisParams = thisParams + "&top=" + params.top;
+      if(params.skip)
+        thisParams = thisParams + "&skip=" + params.skip;
+    }
     
     return thisParams;
     }

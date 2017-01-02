@@ -33,7 +33,8 @@ export class MapComponent implements OnInit {
   defaultViewBox :  string;
   defaultCollapsedViewBox : string;
   _visible : boolean;
-  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>()
+  @Output()
+  visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
  
   public quartiere: String;
 
@@ -44,7 +45,14 @@ export class MapComponent implements OnInit {
     this.viewBox = this.defaultCollapsedViewBox = '0 0 749.09998 0';
     this.defaultViewBox = '0 0 749.09998 617.09998';
     this._visible=false;
-    this.observeAnnouncements();
+    this.announcements = [];
+    var init = this.quarterService.currentQuarterObservable.subscribe(c=>{
+      if(c != null){
+        this.refreshAnnouncements();
+        if(init)
+          init.unsubscribe();
+      }
+    });
   }
 
     toggleMap(){
@@ -59,6 +67,7 @@ export class MapComponent implements OnInit {
     var quarter = this.quarterService.QuarterIdMap[quarterId];
     this.quartiere = quarter.name;
     this.quarterService.setCurrentQuarter(quarter);
+    this.refreshAnnouncements();
     }
    
 
@@ -77,8 +86,8 @@ export class MapComponent implements OnInit {
     return this._visible;
   }
 
-  private observeAnnouncements(){
-    this.announcementsService.announcementsByCurrentQuarter.take(5).subscribe(list =>{
+  private refreshAnnouncements(){
+    this.announcementsService.getAll(this.quarterService.currentQuarter.id,{top : 10}).subscribe(list =>{
       this.announcements = list;
     });
   }

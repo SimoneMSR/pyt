@@ -21,7 +21,7 @@ export class AuthService {
   private loggedIn : boolean;
 
   constructor(private router: Router) {
-    this.loggedIn = false;
+    this.loggedIn = true;
     var result = this.auth0.parseHash(window.location.hash);
 
     if (result && result.idToken) {
