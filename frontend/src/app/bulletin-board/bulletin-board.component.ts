@@ -12,8 +12,8 @@ import {UserService} from "../core";
   entryComponents : [AnnouncementModalComponent]
 })
 export class BulletinBoardComponent implements OnInit {
-
- public modalData : any;
+  public grid : boolean = true; // variabile per vista lista / grid 
+  public modalData : any;
   private viewContainerRef: ViewContainerRef;
   public filterCathegory : any;
   public announcements : Announcement[];
