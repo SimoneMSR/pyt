@@ -11,3 +11,11 @@
 .pole {
 	-webkit-padding-start: 0px;
 }
+
+.cathegory-filter{
+	float: right;
+}
+
+.cathegory-filter-container{
+	overflow: auto;
+}

@@ -38,7 +38,7 @@ public class AnnouncementController extends BaseController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") Integer quarterId, 
-			@QueryParam("top") Integer top, @QueryParam("skip") Integer skip, @QueryParam("filterBy") AnnouncementCathegory filterBy,
+			@QueryParam("top") Integer top, @QueryParam("skip") Integer skip, @QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy){
 		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy);
 		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
