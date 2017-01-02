@@ -47,7 +47,7 @@ export class AnnouncementsService extends  BaseService{
   }
 
   public  getAll(quarterId : number);
-  public  getAll(quarterId : number, params?): Observable<Announcement[]>{
+  public  getAll(quarterId : number, params? : any): Observable<Announcement[]>{
     return this.http
       .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId +
         AnnouncementsService.extractParams(params)

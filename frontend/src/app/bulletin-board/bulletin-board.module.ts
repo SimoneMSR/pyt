@@ -13,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TagNamePipe } from './announcement-modal/tagName.pipe';
 import {AnnouncementModalDirective} from './announcement-modal/announcement-modal.directive';
 import  'rxjs/add/operator/do';
+import { TabsModule } from 'ng2-bootstrap';
 
 const appRoutes: Routes = [
   { path: '', component: BulletinBoardComponent },
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes),
+    TabsModule,
     AnnouncementsModule,
     ModalModule,
     CommonModule,
