@@ -14,9 +14,9 @@ export class AnnouncementComponent implements OnInit {
 	  	tag.color= this.hashStringToColor(tag.name);
   	}
   	switch(this.announcement.cathegory){
-  		case 'idea' : {this.announcement.color = '#66FF66'; break}
-  		case 'problem' : {this.announcement.color = '#66B2FF'; break}
-  		case 'proposal' : {this.announcement.color = '#FF9933'; break}
+  		case 'IDEA' : {this.announcement.color = '#66FF66'; break}
+  		case 'PROBLEM' : {this.announcement.color = '#66B2FF'; break}
+  		case 'PROPOSAL' : {this.announcement.color = '#FF9933'; break}
       default : {this.announcement.color = '#C0C0C0';}
   	}
 

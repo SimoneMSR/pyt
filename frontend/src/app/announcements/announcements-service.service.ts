@@ -46,8 +46,6 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement>res.json());
   }
 
-
-  public  getAll(quarterId : number) : Observable<Announcement[]>;
   public  getAll(quarterId : number, params?): Observable<Announcement[]>{
 
     return this.http
@@ -71,7 +69,7 @@ export class AnnouncementsService extends  BaseService{
   	return this.http
   		.put(`${this.baseUrl}/`+this.url,form, {headers: this.getHeaders()})
       .finally( () =>{
-          this.refreshAnnouncementsByCurrentQuarter(this.quarterService.currentQuarter);
+          this.refreshAnnouncementsByCurrentQuarter();
       });
   }
 

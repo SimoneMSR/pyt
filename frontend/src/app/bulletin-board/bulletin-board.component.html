@@ -7,6 +7,17 @@
 		</ul>
 		<div class="cathegory-filter-container">
 			<label>Idea</label>
+<<<<<<< HEAD
+			<ui-switch color="#66FF66" (change)="applyFilter()" [(ngModel)]="filterCathegory.Idea" class="cathegory-filter" ></ui-switch>
+		</div>
+		<div class="cathegory-filter-container">
+			<label>Proposal</label>
+			<ui-switch (change)="applyFilter()" [(ngModel)]="filterCathegory.Proposal" class="cathegory-filter" color="#66B2FF"></ui-switch>
+		</div>
+		<div class="cathegory-filter-container">
+			<label>Problem</label>
+			<ui-switch color ='#FF9933'(change)="applyFilter()" [(ngModel)]="filterCathegory.Problem" class="cathegory-filter"></ui-switch>
+=======
 			<ui-switch  [disabled]="ideaDisabled==true"  (ngModelChange)="toggleIdeas($event)" [(ngModel)]="filterCathegory.Idea" class="cathegory-filter"></ui-switch>
 		</div>
 		<div class="cathegory-filter-container">
@@ -16,6 +27,7 @@
 		<div class="cathegory-filter-container">
 			<label>Problem</label>
 			<ui-switch  [disabled]="problemDisabled==true" (ngModelChange)="toggleProblems($event)" [(ngModel)]="filterCathegory.Problem" class="cathegory-filter"></ui-switch>
+>>>>>>> ca5762bd749825296fac32999c28412d29f0d15c
 		</div>
 	</div>
 
