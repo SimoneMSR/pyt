@@ -1,8 +1,8 @@
-<div class="col-xs-8 col-xs-offset-2 map">
+<div class="col-xs-8 col-xs-offset-2 map" *ngIf="isLoggedIn">
 	<app-map [(visible)]=mapVisible></app-map>
 </div>
 <div class='main-page' [ngClass]="{'opaco' : mapVisible}">
- 	<app-navbar></app-navbar>
+ 	<app-navbar *ngIf="isLoggedIn"></app-navbar>
 	<div id='wrapper'>
 <!-- 		<app-sidebar></app-sidebar>
 		<app-tools></app-tools> -->

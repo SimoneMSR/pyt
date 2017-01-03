@@ -1,12 +1,12 @@
     <!-- Navbar -->
     <div class='navbar navbar-default' id='navbar'>
-      <a class='navbar-brand' href='#'>
+      <a class='navbar-brand' >
         <i class='icon-beer'></i>
         {{quarterName}}
       </a>
       <ul class='nav navbar-nav pull-right'>
         <li class='dropdown'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+          <a class='dropdown-toggle' data-toggle='dropdown' >
             <i class='icon-envelope'></i>
             Messages
             <span class='badge'>5</span>
@@ -28,25 +28,25 @@
           </ul>
         </li>
         <li>
-          <a href='#'>
+          <a >
             <i class='icon-cog'></i>
             Settings
           </a>
         </li>
         <li class='dropdown user'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+          <a class='dropdown-toggle' data-toggle='dropdown' (click)="logout()">
             <i class='icon-user'></i>
-            <strong>Simone</strong>
+            <strong>{{userName}}</strong>
             <img class="img-rounded" src="http://placehold.it/20x20/ccc/777" />
             <b class='caret'></b>
           </a>
           <ul class='dropdown-menu'>
             <li>
-              <a href='#'>Edit Profile</a>
+              <a>Edit Profile</a>
             </li>
             <li class='divider'></li>
             <li>
-              <a href="/">Sign out</a>
+              <a >Sign out</a>
             </li>
           </ul>
         </li>

@@ -18,7 +18,6 @@ import { UiSwitchModule } from 'angular2-ui-switch'
 
 
 const appRoutes: Routes = [
-  { path: '', component: BulletinBoardComponent },
   { path: 'board', component: BulletinBoardComponent }
 ];
 

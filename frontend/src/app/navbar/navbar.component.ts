@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {QuarterService} from "../quarters";
+import {LoginService} from "../login";
+import { Router }          from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +11,28 @@ import {QuarterService} from "../quarters";
 export class NavbarComponent implements OnInit {
 
 	public quarterName : String;
-  constructor(private quarterService : QuarterService) {
+	public userName : String;
+  constructor(private quarterService : QuarterService,
+  		private loginService : LoginService,
+  		private router : Router) {
+  	this.userName="";
+  	this.isLoggedIn=false;
   	this.quarterService.currentQuarterObservable.subscribe(q=>{
   		this.quarterName = q.name;
+  	});
+  	this.loginService.userObservable.subscribe(u=> {
+  		if(u!=null){
+  			this.userName=u.name;
+  		}
   	});
   }
 
   ngOnInit() {
+  }
+
+  logout(){
+  	this.loginService.logout();
+  	this.router.navigate(['login']);
   }
 
 }

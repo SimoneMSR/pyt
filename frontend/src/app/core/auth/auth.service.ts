@@ -15,7 +15,7 @@ export class AuthService {
 	  domain: 'simonemsr.eu.auth0.com',
 	  clientID: 'wCQj2e7peoLyE6I5LxKgMMdQZbOqch8C',
 	  responseType: 'token',
-	  callbackURL: 'https://localhost:8080/pyt/rest/login',
+	  //callbackURL: 'https://localhost:8080/pyt/rest/login',
   });
 
   private loggedIn : boolean;
@@ -36,12 +36,12 @@ export class AuthService {
     return this.loggedIn;
   }
  
- public login(username, password) {
+ public login(email, password) {
   this.loggedIn = true;
   return this.auth0.login({
     connection: 'Username-Password-Authentication',
     responseType: 'token',
-    email: username,
+    email: email,
     password: password,
   }, function(err) {
     if (err) alert("something went wrong: " + err.message);
@@ -59,11 +59,11 @@ export class AuthService {
     localStorage.removeItem('id_token');
   };
 
-  public signUp(username, password) {
+  public signUp(email, password) {
 	  this.auth0.signup({
 	    connection: 'Username-Password-Authentication',
 	    responseType: 'token',
-	    email: username,
+	    email: email,
 	    password: password,
 	  }, function(err) {
 	    if (err) alert("something went wrong: " + err.message);

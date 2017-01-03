@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Login} from './login.model';
-import { LoginService} from '../login.service';
+import { Login, Member, LoginService} from '../';
 import { AuthService} from '../../core/auth/auth.service';
 import { Router }          from '@angular/router';
 
@@ -17,7 +16,9 @@ export class LoginFormComponent implements OnInit {
 	public credential : Login;
 	public submitted : boolean;
 
-  constructor(private auth:AuthService, private router: Router){
+  constructor(private auth:AuthService, 
+      private router: Router,
+      private service : LoginService){
   	this.credential = new Login('simone','password');
   	this.submitted = false;
 	}
@@ -26,8 +27,15 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  public login(username, password){
-    var l = this.auth.login(username,password);
+  public login(){
+    //var l = this.auth.login(this.credential.email,this.credential.password);
+    this.service.login(this.credential).subscribe(result => {
+      this.service.setUserLoggedIn(<Member>result.json());
+      this.router.navigate(['board']);
+      this.service.userObservable.next(this.service.user);
+    }, error=> {
+      alert("Wrong username");
+    });
   }
 
 }
