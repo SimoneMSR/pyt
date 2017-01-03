@@ -58,7 +58,10 @@
               <div class="panel-body">
                 {{comment.content}}
               </div>
-              <div class="panel-footer">{{comment.creator.name}}</div>
+              <div class="panel-footer comment">
+                <div class="creator-name">{{comment.creator.name}}</div>
+                <div class="date">{{comment.date | date: 'dd/MM/yyyy'}}</div>
+              </div>
             </div>
         </div>
       </tab>

@@ -1,0 +1,7 @@
+.comment .creator-name{
+	display : inline;
+}
+
+.comment .date{
+	float:right;
+}

@@ -67,7 +67,7 @@ export class AnnouncementsService extends  BaseService{
 
   private createOrUpdatePrivate(form: Announcement){
   	return this.http
-  		.put(`${this.baseUrl}/`+this.url,form, {headers: this.getHeaders()})
+  		.put(this.url,form, {headers: this.getHeaders()})
       ._do( () =>{
           this.refreshAnnouncementsByCurrentQuarter();
       });

@@ -111,6 +111,7 @@ export class AnnouncementModalComponent implements OnInit {
 
   public postComment(){
       this.commentsService.postComment(this.announcement.id, this.comment).subscribe(resut => {
+        this.comment.content="";
         this.refreshComments();
       } ,error => {
         alert(error);
