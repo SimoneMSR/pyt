@@ -55,7 +55,7 @@ public class Announcement implements Serializable{
 	private int cathegory;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="creatorId", insertable=false)
+    @JoinColumn(name="creatorId")
     private Member creator;
 	
 	public Member getCreator() {

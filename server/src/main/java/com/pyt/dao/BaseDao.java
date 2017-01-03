@@ -1,19 +1,22 @@
 package com.pyt.dao;
 
-import javax.inject.Inject;
+
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-public class BaseDao<T,T_> {
+@Stateless
+public class BaseDao<T, T_> {
 
-    @Inject
-    protected EntityManager em;
-    
-    public void Save(T entity){
-    	em.persist(entity);
-    }
-    
+	@PersistenceContext
+	protected EntityManager em;
+
+	public void Save(T entity) {
+		em.persist(entity);
+	}
+
 	public void merge(T object) {
 		em.merge(object);
 	}
-    
+
 }

@@ -34,7 +34,7 @@ export class LoginFormComponent implements OnInit {
       this.router.navigate(['board']);
       this.service.userObservable.next(this.service.user);
     }, error=> {
-      alert("Wrong username");
+      alert("Wrong username/email");
     });
   }
 

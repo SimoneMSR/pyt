@@ -80,7 +80,7 @@ export class AnnouncementModalComponent implements OnInit {
   public createOrUpdate(){
   		this.formatDto();
   		this.service.createOrUpdate(this.announcement, this.quarterService.currentQuarter.id)
-  		.subscribe(result => { console.log(result);
+  		.subscribe(result => {
           this.hideModal();
       });
   } 

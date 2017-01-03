@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import {LoginService} from '../login';
 
 @Injectable()
 export class BaseService {
@@ -14,6 +15,12 @@ export class BaseService {
   }
 
   protected getHeaders(){
+    let headers = this.getUnauthenticatedHeaders();
+    headers.append('Authorization' ,localStorage.getItem(LoginService.EMAILKEY));
+    return headers;
+  }
+
+  private getUnauthenticatedHeaders(){
     let headers = new Headers();
     headers.append('accept', 'application/json');
     return headers;

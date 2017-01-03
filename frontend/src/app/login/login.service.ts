@@ -10,12 +10,14 @@ export class LoginService  extends BaseService{
 	private apiUrl : string;
 	public user : Member;
 	public userObservable : BehaviorSubject<Member>;
+	public static readonly USERKEY = 'pyt-user';
+	public static readonly EMAILKEY = 'pyt-email';
   constructor(private http : Http) { 
   	super();
   	this.apiUrl = this.baseUrl + '/login';
-  	if(localStorage.getItem('pyt-user') !=null){
+  	if(localStorage.getItem(LoginService.USERKEY) !=null){
   		this.user = new Member("","");
-  		this.user.name=localStorage.getItem('pyt-user');
+  		this.user.name=localStorage.getItem(LoginService.USERKEY);
   	}else
 	  	this.user = null;
   	this.userObservable = new BehaviorSubject<Member>(this.user);
@@ -26,14 +28,16 @@ export class LoginService  extends BaseService{
   }
 
   logout(){
-  	localStorage.removeItem('pyt-user');
+  	localStorage.removeItem(LoginService.USERKEY);
+  	localStorage.removeItem(LoginService.EMAILKEY);
   	this.user=null;
   	this.userObservable.next(this.user);
   }
 
   setUserLoggedIn(user : Member){
   	this.user=user;
-  	localStorage.setItem('pyt-user',user.name);
+  	localStorage.setItem(LoginService.USERKEY,user.name);
+  	localStorage.setItem(LoginService.EMAILKEY, user.email);
   }
 
 }

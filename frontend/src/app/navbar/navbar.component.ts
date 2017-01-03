@@ -16,7 +16,6 @@ export class NavbarComponent implements OnInit {
   		private loginService : LoginService,
   		private router : Router) {
   	this.userName="";
-  	this.isLoggedIn=false;
   	this.quarterService.currentQuarterObservable.subscribe(q=>{
   		this.quarterName = q.name;
   	});

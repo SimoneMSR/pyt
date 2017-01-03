@@ -98,7 +98,12 @@ public class Member implements Serializable {
         this.phoneNumber = phoneNumber;
     }
     
-    
+    public Member(){
+    	
+    }
+    public Member(Long id){
+    	this.id = id;
+    }
     
     
 }

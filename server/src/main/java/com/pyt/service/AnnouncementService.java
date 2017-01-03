@@ -28,8 +28,12 @@ public class AnnouncementService {
 		return dao.getById((long)announcementId);
 	}
 	
-	public void createOrUpdate(Announcement entity){		
-		dao.merge(entity);
+	public void createOrUpdate(Announcement entity){	
+		try{
+			dao.Save(entity);
+		}catch(Exception e){
+			dao.merge(entity);			
+		}
 	}
 	
 	public Collection<Tag> getAllTagsOrdered(){

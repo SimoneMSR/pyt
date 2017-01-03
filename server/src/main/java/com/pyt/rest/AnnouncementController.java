@@ -15,6 +15,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.pyt.model.Announcement;
+import com.pyt.model.Member;
+import com.pyt.rest.authorization.KnockKnock;
 import com.pyt.rest.converter.AnnouncementConverter;
 import com.pyt.rest.converter.TagConverter;
 import com.pyt.rest.dto.AnnouncementDto;
@@ -27,6 +30,7 @@ import Enums.AnnouncementCathegory;
 
 @Path("announcement")
 @Stateless
+@KnockKnock
 public class AnnouncementController extends BaseController {
 	
 	@Inject
@@ -75,7 +79,9 @@ public class AnnouncementController extends BaseController {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response createOrUpdate(AnnouncementDto announcement){
-		announcementService.createOrUpdate(AnnouncementConverter.from(announcement));
+		Announcement entity = AnnouncementConverter.from(announcement);
+		entity.setCreator(getCurrentUser());
+		announcementService.createOrUpdate(entity);
 		return Response.ok().build();
 	}
 	
