@@ -14,7 +14,8 @@ import { TagNamePipe } from './announcement-modal/tagName.pipe';
 import {AnnouncementModalDirective} from './announcement-modal/announcement-modal.directive';
 import  'rxjs/add/operator/do';
 import { TabsModule } from 'ng2-bootstrap';
-import { UiSwitchModule } from 'angular2-ui-switch'
+import { UiSwitchModule } from 'angular2-ui-switch';
+import { CommentsModule} from '../comments/comments.module';
 
 
 const appRoutes: Routes = [
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
     FormsModule,
     RlTagInputModule,
     BrowserModule,
-    UiSwitchModule
+    UiSwitchModule,
+    CommentsModule
   ],
   providers : [ComponentsHelper, ModalBackdropComponent],
   declarations: [BulletinBoardComponent, AnnouncementModalComponent,AnnouncementModalDirective, TagNamePipe]

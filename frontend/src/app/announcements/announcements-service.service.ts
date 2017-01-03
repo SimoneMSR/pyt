@@ -22,7 +22,7 @@ export class AnnouncementsService extends  BaseService{
     private quarterService: QuarterService) {
   	super();
     this.params={};
-  	this.url='announcement';
+  	this.url=this.baseUrl + '/announcement';
   	this.announcementByUser = new BehaviorSubject([]);
     this.announcementsByCurrentQuarter = new BehaviorSubject([]);
     this.serviceInitialized = new BehaviorSubject<boolean>(false);
@@ -42,14 +42,14 @@ export class AnnouncementsService extends  BaseService{
 
   public getSingle(announcementId) : Observable<Announcement>{
     return this.http
-      .get(this.baseUrl +"/"+this.url+ "/single" + "?announcementId="+announcementId)
+      .get(this.url+ "/single" + "?announcementId="+announcementId)
       .map(res => <Announcement>res.json());
   }
 
   public  getAll(quarterId : number, params?): Observable<Announcement[]>{
 
     return this.http
-      .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId +
+      .get(this.url+"?quarterId="+quarterId +
         AnnouncementsService.extractParams(params)
         , {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
@@ -61,7 +61,7 @@ export class AnnouncementsService extends  BaseService{
 
   public getAllTags() : Observable<Tag[]> {
   	return this.http
-      .get(`${this.baseUrl}/`+this.url+"/tags", {headers: this.getHeaders()})
+      .get(this.url+"/tags", {headers: this.getHeaders()})
       .map(res => <Tag[]>res.json());
   }
 

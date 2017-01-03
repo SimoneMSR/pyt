@@ -12,7 +12,7 @@
 
           <div class="modal-body">
  <tabset>
-        <tab heading='Tab 1'>
+        <tab heading='Riassunto'>
           <form (ngSubmit)="createOrUpdate()" #form="ngForm">
             <div class="form-group">
               <label for="name">Name</label>
@@ -43,7 +43,24 @@
 
       <tab>
         <template tabHeading>Commenti</template>
-        Tab 2 content
+        <div class="panel panel-default">
+              <div class="panel-body">
+                <textarea class="form-control" rows="3" name="commentContent" [(ngModel)]="comment.content" required>
+                  
+                </textarea>
+              </div>
+              <div class="panel-footer">
+              <button class="btn btn-default" (click)="postComment()">Post</button> 
+              </div>
+        </div>
+        <div *ngFor="let comment of comments">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                {{comment.content}}
+              </div>
+              <div class="panel-footer">{{comment.creator.name}}</div>
+            </div>
+        </div>
       </tab>
       <tab>
         <template tabHeading>Contatta</template>

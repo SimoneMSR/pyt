@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BulletinBoardModule} from './bulletin-board/bulletin-board.module';
 import { MapModule} from './map/map.module';
 
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';

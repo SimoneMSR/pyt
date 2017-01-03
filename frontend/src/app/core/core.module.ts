@@ -11,7 +11,11 @@ import { QuartersModule} from '../quarters/quarters.module';
 
 @NgModule({
   imports: [
-    CommonModule, HttpModule, FormsModule, BrowserModule, QuartersModule
+    CommonModule, 
+    HttpModule, 
+    FormsModule, 
+    BrowserModule, 
+    QuartersModule
   ],
   providers : [
   	BaseService,

@@ -1,6 +1,7 @@
 package com.pyt.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -10,6 +11,8 @@ import com.pyt.dao.CommentDao;
 import com.pyt.model.Announcement;
 import com.pyt.model.Comment;
 import com.pyt.model.Member;
+import com.pyt.rest.converter.CommentConverter;
+import com.pyt.rest.dto.CommentDto;
 
 public class CommentService {
 
@@ -35,5 +38,11 @@ public class CommentService {
 			log.info(e.getMessage());
 			return false;
 		}
+	}
+
+
+	public List<CommentDto> getByAnnouncement(int announcementId) {
+		Announcement announcement = announcementDao.getById((long)announcementId);
+		return (List<CommentDto>) CommentConverter.to(announcement.getComments());
 	}
 }

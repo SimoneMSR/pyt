@@ -132,6 +132,13 @@ public class Announcement implements Serializable{
 	public Announcement(int id){
 		this.idAnnouncement = id;
 	}
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+	
+	
 	
 	
 	
