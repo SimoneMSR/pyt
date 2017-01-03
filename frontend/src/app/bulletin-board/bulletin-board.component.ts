@@ -17,6 +17,9 @@ export class BulletinBoardComponent implements OnInit {
   private viewContainerRef: ViewContainerRef;
   public filterCathegory : any;
   public announcements : Announcement[];
+  public ideaDisabled : boolean;
+  public proposalDisabled : boolean;
+  public problemDisabled : boolean;
   constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
     
     this.viewContainerRef = viewContainerRef;
@@ -24,6 +27,7 @@ export class BulletinBoardComponent implements OnInit {
     this.announcementsService.getAllForQuarter().subscribe( list => {
       this.announcements = list;
     });
+    this.ideaDisabled= this.problemDisabled = this.problemDisabled = false;
     //this.announcements = this.announcementsService.Announcements;
   }
 
@@ -50,7 +54,22 @@ export class BulletinBoardComponent implements OnInit {
     };
   }
 
-  applyFilter(){
+  toggleIdeas(show){
+    this.filterCathegory.Idea=true;
+    this.applyFilter();
+  }
+
+  toggleProposals(show){
+    this.filterCathegory.Proposal=show;
+    this.applyFilter();
+  }
+
+  toggleProblems(show){
+    this.filterCathegory.Problem=show;
+    this.applyFilter();
+  }
+
+  private applyFilter(){
     let filter="";
     if(this.filterCathegory.Idea)
       filter=filter+"IDEA";
@@ -58,6 +77,18 @@ export class BulletinBoardComponent implements OnInit {
       filter=filter+"PROPOSAL";
     if(this.filterCathegory.Problem)
       filter=filter+"PROBLEM";
+    if(filter=="IDEA")
+      this.ideaDisabled=true;
+    else
+      this.ideaDisabled=false;
+    if(filter =="PROPOSAL")
+      this.proposalDisabled=true;
+    else
+      this.proposalDisabled=false;
+    if(filter=="PROBLEM")
+      this.problemDisabled=true;
+    else
+      this.problemDisabled=false;
     this.announcementsService.params.filterBy = filter;
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
   }
