@@ -11,6 +11,8 @@ import com.pyt.dao.TagDao;
 import com.pyt.model.Announcement;
 import com.pyt.model.Tag;
 
+import com.pyt.rest.filter.AnnouncementFilter;
+
 @Stateless
 public class AnnouncementService {
 	@Inject
@@ -19,12 +21,12 @@ public class AnnouncementService {
 	@Inject
 	private TagDao tagDao;
 	
-	public Collection<Announcement> getByQuaterI(int quarterId){
+	public Collection<Announcement> getByQuaterI(int quarterId, AnnouncementFilter filter){
 		return dao.getByQuarterId((long)quarterId);
 	}
 	
-	public void createOrUpdate(Announcement entity){		
-		dao.merge(entity);
+	public Announcement createOrUpdate(Announcement entity){		
+		return dao.merge(entity);
 	}
 	
 	public Collection<Tag> getAllTagsOrdered(){

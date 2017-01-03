@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Announcement} from './announcement/announcement.model';
+import { Announcement, AnnouncementFilter} from './';
 import { BaseService, UserService, User} from '../core';
 import {QuarterService, Quarter} from '../quarters';
 import { Http, Response } from '@angular/http';
@@ -14,6 +14,8 @@ export class AnnouncementsService extends  BaseService{
   public Tags : Tag[];
   public announcementByUser : BehaviorSubject<Announcement[]>;
   public announcementsByCurrentQuarter : BehaviorSubject<Announcement[]>;
+  public byUserFilter : AnnouncementFilter;
+  public byQuarterFilter : AnnouncementFilter;
   public params;
 
   constructor(private http : Http,
@@ -24,12 +26,14 @@ export class AnnouncementsService extends  BaseService{
   	this.url='announcement';
   	this.announcementByUser = new BehaviorSubject([]);
     this.announcementsByCurrentQuarter = new BehaviorSubject([]);
+    this.byQuarterFilter = null;
+    this.byUserFilter = null;
     this.setupObservables();
 
   }
 
 
-  public  getAll(quarterId): Observable<Announcement[]>{
+  public  getAll(quarterId,filter): Observable<Announcement[]>{
     return this.http
       .get(this.baseUrl +"/"+this.url+"?quarterId="+quarterId + AnnouncementsService.extractParams((this.params)), {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
@@ -75,20 +79,18 @@ export class AnnouncementsService extends  BaseService{
   }
 
   private refreshAnnouncementsByUser(user : User){
-          this.getAll(user.quarterId).subscribe(announcements =>{
+          this.getAll(user.quarterId,this.byUserFilter).subscribe(announcements =>{
             this.announcementByUser.next(announcements);
           });
   }
 
   private refreshAnnouncementsByCurrentQuarter(quarter : Quarter){
-        this.getAll(quarter.id).subscribe(announcements =>
+        this.getAll(quarter.id, this.byQuarterFilter).subscribe(announcements =>
             this.announcementsByCurrentQuarter.next(announcements));
   }
 
   private static extractParams(params) : String{
     let thisParams= "";
-    if(params.filterBy)
-      thisParams = thisParams + "&filterBy=" + params.filterBy;
     if(params.top)
       thisParams = thisParams + "&top=" + params.top;
     if(params.skip)
