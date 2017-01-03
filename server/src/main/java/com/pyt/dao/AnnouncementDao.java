@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.SetJoin;
 
@@ -36,24 +37,21 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 		Collection<Quarter> coll = new HashSet<Quarter>();
 		coll.add(quarter);
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        Root<Quarter> quarterR = cb.createQuery(Quarter.class).from(Quarter.class);
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);
-        Join<Announcement,Quarter> announcements = announcement.join(Announcement_.quarters);
-        //announcements.
-        criteria.select(announcement).where(announcement.join(Announcement_.quarters).in(quarter));
-        		//.where(cb.equal(announcements.get(Announcement), quarterId));
-        		//.where(cb.and(cb.equal(quarterR.get(Quarter_.idQuarter), quarterId)),
-        			//	quarterR.in(announcement.get(Announcement_.quarters)));
+        Predicate whereQuarter = announcement.join(Announcement_.quarters).in(quarter);
         try {
-        	return applyParams(criteria,params, cb,announcement);
-        	//return em.createQuery(criteria).getResultList();
+        	List<Predicate> whereParams= applyParamsFilter(criteria,params,announcement);
+        	whereParams.add(whereQuarter);
+            criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
+            return applyParams(criteria,params,cb,announcement);
         }catch(Exception e){
         	return null;
         }
 	}
 	
-	public List<Announcement> applyParams(CriteriaQuery<Announcement> query,AnnouncementParams params, CriteriaBuilder cb,Root<Announcement> announcement){
+	public List<Predicate> applyParamsFilter(CriteriaQuery<Announcement> query,AnnouncementParams params,Root<Announcement> announcement){
+		List<Predicate> retval = new ArrayList<Predicate>();
 		if(params != null){
 			//order
 			if(params.filterBy !=null && !params.filterBy.isEmpty()){
@@ -64,13 +62,19 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 					cathegories.add(1);
 				if(params.filterBy.indexOf(AnnouncementCathegory.PROPOSAL.name())>=0)
 					cathegories.add(2);
-				query.where(announcement.get(Announcement_.cathegory).in(cathegories));
+				retval.add(announcement.get(Announcement_.cathegory).in(cathegories));
 			}
+		}
+		return retval;
+	}
+	
+	public List<Announcement> applyParams(CriteriaQuery<Announcement> query,AnnouncementParams params, CriteriaBuilder cb,Root<Announcement> announcement){
+		if(params !=null){
 			if(params.orderBy!=null){
 				switch (params.orderBy){
-				case "title" : {
-					query.orderBy(cb.asc(announcement.get(Announcement_.title)));
-				} break;
+					case "title" : {
+						query.orderBy(cb.asc(announcement.get(Announcement_.title)));
+					} break;
 				}
 			}
 			if(params.skip !=null){

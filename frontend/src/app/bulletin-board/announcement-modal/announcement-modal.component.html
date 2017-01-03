@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
               <label for="cathegory">Cathegory</label>
-                <select name="cathegory" [(ngModel)]="announcement.cathegory">
+                <select name="cathegory" [(ngModel)]="announcement.cathegory" required>
     			       <option *ngFor="let c of cathegories" [value]="c" require>{{c}}</option>
     			      </select>
             </div>

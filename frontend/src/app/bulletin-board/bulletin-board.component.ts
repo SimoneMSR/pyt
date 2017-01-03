@@ -55,7 +55,7 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   toggleIdeas(show){
-    this.filterCathegory.Idea=true;
+    this.filterCathegory.Idea=show;
     this.applyFilter();
   }
 
