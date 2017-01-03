@@ -28,8 +28,8 @@ import com.pyt.service.QuarterService;
 
 import Enums.AnnouncementCathegory;
 
-@Path("announcement")
 @Stateless
+@Path("announcement")
 @KnockKnock
 public class AnnouncementController extends BaseController {
 	

@@ -29,5 +29,14 @@
 		    <column name="name" value="soddisfazione"/>
 		</insert>
 	</changeSet> 
+	<changeSet id="3" author="Simone D'Amario">
+		<comment> Aggiungo utente amministratore</comment>
+		<insert tableName="Member" >
+		    <column name="name" value="administrator"/>
+		    <column name="email" value="pyt@pyt.it"/>
+		    <column name="phone_number" value="0123456789"/>
+		    <column name="quarterId" value="1"/>
+		</insert>
+	</changeSet>
         
 </databaseChangeLog>

@@ -12,7 +12,7 @@ import com.pyt.model.Announcement;
 import com.pyt.model.Member;
 import com.pyt.rest.dto.QuarterDto;
 
-public class QuarterConverter {
+public class QuarterConverter{
 	public static QuarterDto to(Quarter entity){
 		QuarterDto dto=new QuarterDto();
 		dto.name = entity.getName();

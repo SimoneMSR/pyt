@@ -115,5 +115,38 @@
 	            referencedColumnNames="id"
 	            referencedTableName="Member"/>
 	</changeSet>
+	<changeSet id="6" author="Simone D'Amario">
+	<comment>Creazione tabella Comment</comment>
+		<createTable tableName="Comment">
+			<column name="idComment" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+			<column name="content" type="clob">
+				<constraints nullable="false" />
+			</column> 
+			<column name="creatorId" type="INT">
+				<constraints nullable="false" />
+			</column> 
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="creatorId"
+	            baseTableName="Comment"
+	            constraintName="fk_comment_memberId"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	</changeSet>
+	<changeSet id="7" author="Simone D'Amario">
+		<comment>Aggiungo colonna announcementId alla tabella Comment</comment>
+		<addColumn tableName="Comment">
+			<column name="announcementId" type="INT"/>
+		</addColumn>
+	    <addForeignKeyConstraint baseColumnNames="announcementId"
+	            baseTableName="Comment"
+	            constraintName="fk_comment_announcementId"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+	</changeSet>
         
 </databaseChangeLog>

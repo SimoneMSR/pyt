@@ -2,6 +2,7 @@ package com.pyt.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,10 +54,13 @@ public class Announcement implements Serializable{
 	        inverseJoinColumns=@JoinColumn(name="idTag"))
 	private Set<Tag> tags;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="announcement")
+	private List<Comment> comments;
+	
 	private int cathegory;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="creatorId")
+    @JoinColumn(name="creatorId", updatable=true)
     private Member creator;
 	
 	public Member getCreator() {
