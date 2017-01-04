@@ -8,6 +8,7 @@ public class MemberConverter {
 		MemberDto dto = new MemberDto();
 		dto.name = entity.getName();
 		dto.email =entity.getEmail();
+		dto.quarterId = entity.getQuarter().getId().intValue();
 		return dto;
 	}
 

@@ -32,7 +32,6 @@ export class LoginFormComponent implements OnInit {
     this.service.login(this.credential).subscribe(result => {
       this.service.setUserLoggedIn(<Member>result.json());
       this.router.navigate(['board']);
-      this.service.userObservable.next(this.service.user);
     }, error=> {
       alert("Wrong username/email");
     });

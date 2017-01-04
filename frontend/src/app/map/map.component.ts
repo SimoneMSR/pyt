@@ -37,9 +37,12 @@ export class MapComponent implements OnInit {
   visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
  
   public quartiere: String;
+
   public quartiere_popolazione: String;
   public quartiere_annunci: String;
 
+
+  public quartiereOnMap : String;
 
   public announcements : Announcement[];
 
@@ -49,6 +52,7 @@ export class MapComponent implements OnInit {
     this.defaultViewBox = '0 0 749.09998 617.09998';
     this._visible=false;
     this.announcements = [];
+    this.quartiereOnMap="";
     var init = this.quarterService.currentQuarterObservable.subscribe(c=>{
       if(c != null){
         this.refreshAnnouncements();
@@ -64,15 +68,26 @@ export class MapComponent implements OnInit {
   }
     /* restetiusce L'ID */
     onClick(event) {
-    var target = event.target || event.srcElement || event.currentTarget;
-    var idAttr = target.attributes.id;
-    var quarterId = idAttr.nodeValue;
+    var quarterId = this.restriveQuarterIdFromEvent(event);
     var quarter = this.quarterService.QuarterIdMap[quarterId];
     this.quartiere = quarter.name;
     this.quartiere_popolazione = quarter.membersCount;
     this.quartiere_annunci = quarter.annnouncementsCount;
     this.quarterService.setCurrentQuarter(quarter);
     this.refreshAnnouncements();
+    }
+
+    onOver(event){
+      var quarterId = this.restriveQuarterIdFromEvent(event);
+      this.quartiereOnMap = this.quarterService.QuarterIdMap[quarterId].name;
+
+    }
+
+    private restriveQuarterIdFromEvent(event) : number{
+          var target = event.target || event.srcElement || event.currentTarget;
+          var idAttr = target.attributes.id;
+          var quarterId = idAttr.nodeValue;
+          return quarterId;
     }
    
 

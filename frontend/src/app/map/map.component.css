@@ -31,3 +31,8 @@
 	    stroke: #000 !important;
 }
 
+.quarter-name-over {
+	position: absolute;
+    padding-left: 1em;
+    color: white;
+}

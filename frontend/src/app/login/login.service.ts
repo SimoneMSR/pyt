@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import {Login, Member} from './';
 import {BaseService} from '../core/base.service';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import {QuarterService} from "../quarters";
 
 @Injectable()
 export class LoginService  extends BaseService{
@@ -12,7 +13,8 @@ export class LoginService  extends BaseService{
 	public userObservable : BehaviorSubject<Member>;
 	public static readonly USERKEY = 'pyt-user';
 	public static readonly EMAILKEY = 'pyt-email';
-  constructor(private http : Http) { 
+  constructor(private http : Http,
+  		private quarterService : QuarterService) { 
   	super();
   	this.apiUrl = this.baseUrl + '/login';
   	if(localStorage.getItem(LoginService.USERKEY) !=null){
@@ -36,6 +38,9 @@ export class LoginService  extends BaseService{
 
   setUserLoggedIn(user : Member){
   	this.user=user;
+  	this.userObservable.next(this.user);
+  	this.quarterService.currentQuarter=this.quarterService.QuarterIdMap[this.user.quarterId];
+  	this.quarterService.currentQuarterObservable.next(this.quarterService.currentQuarter);
   	localStorage.setItem(LoginService.USERKEY,user.name);
   	localStorage.setItem(LoginService.EMAILKEY, user.email);
   }
