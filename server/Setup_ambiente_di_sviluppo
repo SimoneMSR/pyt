@@ -27,4 +27,6 @@ FRONTEND
 4) nvm install -g node
 6) chiudere la bash ed aprirne un'altra
 5) sudo npm install -g angular-cli
+6) fare il build usando questo comando 
+	ng build --target=production --environment=prod --base-href /dist/
 
