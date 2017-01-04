@@ -17,9 +17,8 @@ public class QuarterConverter{
 		QuarterDto dto=new QuarterDto();
 		dto.name = entity.getName();
 		dto.id = entity.getId().intValue();
-		dto.annnouncementsCounter = entity.getAnnouncements().size();
-		Collection<Member> mem = entity.getMembers();
-		dto.memberCounter = mem!=null ? mem.size() : 0;
+		dto.annnouncementsCount = entity.announcementCount;
+		dto.membersCount = entity.memberCount;
 		return dto;
 	}
 	

@@ -7,6 +7,6 @@ public class QuarterDto{
 	public String name;
 	public int id;
 	public Collection<AnnouncementDto> announcements;
-	public int annnouncementsCounter;
-	public int memberCounter;
+	public int annnouncementsCount;
+	public int membersCount;
 }

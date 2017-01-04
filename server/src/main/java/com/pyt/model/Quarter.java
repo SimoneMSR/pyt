@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -38,6 +39,12 @@ public class Quarter implements Serializable{
 	
 	@OneToMany(mappedBy="quarter")
 	private Set<Member> members;
+	
+	@Transient
+	public int memberCount;
+	
+	@Transient
+	public int announcementCount;
 
 	public Long getId() {
 		return idQuarter;

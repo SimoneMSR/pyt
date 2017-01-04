@@ -43,13 +43,13 @@ public class Announcement implements Serializable{
 	@NotEmpty
 	private String description;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="QuarterAnnouncement",
 	        joinColumns=@JoinColumn(name="idAnnouncement"),
 	        inverseJoinColumns=@JoinColumn(name="idQuarter"))
 	private Collection<Quarter> quarters;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="AnnouncementTag",
 	        joinColumns=@JoinColumn(name="idAnnouncement"),
 	        inverseJoinColumns=@JoinColumn(name="idTag"))

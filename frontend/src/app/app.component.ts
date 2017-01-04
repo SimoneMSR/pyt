@@ -33,4 +33,9 @@ export class AppComponent implements OnInit{
 		else
 			this.router.navigate(['board']);
 	}
+
+	closeMap(){
+		if(this.mapVisible)
+			this.mapVisible=false;
+	}
 }

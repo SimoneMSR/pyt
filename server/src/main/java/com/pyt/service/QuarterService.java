@@ -20,11 +20,19 @@ public class QuarterService {
 	private AnnouncementDao announcementDao;
 	
 	public Quarter getById(int id){
-		return quarterDao.getById(id); 
+		Quarter entity =  quarterDao.getById(id);
+		entity.announcementCount = quarterDao.countAnnouncement(id);
+		entity.memberCount = quarterDao.countMember(id);
+		return entity; 
 	}
 	
 	public List<Quarter> getAll(){
-		return quarterDao.getAll();
+		List<Quarter> entities = quarterDao.getAll();
+		for(Quarter entity : entities){
+			entity.announcementCount = quarterDao.countAnnouncement(entity.getId().intValue());
+			entity.memberCount = quarterDao.countMember(entity.getId().intValue());
+		}
+		return entities;
 	}
 	
 	public void publishAnnouncement(int quarterId, int announcementId){
