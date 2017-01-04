@@ -1,4 +1,7 @@
 <div class="col-xs-9">
+	<h4 class="quarter-name-over" [ngClass]="{ 'invisible' : !_visible}">
+		{{quartiereOnMap}}
+	</h4>
 	<div [@collapse]="mapState"> 
 		<svg
 		   xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -40,37 +43,43 @@
 		     id="2"
 		     d="m 406.60613,35.953917 -7.19079,20.918644 -9.80561,179.115879 c 0,0 -22.35788,-1.86339 -28.21677,3.30819 -5.85888,5.17159 -10.67883,16.13961 -10.67883,16.13961 L 175.52049,143.81567 c 0,0 53.61876,-85.946146 63.08278,-91.519062 8.58496,-5.055279 168.00286,-16.342691 168.00286,-16.342691 z"
 		     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
-		     (click)="onClick($event)" />
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)" />
 		  <path
 		     class="quartiere"
 		     id="3"
 		     d="m 408.56725,36.607625 -6.86393,18.95752 -10.18513,180.417065 c 0,0 14.68367,0.48425 20.42494,4.43037 6.78585,4.66408 13.53881,20.66189 13.53881,20.66189 l 53.35888,-26.7203 134.01006,-66.35132 -46.14332,-83.404596 z"
 		     style="fill:#e0a84b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-		     (click)="onClick($event)" />
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)"/>
 		  <path
 		     class="quartiere"
 		     id="1"
 		     d="M 349.9165,256.84084 174.03377,145.15183 c 0,0 -37.46009,55.34572 -54.15671,80.00455 -3.87221,5.71878 -4.81486,13.31583 -4.53601,20.21661 2.16053,53.46637 21.73275,163.72496 25.18024,160.48281 2.85478,-2.68474 208.93297,-104.00424 208.93297,-104.00424 0,0 -10.60771,-17.26644 -9.24483,-24.58771 1.50754,-8.09836 9.70707,-20.42301 9.70707,-20.42301 z"
 		     style="fill:#4be0ac;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-		     (click)="onClick($event)" />
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)"/>
 		  <path
 		     class="quartiere"
 		     id="2"
 		     d="m 385.68749,324.89268 -8.17135,114.39883 -5.55651,108.73978 c 0,0 -66.18359,-2.93788 -96.42188,-15.58645 -13.74513,-5.74954 -134.75154,-117.12536 -134.33691,-123.87759 0.24445,-3.98081 208.85958,-104.92007 208.85958,-104.92007 0,0 6.26605,15.0013 10.78618,18.63067 3.50395,2.81344 24.84089,2.61483 24.84089,2.61483 z"
 		     style="fill:#e04b50;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
-		     (click)="onClick($event)"/>
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)"/>
 		  <path
 		     class="quartiere"
 		     id="3"
 		     d="m 387.18637,325.21953 c 0,0 17.56385,2.11271 20.07347,0.98056 4.79567,-2.16344 16.01583,-19.28437 16.01583,-19.28437 l 103.93951,65.69762 -3.59539,18.63066 69.94671,38.24189 c 0,0 -18.81168,12.64179 -25.4946,19.61124 -4.64593,4.84512 -1.33656,14.47985 -5.55651,19.93807 -4.57251,5.91424 -64.63511,50.58578 -98.70985,71.58099 -21.83231,13.45202 -89.62563,8.23904 -89.62563,8.23904 z"
 		     style="fill:#4b52e0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
-		     (click)="onClick($event)"/>
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)"/>
 		  <path
 		     class="quartiere"
 		     id="1"
 		     d="m 426.38078,262.95388 c 0,0 184.60468,-90.74185 187.45066,-93.31676 0,0 29.09484,54.56206 30.99486,62.87828 0.87875,3.8462 -32.12575,21.49421 -32.12575,21.49421 l -41.06015,160.89955 -45.61005,-24.76955 3.69793,-18.72077 -104.88603,-66.55998 c 0,0 10.39352,-14.65816 10.29589,-19.77465 -0.12176,-6.38107 -8.75736,-22.13033 -8.75736,-22.13033 z"
 		     style="fill:#77aade;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
-		     (click)="onClick($event)"/>
+		     (click)="onClick($event)"
+		     (mouseenter)="onOver($event)"/>
 		</svg>
 	</div>
 	<div class="col-xs-12">

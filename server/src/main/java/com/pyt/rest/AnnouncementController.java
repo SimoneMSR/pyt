@@ -82,6 +82,15 @@ public class AnnouncementController extends BaseController {
 		Announcement entity = AnnouncementConverter.from(announcement);
 		if(announcement.id==0)
 			entity.setCreator(getCurrentUser());
+		else{
+			Announcement currentEntity = announcementService.getById(announcement.id);
+			currentEntity.setTitle(entity.getTitle());
+			currentEntity.setCathegory(entity.getCathegory());
+			currentEntity.setDescription(entity.getDescription());
+			currentEntity.setQuarters(entity.getQuarters());
+			currentEntity.setTags(entity.getTags());
+			entity=currentEntity;
+		}
 		announcementService.createOrUpdate(entity);
 		return Response.ok().build();
 	}
