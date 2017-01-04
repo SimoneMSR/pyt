@@ -148,5 +148,35 @@
 	            referencedColumnNames="idAnnouncement"
 	            referencedTableName="Announcement"/>
 	</changeSet>
+	<changeSet id="8" author="Simone D'Amario">
+		<comment>Aggiungo tabella Like</comment>
+		<createTable tableName="LikeVote">
+			<column name="idLike" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="dislike" type="BOOLEAN" >
+				<constraints nullable="false"/>
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+			<column name="memberId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="announcementId" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="memberId"
+	            baseTableName="LikeVote"
+	            constraintName="fk_like_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	    <addForeignKeyConstraint baseColumnNames="announcementId"
+	            baseTableName="LikeVote"
+	            constraintName="fk_like_announcement"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+	</changeSet>
         
 </databaseChangeLog>

@@ -11,9 +11,8 @@ import { Directive,
 	EventEmitter,
 	Injector} from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
-import { Announcement} from '../../announcements/announcement/announcement.model';
 import { Tag} from '../../announcements/announcement/tag.model';
-import { AnnouncementsService} from '../../announcements/announcements-service.service';
+import { Announcement, AnnouncementsService, LikeService} from '../../announcements';
 import { QuarterService} from "../../quarters";
 import { CommentPyt, CommentsService} from "../../comments";
 
@@ -45,7 +44,8 @@ export class AnnouncementModalComponent implements OnInit {
       private viewContainerRef: ViewContainerRef, 
       private service : AnnouncementsService,
       private quarterService : QuarterService,
-      private commentsService : CommentsService) { 
+      private commentsService : CommentsService,
+      private likeService : LikeService) { 
   	this.cathegories = ['IDEA','PROPOSAL' ,'PROBLEM'];
   }
 
@@ -116,6 +116,22 @@ export class AnnouncementModalComponent implements OnInit {
       } ,error => {
         alert(error);
       });
+  }
+
+  public like(dislike : boolean){
+      this.likeService.like(this.announcement.id,dislike)
+        .subscribe(
+          result => {
+            if(dislike)
+                this.announcement.dislikes++;
+              else
+                this.announcement.likes++;
+             this.service.refreshAnnouncementsByCurrentQuarter(); 
+          },
+          error => {
+            alert(error);
+          });
+
   }
 
 }

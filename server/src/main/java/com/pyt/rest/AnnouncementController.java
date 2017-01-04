@@ -1,6 +1,7 @@
 package com.pyt.rest;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,14 +10,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.pyt.model.Announcement;
-import com.pyt.model.Member;
 import com.pyt.rest.authorization.KnockKnock;
 import com.pyt.rest.converter.AnnouncementConverter;
 import com.pyt.rest.converter.TagConverter;
@@ -26,24 +24,26 @@ import com.pyt.rest.queryParams.AnnouncementParams;
 import com.pyt.service.AnnouncementService;
 import com.pyt.service.QuarterService;
 
-import Enums.AnnouncementCathegory;
-
 @Stateless
 @Path("announcement")
 @KnockKnock
 public class AnnouncementController extends BaseController {
 	
 	@Inject
-	QuarterService quarterService;
+	private QuarterService quarterService;
 	
 	@Inject
-	AnnouncementService announcementService;
+	private AnnouncementService announcementService;
+	
+	@Inject
+	private Logger log;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") Integer quarterId, 
 			@QueryParam("top") Integer top, @QueryParam("skip") Integer skip, @QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy){
+		log.info(Thread.currentThread().getName());
 		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy);
 		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
 	}
@@ -80,7 +80,8 @@ public class AnnouncementController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
 	public Response createOrUpdate(AnnouncementDto announcement){
 		Announcement entity = AnnouncementConverter.from(announcement);
-		entity.setCreator(getCurrentUser());
+		if(announcement.id==0)
+			entity.setCreator(getCurrentUser());
 		announcementService.createOrUpdate(entity);
 		return Response.ok().build();
 	}

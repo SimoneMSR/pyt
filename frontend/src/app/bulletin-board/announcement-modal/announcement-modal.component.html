@@ -11,7 +11,15 @@
           </div>
 
           <div class="modal-body">
- <tabset>
+          <div class="like">
+              <a class="glyphicon glyphicon-thumbs-down" (click)="like(true)"></a>
+              {{announcement.dislikes}}
+          </div>
+          <div class="like">
+              <a class="glyphicon glyphicon-thumbs-up" (click)="like(false)"></a>
+              {{announcement.likes}}        
+          </div>
+        <tabset>
         <tab heading='Riassunto'>
           <form (ngSubmit)="createOrUpdate()" #form="ngForm">
             <div class="form-group">

@@ -5,3 +5,14 @@
 .comment .date{
 	float:right;
 }
+
+.modal-body .like{
+	float:right;
+	padding: 1em;
+
+}
+
+.like a {
+	text-decoration: none;
+	cursor : pointer;
+}

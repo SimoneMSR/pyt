@@ -10,8 +10,8 @@ export class BaseService {
 
 
   constructor() { 
-    //this.baseUrl = 'http://192.168.1.106:8080/pyt/rest'; //2.235.209.213
-  	this.baseUrl = 'http://2.235.209.213:8080/pyt/rest'; // 192.168.1.65:8080
+    this.baseUrl = 'http://192.168.1.106:8080/pyt/rest'; //2.235.209.213
+  	//this.baseUrl = 'http://2.235.209.213:8080/pyt/rest'; // 192.168.1.65:8080
   }
 
   protected getHeaders(){
@@ -23,6 +23,8 @@ export class BaseService {
   private getUnauthenticatedHeaders(){
     let headers = new Headers();
     headers.append('accept', 'application/json');
+    //headers.append('Access-Control-Allow-Origin', '*');
+    //headers.append('Access-Control-Allow-Headers', 'X-Requested-With');
     return headers;
   }
 

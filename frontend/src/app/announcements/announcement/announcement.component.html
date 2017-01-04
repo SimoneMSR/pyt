@@ -12,4 +12,12 @@
 			<span class="label" [ngStyle]="{'background-color': tag.color }">{{tag.name}}</span>
 		</span>
 	</div>
+          <div class="like">
+              <a class="glyphicon glyphicon-thumbs-up"></a>
+              {{announcement.likes}}        
+          </div>
+          <div class="like">
+              <a class="glyphicon glyphicon-thumbs-down"></a>
+              {{announcement.dislikes}}
+          </div>
 </div>

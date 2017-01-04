@@ -12,6 +12,8 @@ public class AnnouncementDto {
 	public AnnouncementCathegory cathegory; 
 	public Collection<TagDto> tags;
 	public Collection<Integer> quarters;
+	public int likes;
+	public int dislikes;
 	
     @Override
     public String toString() {

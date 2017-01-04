@@ -19,7 +19,7 @@
 		</div>
 	</div>
 
-	<div class="main-content col-xs-10">
+	<div class="main-content col-xs-8">
 	<!-- start grid & list button -->
 		<div class="well well-sm">
 		    <strong>Display</strong>
@@ -30,14 +30,15 @@
 		</div>
 	<!-- end grdi & list button -->
 
-	<div class="main-content col-xs-8">
-		<modal [modalData]="modalData"></modal>
-		<div class="announcements-wrapper row list-group" >
-			<div  *ngFor="let announcement of announcements" (click)="select(announcement)">
-				<app-announcement  class="item col-xs-4 bulletin-announcement grid-group-item " [ngClass]="{'list-group-item' : grid}" [announcement]="announcement"></app-announcement>
-			</div>
-			<div *ngIf="announcements.length==0">
-				Annunci mancanti
+		<div>
+			<modal [modalData]="modalData"></modal>
+			<div class="announcements-wrapper row list-group" >
+				<div  *ngFor="let announcement of announcements" (click)="select(announcement)">
+					<app-announcement  class="item col-xs-4 bulletin-announcement grid-group-item " [ngClass]="{'list-group-item' : grid}" [announcement]="announcement"></app-announcement>
+				</div>
+				<div *ngIf="announcements.length == 0">
+					Annunci mancanti
+				</div>
 			</div>
 		</div>
 	</div>

@@ -34,8 +34,6 @@ public class AnnouncementConverter {
 		if(dto.quarters!=null){
 			dto.quarters.forEach(x -> quarters.add(new Quarter(x)));
 			entity.setQuarters(quarters);
-			for(Quarter qq:entity.getQuarters())
-				log.info(""+qq.getId());
 		}
 		switch(dto.cathegory){
 		case IDEA : entity.setCathegory(0); break;
@@ -61,6 +59,8 @@ public class AnnouncementConverter {
 		dto.quarters = new ArrayList<Integer>();
 		dto.title = entity.getTitle();
 		dto.description = entity.getDescription();
+		dto.likes =entity.likesCount;
+		dto.dislikes = entity.dislikeCount;
 		for (Tag t : entity.getTags())
 			dto.tags.add(TagConverter.to(t));
 		switch(entity.getCathegory()){

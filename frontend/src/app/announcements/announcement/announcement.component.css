@@ -2,3 +2,7 @@
 	height: 3.5em;
 	margin-top: -2.2em;
 }
+
+.like {
+	display : inline;
+}

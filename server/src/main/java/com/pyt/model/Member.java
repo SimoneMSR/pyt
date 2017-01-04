@@ -17,6 +17,7 @@
 package com.pyt.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -65,8 +67,27 @@ public class Member implements Serializable {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="quarterId", insertable=false)
     private Quarter quarter;
+    
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="member")
+	private List<Like> likes;
 
-    public Long getId() {
+    public Quarter getQuarter() {
+		return quarter;
+	}
+
+	public void setQuarter(Quarter quarter) {
+		this.quarter = quarter;
+	}
+
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+
+	public Long getId() {
         return id;
     }
 

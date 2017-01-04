@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.pyt.dao.AnnouncementDao;
+import com.pyt.dao.LikeDao;
 import com.pyt.dao.TagDao;
 import com.pyt.model.Announcement;
 import com.pyt.model.Tag;
@@ -18,10 +19,18 @@ public class AnnouncementService {
 	private AnnouncementDao dao;
 	
 	@Inject
+	private LikeDao likeDao;
+	
+	@Inject
 	private TagDao tagDao;
 	
 	public Collection<Announcement> getByQuaterId(int quarterId, AnnouncementParams params){
-		return dao.getByQuarterId((long)quarterId,params);
+		Collection<Announcement> retval = dao.getByQuarterId((long)quarterId,params);
+		for(Announcement a : retval){
+			a.likesCount=likeDao.countLike(a.getIdAnnouncement(), false);
+			a.dislikeCount = likeDao.countLike(a.getIdAnnouncement(), true);
+		}
+		return retval;
 	}
 	
 	public Announcement getById(int announcementId){

@@ -36,6 +36,8 @@ export class BulletinBoardComponent implements OnInit {
 
   select(ann:Announcement){
     this.announcementsService.getSingle(ann.id).subscribe(announcement => {
+      announcement.likes = ann.likes;
+      announcement.dislikes = ann.dislikes;
       this.modalData = {
         component : AnnouncementModalComponent,
         inputs : {

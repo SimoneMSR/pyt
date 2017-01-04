@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -60,13 +61,21 @@ public class Announcement implements Serializable{
 	private int cathegory;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="creatorId", updatable=true)
+    @JoinColumn(name="creatorId", updatable=false)
     private Member creator;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="announcement")
+	private List<Like> likes;
+	
+	@Transient
+	public int likesCount;
+	
+	@Transient
+	public int dislikeCount;
 	
 	public Member getCreator() {
 		return creator;
 	}
-
 
 	public void setCreator(Member creator) {
 		this.creator = creator;
@@ -136,6 +145,11 @@ public class Announcement implements Serializable{
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+
+	public List<Like> getLikes() {
+		return likes;
 	}
 	
 	
