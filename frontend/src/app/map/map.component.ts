@@ -39,8 +39,8 @@ export class MapComponent implements OnInit {
  
   public quartiere: String;
 
-  public quartiere_popolazione: String;
-  public quartiere_annunci: String;
+  public quartiere_popolazione: number;
+  public quartiere_annunci: number;
 
 
   public quartiereOnMap : String;

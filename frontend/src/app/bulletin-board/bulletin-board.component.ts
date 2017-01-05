@@ -19,11 +19,12 @@ export class BulletinBoardComponent implements OnInit {
   public ideaDisabled : boolean;
   public proposalDisabled : boolean;
   public problemDisabled : boolean;
+  public searchInput : string;
   constructor(private announcementsService : AnnouncementsService,
     viewContainerRef:ViewContainerRef) { 
     
     this.viewContainerRef = viewContainerRef;
-    this.filterCathegory = { Idea : true, Proposal : true, Problem : true};
+    this.filterCathegory = { Idea : true, Proposal : true, Problem : true, Title : false};
     this.announcementsService.getAllForQuarter().subscribe( list => {
       this.announcements = list;
     });
@@ -97,8 +98,29 @@ export class BulletinBoardComponent implements OnInit {
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
   }
 
+
+  toggleSearch(show){
+    if(!show){
+      delete this.announcementsService.params.title;
+      this.searchInput="";
+      this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+    }else{
+      this.search();
+    }
+  }
+
   orderBy(criterium){
     this.announcementsService.params.orderBy = criterium;
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+  }
+
+  search(){
+    this.filterCathegory.Title=true;
+    this.announcementsService.params.title=this.searchInput;
+    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+    // this.announcementsService.announcementsByCurrentQuarter.subscribe(() => {
+    //       delete this.announcementsService.params.title;
+    //       this.searchInput="";
+    // }).unsubscribe();
   }
 }

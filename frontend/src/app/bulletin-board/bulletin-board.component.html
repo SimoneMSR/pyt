@@ -5,17 +5,26 @@
 				create
 			</li >
 		</ul>
-		<div class="cathegory-filter-container">
-			<label>Idea</label>
-			<ui-switch size="small" color="#66FF66" [disabled]="ideaDisabled==true"  (ngModelChange)="toggleIdeas($event)" [(ngModel)]="filterCathegory.Idea" class="cathegory-filter"></ui-switch>
+		<h3>Filter by</h3>
+		<div class="panel">
+			<div class="cathegory-filter-container">
+				<label>Idea</label>
+				<ui-switch size="small" color="#66FF66" [disabled]="ideaDisabled==true"  (ngModelChange)="toggleIdeas($event)" [(ngModel)]="filterCathegory.Idea" class="cathegory-filter"></ui-switch>
+			</div>
+			<div class="cathegory-filter-container">
+				<label>Proposal</label>
+				<ui-switch size="small" color ='#FF9933' [disabled]="proposalDisabled==true" (ngModelChange)="toggleProposals($event)" [(ngModel)]="filterCathegory.Proposal" class="cathegory-filter"></ui-switch>
+			</div>
+			<div class="cathegory-filter-container">
+				<label>Problem</label>
+				<ui-switch size="small" color="#66B2FF" [disabled]="problemDisabled==true" (ngModelChange)="toggleProblems($event)" [(ngModel)]="filterCathegory.Problem" class="cathegory-filter"></ui-switch>
+			</div>
 		</div>
-		<div class="cathegory-filter-container">
-			<label>Proposal</label>
-			<ui-switch size="small" color ='#FF9933' [disabled]="proposalDisabled==true" (ngModelChange)="toggleProposals($event)" [(ngModel)]="filterCathegory.Proposal" class="cathegory-filter"></ui-switch>
-		</div>
-		<div class="cathegory-filter-container">
-			<label>Problem</label>
-			<ui-switch size="small" color="#66B2FF" [disabled]="problemDisabled==true" (ngModelChange)="toggleProblems($event)" [(ngModel)]="filterCathegory.Problem" class="cathegory-filter"></ui-switch>
+		<div class="panel">
+			<div class="cathegory-filter-container">
+				<label>Title</label>
+				<ui-switch size="small" color="red"   (ngModelChange)="toggleSearch($event)" [(ngModel)]="filterCathegory.Title" class="cathegory-filter"></ui-switch>
+			</div>
 		</div>
 	</div>
 
@@ -28,8 +37,8 @@
 		  <a id="grid" (click)="grid= false" class="btn btn-default btn-sm input-group-addon">
 		  	<span class="glyphicon glyphicon-th"></span>Grid
 		  </a>
-		  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-		  <a href="" class="input-group-addon">
+		  <input type="text" class="form-control" [(ngModel)]="searchInput">
+		  <a (click)="search()" class="input-group-addon">
 		  	<span class="glyphicon glyphicon-search"></span>
 		  </a>
 		</div>

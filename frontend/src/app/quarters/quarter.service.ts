@@ -44,7 +44,7 @@ export class QuarterService  extends BaseService{
       this.currentQuarterObservable.next(q);
     }
 
-    private loadQuarterIdMap(){
+    private loadQuarterIdMap() : Promise<void>{
      return this.getAll()
         .map( res => {
           this.Quarters = res;

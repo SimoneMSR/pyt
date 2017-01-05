@@ -107,8 +107,10 @@ export class AnnouncementsService extends  BaseService{
   }
 
   public refreshAnnouncementsByCurrentQuarter(){
-        this.getAll(this.quarterService.currentQuarter.id,this.params).subscribe(announcements =>
-            this.announcementsByCurrentQuarter.next(announcements));
+        this.getAll(this.quarterService.currentQuarter.id,this.params)
+            .subscribe(announcements => {
+            this.announcementsByCurrentQuarter.next(announcements);
+    });
   }
 
   private static extractParams(params) : String{
@@ -122,6 +124,8 @@ export class AnnouncementsService extends  BaseService{
         thisParams = thisParams + "&top=" + params.top;
       if(params.skip)
         thisParams = thisParams + "&skip=" + params.skip;
+      if(params.title)
+        thisParams = thisParams + "&title=" +params.title;
     }
     
     return thisParams;

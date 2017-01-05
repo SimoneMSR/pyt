@@ -41,7 +41,7 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
         Root<Announcement> announcement = criteria.from(Announcement.class);
         Predicate whereQuarter = announcement.join(Announcement_.quarters).in(quarter);
         try {
-        	List<Predicate> whereParams= applyParamsFilter(criteria,params,announcement);
+        	List<Predicate> whereParams= applyParamsFilter(cb,criteria,params,announcement);
         	whereParams.add(whereQuarter);
             criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
             return applyParams(criteria,params,cb,announcement);
@@ -50,7 +50,7 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
         }
 	}
 	
-	public List<Predicate> applyParamsFilter(CriteriaQuery<Announcement> query,AnnouncementParams params,Root<Announcement> announcement){
+	public List<Predicate> applyParamsFilter(CriteriaBuilder cb,CriteriaQuery<Announcement> query,AnnouncementParams params,Root<Announcement> announcement){
 		List<Predicate> retval = new ArrayList<Predicate>();
 		if(params != null){
 			//order
@@ -63,6 +63,9 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 				if(params.filterBy.indexOf(AnnouncementCathegory.PROPOSAL.name())>=0)
 					cathegories.add(2);
 				retval.add(announcement.get(Announcement_.cathegory).in(cathegories));
+			}
+			if(params.title != null && !params.title.isEmpty()){
+				retval.add(cb.like(announcement.get(Announcement_.title),"%"+params.title+"%"));
 			}
 		}
 		return retval;
