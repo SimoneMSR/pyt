@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { AuthService} from './core/auth/auth.service';
-import {LoginService} from './login';
-import { Router }          from '@angular/router';
+import { LoginService} from './login';
+import { Router } from '@angular/router';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +25,9 @@ export class AppComponent implements OnInit{
 		this.viewContainerRef = viewContainerRef;
 		this.loginService.userObservable.subscribe(u=> {
   			this.isLoggedIn= u!=null;
-  	});
+  		});
 	}
+
 
 	ngOnInit(){
 		this.loggedIn = this.loginService.user!=null;

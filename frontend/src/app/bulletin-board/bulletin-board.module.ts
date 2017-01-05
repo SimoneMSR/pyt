@@ -16,10 +16,11 @@ import  'rxjs/add/operator/do';
 import { TabsModule } from 'ng2-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { CommentsModule} from '../comments/comments.module';
+import {LoginGuard} from "../core/login.guard";
 
 
 const appRoutes: Routes = [
-  { path: 'board', component: BulletinBoardComponent }
+  { path: 'board', component: BulletinBoardComponent, canActivate : [LoginGuard] }
 ];
 
 @NgModule({
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     UiSwitchModule,
     CommentsModule
   ],
-  providers : [ComponentsHelper, ModalBackdropComponent],
+  providers : [ComponentsHelper, 
+    ModalBackdropComponent],
   declarations: [BulletinBoardComponent, AnnouncementModalComponent,AnnouncementModalDirective, TagNamePipe]
 })
 export class BulletinBoardModule { }

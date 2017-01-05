@@ -7,7 +7,6 @@ import { QuarterService} from './';
   imports: [
     CommonModule
   ],
-  providers : [QuarterService],
   declarations: [QuartersComponent]
 })
 export class QuartersModule { }

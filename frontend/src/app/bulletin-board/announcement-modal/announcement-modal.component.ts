@@ -24,7 +24,7 @@ import { CommentPyt, CommentsService} from "../../comments";
 })
 export class AnnouncementModalComponent implements OnInit {
 	public announcement  : Announcement;
-	public cathegories : String[];
+	public cathegories : any[];
 	public tags : String[];
   public quarters : String[];
 	public availableTags : string[];
@@ -46,7 +46,9 @@ export class AnnouncementModalComponent implements OnInit {
       private quarterService : QuarterService,
       private commentsService : CommentsService,
       private likeService : LikeService) { 
-  	this.cathegories = ['IDEA','PROPOSAL' ,'PROBLEM'];
+    this.cathegories = [{'label' : 'Idea', 'value' : 'IDEA'},
+      {'label' : 'Proposal', 'value' : 'PROPOSAL'},
+      {'label' : 'Problem', 'value' : 'PROBLEM'}];
   }
 
   ngOnInit(){
@@ -102,7 +104,7 @@ export class AnnouncementModalComponent implements OnInit {
 
   private formatDto(){
       this.announcement.tags=this.service.Tags.filter( t => this.tags.indexOf(t.name)>=0);
-      //this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
+      this.announcement.cathegory=this.announcement.cathegory.toUpperCase();
       this.announcement.quarters = this.quarterService.Quarters.filter(q=> this.quarters.indexOf(q.name)>=0).map(q=>q.id);
       this.announcement = new Announcement(this.announcement);
       this.announcement.quarters = this.quarterService.Quarters.filter(q=> this.quarters.indexOf(q.name)>=0).map(q=>q.id);

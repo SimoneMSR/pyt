@@ -5,7 +5,6 @@ import { BaseService} from './base.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { UserService} from "./user.service";
 import { QuartersModule} from '../quarters/quarters.module';
 
 
@@ -18,8 +17,7 @@ import { QuartersModule} from '../quarters/quarters.module';
     QuartersModule
   ],
   providers : [
-  	BaseService,
-  	UserService
+  	BaseService
   ], 
   declarations: [CoreComponent]
 })

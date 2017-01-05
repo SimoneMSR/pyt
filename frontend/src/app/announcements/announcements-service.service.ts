@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Announcement} from './announcement/announcement.model';
-import { BaseService, UserService, User} from '../core';
-import {QuarterService, Quarter} from '../quarters';
+import { BaseService} from '../core';
+import { LoginService, Member} from "../login";
+import {Quarter} from '../quarters/';
 import { Http, Response } from '@angular/http';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { Tag} from './announcement/tag.model';
+import { QuarterService} from '../quarters';
 
 
 @Injectable()
@@ -18,7 +20,7 @@ export class AnnouncementsService extends  BaseService{
   public params;
 
   constructor(private http : Http,
-    private userService : UserService,
+    private loginService : LoginService,
     private quarterService: QuarterService) {
   	super();
     this.params={};
@@ -76,8 +78,8 @@ export class AnnouncementsService extends  BaseService{
   public createOrUpdate(form: Announcement, quarterId : number){
     return this.createOrUpdatePrivate(form)
       .do( () => {
-        if(quarterId == this.userService._user.quarterId){
-             this.userService.user.next(this.userService._user);
+        if(quarterId == this.loginService.user.quarterId){
+             this.loginService.userObservable.next(this.loginService.user);
         }
         if(quarterId == this.quarterService.currentQuarter.id){
               this.quarterService.currentQuarterObservable.next(this.quarterService.currentQuarter);
@@ -92,12 +94,13 @@ export class AnnouncementsService extends  BaseService{
       });
       
     //annunciU -> currentUser
-    this.userService.user.subscribe(user => {
-      this.refreshAnnouncementsByUser(user);
+    this.loginService.userObservable.subscribe(user => {
+      if(user != null)
+        this.refreshAnnouncementsByUser(user);
     });
   }
 
-  private refreshAnnouncementsByUser(user : User){
+  private refreshAnnouncementsByUser(user : Member){
           this.getAll(user.quarterId).subscribe(announcements =>{
             this.announcementByUser.next(announcements);
           });

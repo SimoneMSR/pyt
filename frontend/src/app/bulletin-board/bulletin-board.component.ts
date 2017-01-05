@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { Announcement, AnnouncementsService} from '../announcements';
 import { AnnouncementModalComponent, AnnouncementModalDirective} from './';
-import {UserService} from "../core";
 
 
 @Component({
@@ -20,7 +19,8 @@ export class BulletinBoardComponent implements OnInit {
   public ideaDisabled : boolean;
   public proposalDisabled : boolean;
   public problemDisabled : boolean;
-  constructor(private announcementsService : AnnouncementsService,  viewContainerRef:ViewContainerRef) { 
+  constructor(private announcementsService : AnnouncementsService,
+    viewContainerRef:ViewContainerRef) { 
     
     this.viewContainerRef = viewContainerRef;
     this.filterCathegory = { Idea : true, Proposal : true, Problem : true};
@@ -33,6 +33,8 @@ export class BulletinBoardComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
   select(ann:Announcement){
     this.announcementsService.getSingle(ann.id).subscribe(announcement => {

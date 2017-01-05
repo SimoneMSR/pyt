@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {QuarterService} from "../quarters";
-import {LoginService} from "../login";
+import { QuarterService} from "../quarters";
+import { LoginService} from "../login";
 import { Router }          from '@angular/router';
 
 @Component({

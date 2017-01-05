@@ -21,12 +21,17 @@
 
 	<div class="main-content col-xs-8">
 	<!-- start grid & list button -->
-		<div class="well well-sm">
-		    <strong>Display</strong>
-		    <div class="btn-group">
-		        <a id="list" (click)="grid= true" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-		        </span>List</a> <a id="grid" (click)="grid= false" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
-		    </div>
+		<div class="input-group">
+		  <a id="list" (click)="grid= true" class="btn btn-default btn-sm input-group-addon">
+		  	<span class="glyphicon glyphicon-th-list"></span>List
+		  </a>
+		  <a id="grid" (click)="grid= false" class="btn btn-default btn-sm input-group-addon">
+		  	<span class="glyphicon glyphicon-th"></span>Grid
+		  </a>
+		  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+		  <a href="" class="input-group-addon">
+		  	<span class="glyphicon glyphicon-search"></span>
+		  </a>
 		</div>
 	<!-- end grdi & list button -->
 

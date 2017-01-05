@@ -15,6 +15,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolsComponent } from './tools/tools.component';
 import { LoginComponent } from './login/login.component';
+import { QuarterService} from "./quarters";
+import { LoginGuard} from './core/login.guard';
 
 
 
@@ -44,6 +46,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    LoginGuard,
+    QuarterService,
     AUTH_PROVIDERS
   ],
   bootstrap: [AppComponent]

@@ -10,7 +10,8 @@ import { Component,
     EventEmitter } from '@angular/core';
 import { AnnouncementsService} from '../announcements/announcements-service.service';
 import { Announcement} from '../announcements/announcement/announcement.model';
-import {Quarter, QuarterService} from '../quarters';
+import {Quarter} from '../quarters';
+import {QuarterService} from '../quarters';
 
 
 @Component({

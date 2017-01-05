@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private auth:AuthService, 
       private router: Router,
       private service : LoginService){
-  	this.credential = new Login('simone','password');
+  	this.credential = new Login("","");
   	this.submitted = false;
 	}
   	onSubmit() { this.submitted = true;}

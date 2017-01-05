@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {Observable, BehaviorSubject} from 'rxjs/Rx';
-import {BaseService, UserService} from '../core';
-import {Quarter} from './';
+import {Observable, Subject, BehaviorSubject} from 'rxjs/Rx';
+import {BaseService} from '../core/base.service';
+import {LoginService} from '../login/login.service';
+import {Quarter} from './quarter.model';
 
 @Injectable()
 export class QuarterService  extends BaseService{
 
 	public Quarters : Quarter[];
 	public QuarterIdMap : {[key:string]:Quarter};
-  public currentQuarterObservable : BehaviorSubject<Quarter>;
+  public currentQuarterObservable : Subject<Quarter>;
   public currentQuarter : Quarter;
   public serviceInitialized : BehaviorSubject<Boolean>;
   constructor(private http: Http,
-              private userService:UserService) { 
+              private loginService: LoginService) { 
   	super();
   	this.url = "quarter";
-    this.currentQuarter = new Quarter();
-    this.currentQuarter.id=1;
-    this.currentQuarterObservable = new BehaviorSubject<Quarter>(this.currentQuarter);
+    this.currentQuarter = null;
+    this.currentQuarterObservable = new Subject<Quarter>();
     this.serviceInitialized = new BehaviorSubject(false);
+
     this.setupObservables();
   	}
 
@@ -29,14 +30,6 @@ export class QuarterService  extends BaseService{
   		      .get(this.baseUrl+"/"+this.url, {headers: this.getHeaders()})
      		  .map(res => <Quarter[]>res.json());
 
-  	}
-
-  	private refresh(){
-  		this.getAll()
-	  		.subscribe( res => {
-	  			this.Quarters = res;
-	  			this.buildQuarterIdMap();
-  		});
   	}
 
   	private buildQuarterIdMap(){
@@ -51,18 +44,23 @@ export class QuarterService  extends BaseService{
       this.currentQuarterObservable.next(q);
     }
 
-    private setupObservables(){
-      this.getAll()
-        .subscribe( res => {
+    private loadQuarterIdMap(){
+     return this.getAll()
+        .map( res => {
           this.Quarters = res;
           this.buildQuarterIdMap();
           this.serviceInitialized.next(true);
-          //currentQuarter -> currentUser
-          this.userService.user.subscribe(user => {
-            this.currentQuarterObservable.next(this.QuarterIdMap[user.quarterId]);
-          });
+         }).toPromise();
+    }
+
+    private setupObservables(){
+      this.loadQuarterIdMap().then(() => {
+         this.loginService.userObservable.subscribe(user => {
+                  if(user!=null){
+                    this.setCurrentQuarter(this.QuarterIdMap[user.quarterId]);
+           }
+         });        
       });
-        
     }
 
 }
