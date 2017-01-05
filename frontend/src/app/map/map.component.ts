@@ -38,6 +38,11 @@ export class MapComponent implements OnInit {
   visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
  
   public quartiere: String;
+
+  public quartiere_popolazione: String;
+  public quartiere_annunci: String;
+
+
   public quartiereOnMap : String;
 
   public announcements : Announcement[];
@@ -67,6 +72,8 @@ export class MapComponent implements OnInit {
     var quarterId = this.restriveQuarterIdFromEvent(event);
     var quarter = this.quarterService.QuarterIdMap[quarterId];
     this.quartiere = quarter.name;
+    this.quartiere_popolazione = quarter.membersCount;
+    this.quartiere_annunci = quarter.annnouncementsCount;
     this.quarterService.setCurrentQuarter(quarter);
     this.refreshAnnouncements();
     }
