@@ -38,6 +38,10 @@ private hashStringToColor(str) {
   return "#" + ("0" + r.toString(16)).substr(-2) + ("0" + g.toString(16)).substr(-2) + ("0" + b.toString(16)).substr(-2);
 }
 
+click(){
+  console.log("ciao");
+}
+
   @Input() announcement;
 
 }

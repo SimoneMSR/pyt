@@ -124,11 +124,11 @@ export class AnnouncementModalComponent implements OnInit {
       this.likeService.like(this.announcement.id,dislike)
         .subscribe(
           result => {
-            if(dislike)
-                this.announcement.dislikes++;
-              else
-                this.announcement.likes++;
-             this.service.refreshAnnouncementsByCurrentQuarter(); 
+              this.likeService.countLike(this.announcement.id).subscribe(announcement => {
+                  this.announcement.dislikes=announcement.dislikes;
+                  this.announcement.likes=announcement.likes;
+              });
+              this.service.refreshAnnouncementsByCurrentQuarter(); 
           },
           error => {
             alert(error);

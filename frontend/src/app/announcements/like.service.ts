@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {BaseService} from "../core";
 import { Http, Response } from '@angular/http';
 import {Observable} from "rxjs/Rx";
+import { Announcement} from "./";
 @Injectable()
 export class LikeService extends BaseService{
 
@@ -17,6 +18,13 @@ export class LikeService extends BaseService{
   					{},
   					{headers : this.getHeaders()})
   				.map(res => <boolean>res.json());
+  }
+
+  public countLike(announcementId : number) : Observable<Announcement>{
+  		return this.http
+  				.get(this.url + "/count" + "?announcementId=" + announcementId,
+  					{headers : this.getHeaders()})
+  				.map(res => <Announcement>res.json());
   }
 
 }

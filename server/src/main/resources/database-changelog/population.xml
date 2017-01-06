@@ -47,5 +47,26 @@
 		    <column name="quarterId" value="2"/>
 		</insert>
 	</changeSet>
+	<changeSet id="5" author="Simone D'Amario">
+	<comment> Aggiungo Tag di default (2)</comment>
+		<insert tableName="Tag" >
+		    <column name="name" value="arte"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="ambiente"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="cultura"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="salute"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="spiritualità"/>
+		</insert>
+		<insert tableName="Tag" >
+		    <column name="name" value="alimentazione"/>
+		</insert>
+	</changeSet>
         
 </databaseChangeLog>
