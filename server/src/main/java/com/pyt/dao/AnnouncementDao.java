@@ -22,6 +22,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import com.pyt.model.Announcement;
 import com.pyt.model.Announcement_;
 import com.pyt.model.Comment;
+import com.pyt.model.Member_;
 import com.pyt.model.Quarter;
 import com.pyt.model.Quarter_;
 import com.pyt.rest.queryParams.AnnouncementParams;
@@ -77,8 +78,6 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 	public List<Announcement> getByQuarterId(Long quarterId, AnnouncementParams params){
 		Quarter quarter = new Quarter();
 		quarter.setId(quarterId);
-		Collection<Quarter> coll = new HashSet<Quarter>();
-		coll.add(quarter);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);
@@ -89,6 +88,20 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
         	whereParams.add(whereQuarter);
             criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
             return applyParams(criteria,params,cb,announcement);
+        }catch(Exception e){
+        	return null;
+        }
+	}
+	
+	public List<Announcement> getByCreatorId(long creatorId, AnnouncementParams p) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
+        Root<Announcement> announcement = criteria.from(Announcement.class);
+        try{
+        List<Predicate> whereParams= applyParamsFilter(cb,criteria,p,announcement);
+        whereParams.add(cb.equal(announcement.get(Announcement_.creator).get(Member_.id),creatorId));
+        criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
+        return applyParams(criteria,p,cb,announcement);
         }catch(Exception e){
         	return null;
         }
@@ -139,5 +152,6 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 			return em.createQuery(query).getResultList();
 		
 	}
+
 
 }

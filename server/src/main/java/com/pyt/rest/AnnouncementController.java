@@ -52,6 +52,19 @@ public class AnnouncementController extends BaseController {
 	}
 	
 	@GET
+	@Path("createdBy")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<AnnouncementDto> getByreatorId(@QueryParam("creatorId") Integer creatorId, 
+			@QueryParam("top") Integer top, 
+			@QueryParam("skip") Integer skip, 
+			@QueryParam("filterBy") String filterBy,
+			@QueryParam("orderBy") String orderBy,
+			@QueryParam("title") String title){
+		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy,title);
+		return AnnouncementConverter.to(announcementService.getByCreatorId(creatorId,p));
+	}
+	
+	@GET
 	@Path("single")
 	@Produces(MediaType.APPLICATION_JSON)
 	public AnnouncementDto getById(@QueryParam("announcementId") int announcementId){

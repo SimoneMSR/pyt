@@ -61,4 +61,13 @@ public class AnnouncementService {
 		if(announcement.getCreator().getId() != claimer.getId())
 			throw new WebApplicationException(Response.Status.FORBIDDEN);
 	}
+
+	public Collection<Announcement> getByCreatorId(Integer creatorId, AnnouncementParams p) {
+		Collection<Announcement> retval = dao.getByCreatorId((long)creatorId,p);
+		for(Announcement a : retval){
+			a.likesCount=likeDao.countLike(a.getIdAnnouncement(), false);
+			a.dislikeCount = likeDao.countLike(a.getIdAnnouncement(), true);
+		}
+		return retval;
+	}
 }

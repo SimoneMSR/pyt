@@ -8,47 +8,20 @@
         <li class='dropdown'>
           <a routerLink="home" class='dropdown-toggle' data-toggle='dropdown' >
             <i class='icon-envelope'></i>
-            Messages
-            <span class='badge'>5</span>
-            <b class='caret'></b>
+            My announcements
           </a>
-          <ul class='dropdown-menu'>
-            <li>
-              <a href='#'>New message</a>
-            </li>
-            <li>
-              <a href='#'>Inbox</a>
-            </li>
-            <li>
-              <a href='#'>Out box</a>
-            </li>
-            <li>
-              <a href='#'>Trash</a>
-            </li>
-          </ul>
         </li>
         <li>
-          <a >
+          <a routerLink="board">
             <i class='icon-cog'></i>
-            Settings
+            My quarter
           </a>
         </li>
         <li class='dropdown user'>
           <a class='dropdown-toggle' data-toggle='dropdown' (click)="logout()">
             <i class='icon-user'></i>
             <strong>{{userName}}</strong>
-            <img class="img-rounded" src="http://placehold.it/20x20/ccc/777" />
-            <b class='caret'></b>
           </a>
-          <ul class='dropdown-menu'>
-            <li>
-              <a>Edit Profile</a>
-            </li>
-            <li class='divider'></li>
-            <li>
-              <a >Sign out</a>
-            </li>
-          </ul>
         </li>
       </ul>
     </div>

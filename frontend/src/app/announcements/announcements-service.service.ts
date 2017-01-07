@@ -115,7 +115,7 @@ export class AnnouncementsService extends  BaseService{
 
   public getByCreatorId(creatorId : number,params?) : Observable<Announcement[]>{
     return this.http
-      .get(this.url+"?creatorId="+creatorId +
+      .get(this.url+ "/createdBy" +"?creatorId="+creatorId +
         AnnouncementsService.extractParams(params)
         , {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
