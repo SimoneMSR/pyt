@@ -3,32 +3,75 @@ package com.pyt.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.SetJoin;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.PluralAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 
 import com.pyt.model.Announcement;
 import com.pyt.model.Announcement_;
+import com.pyt.model.Comment;
 import com.pyt.model.Quarter;
 import com.pyt.model.Quarter_;
 import com.pyt.rest.queryParams.AnnouncementParams;
 
 import Enums.AnnouncementCathegory;
 
+@Stateless
 public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 	
 	public Announcement getById(Long id){
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Announcement> criteria = getCriteriaById(id);
+        return em.createQuery(criteria).getSingleResult();
+	}
+	
+	public Announcement getById(Long id, Attribute<Announcement,?> ... attributes){
+		try{
+			CriteriaQuery<Announcement> criteria = getCriteriaById(id);
+			Iterator<Root<?>> it=criteria.getRoots().iterator();
+			Root<Announcement> root = (Root<Announcement>)it.next();
+			for(Attribute<Announcement, ?> attribute : attributes){
+				if(attribute instanceof SingularAttribute)
+					root.fetch((SingularAttribute<Announcement, ?>)attribute);
+				if(attribute instanceof PluralAttribute)
+					root.fetch((PluralAttribute<Announcement, ?,?>) attribute);
+			}
+			return em.createQuery(criteria).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	private CriteriaQuery<Announcement> getCriteriaById(Long id){
+		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);
         criteria.select(announcement).where(cb.equal(announcement.get(Announcement_.idAnnouncement), id));
-        return em.createQuery(criteria).getSingleResult();
+        return criteria;
+	}
+	
+	public List<Comment> getCommentsById(Long id){
+		try{
+			Announcement entity = getById(id,Announcement_.comments); 
+			if(entity==null)
+				return new ArrayList<Comment>();
+			else
+				return entity.getComments();
+		}catch(NoResultException e){
+			return new ArrayList<Comment>();
+		}
+
 	}
 	
 	public List<Announcement> getByQuarterId(Long quarterId, AnnouncementParams params){
@@ -39,6 +82,7 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);
+        announcement.fetch(Announcement_.creator);
         Predicate whereQuarter = announcement.join(Announcement_.quarters).in(quarter);
         try {
         	List<Predicate> whereParams= applyParamsFilter(cb,criteria,params,announcement);

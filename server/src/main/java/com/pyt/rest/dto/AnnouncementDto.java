@@ -14,6 +14,7 @@ public class AnnouncementDto {
 	public Collection<Integer> quarters;
 	public int likes;
 	public int dislikes;
+	public MemberDto creator;
 	
     @Override
     public String toString() {

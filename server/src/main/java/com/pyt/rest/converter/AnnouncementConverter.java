@@ -61,6 +61,7 @@ public class AnnouncementConverter {
 		dto.description = entity.getDescription();
 		dto.likes =entity.likesCount;
 		dto.dislikes = entity.dislikeCount;
+		dto.creator = MemberConverter.to(entity.getCreator());
 		for (Tag t : entity.getTags())
 			dto.tags.add(TagConverter.to(t));
 		switch(entity.getCathegory()){

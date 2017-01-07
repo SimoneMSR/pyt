@@ -4,4 +4,5 @@ public class MemberDto {
 	public String name;
 	public String email;
 	public int quarterId;
+	public int id;
 }

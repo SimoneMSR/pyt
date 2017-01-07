@@ -1,4 +1,5 @@
 import { Tag} from './tag.model';
+import {Member} from "../../login";
 
 export class Announcement{
 	public id : number;
@@ -9,6 +10,7 @@ export class Announcement{
 	public quarters : number[];
 	public likes : number;
 	public dislikes : number;
+	public creator : Member;
 
 	public static extractTags(tags : Tag[]){
 		let retval = [];
@@ -25,7 +27,10 @@ export class Announcement{
 			this.tags = ann.tags;
 			this.cathegory = ann.cathegory;
 			this.quarters = ann.quarters;
-	}
+			this.creator = ann.creator;
+		}else{
+			this.id=0;
+		}
 	}
 
 }

@@ -5,11 +5,15 @@ import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.metamodel.Attribute;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import com.pyt.dao.AnnouncementDao;
 import com.pyt.dao.LikeDao;
 import com.pyt.dao.TagDao;
 import com.pyt.model.Announcement;
+import com.pyt.model.Member;
 import com.pyt.model.Tag;
 import com.pyt.rest.queryParams.AnnouncementParams;
 
@@ -37,6 +41,10 @@ public class AnnouncementService {
 		return dao.getById((long)announcementId);
 	}
 	
+	public Announcement getById(int announcementId, Attribute<Announcement,?> ... attributes){
+		return dao.getById((long)announcementId, attributes);
+	}
+	
 	public void createOrUpdate(Announcement entity){	
 		try{
 			dao.Save(entity);
@@ -47,5 +55,10 @@ public class AnnouncementService {
 	
 	public Collection<Tag> getAllTagsOrdered(){
 		return tagDao.getAllOrderedByName();
+	}
+	
+	public void checkAnnouncementOwnership(Announcement announcement, Member claimer){
+		if(announcement.getCreator().getId() != claimer.getId())
+			throw new WebApplicationException(Response.Status.FORBIDDEN);
 	}
 }

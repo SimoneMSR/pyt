@@ -15,6 +15,7 @@ import { Tag} from '../../announcements/announcement/tag.model';
 import { Announcement, AnnouncementsService, LikeService} from '../../announcements';
 import { QuarterService} from "../../quarters";
 import { CommentPyt, CommentsService} from "../../comments";
+import {LoginService} from "../../login";
 
 @Component({
   selector: 'app-announcement-modal',
@@ -31,6 +32,7 @@ export class AnnouncementModalComponent implements OnInit {
   public availableQuarters : string[];
   public comments : CommentPyt[];
   public comment : CommentPyt;
+  public canModify : boolean;
 	@ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
   	@Input() announcementInput : Announcement;
 
@@ -45,7 +47,8 @@ export class AnnouncementModalComponent implements OnInit {
       private service : AnnouncementsService,
       private quarterService : QuarterService,
       private commentsService : CommentsService,
-      private likeService : LikeService) { 
+      private likeService : LikeService,
+      private loginService : LoginService) { 
     this.cathegories = [{'label' : 'Idea', 'value' : 'IDEA'},
       {'label' : 'Proposal', 'value' : 'PROPOSAL'},
       {'label' : 'Problem', 'value' : 'PROBLEM'}];
@@ -59,6 +62,7 @@ export class AnnouncementModalComponent implements OnInit {
             if(qIsInitialized){
               
               this.announcementInput = this.injector.get('announcementInput');
+              this.canModify = this.announcementInput != undefined ? this.announcementInput.creator.id == this.loginService.user.id : true;
               this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement(null);
               this.refreshComments();
               this.tags = this.announcement.tags ? Announcement.extractTags(this.announcement.tags) :[];

@@ -11,19 +11,19 @@
           </div>
 
           <div class="modal-body">
-          <div class="like">
+          <div class="like" *ngIf="announcement.id!=0">
               <a class="glyphicon glyphicon-thumbs-down" (click)="like(true)"></a>
               {{announcement.dislikes}}
           </div>
-          <div class="like">
+          <div class="like" *ngIf="announcement.id!=0">
               <a class="glyphicon glyphicon-thumbs-up" (click)="like(false)"></a>
               {{announcement.likes}}        
           </div>
         <tabset>
         <tab heading='Riassunto'>
-          <form (ngSubmit)="createOrUpdate()" #form="ngForm">
+          <form *ngIf="canModify" (ngSubmit)="createOrUpdate()" #form="ngForm">
             <div class="form-group">
-              <label for="name">Name</label>
+              <label for="name">Title</label>
               <input type="text" class="form-control" name="title" [(ngModel)]="announcement.title" required/>
             </div>
             <div class="form-group">
@@ -43,14 +43,32 @@
               <rl-tag-input name="tags" [(ngModel)]="tags" placeholder="Add any tag!" [autocomplete]="true" [autocompleteItems]="availableTags"></rl-tag-input>
             </div>
             <div class=form-group>
-              <label for="quarters">Pubblicato su quartieri</label>
+              <label for="quarters">Pubblica su quartieri</label>
               <rl-tag-input name="quarters" [(ngModel)]="quarters" placeholder="" [autocomplete]="true" [autocompleteItems]="availableQuarters"></rl-tag-input>
             </div>
-            <button type="submit" class="btn btn-default" [disabled]="!form.form.valid">Create</button>
+            <button type="submit" class="btn btn-default" [disabled]="!form.form.valid">Save</button>
           </form>  
-          </tab>
-
-
+          <div *ngIf="!canModify">
+              <div>
+                This announcement belongs to {{announcement.cathegory}}s. Here's the description
+              </div>
+              <div>
+                {{announcement.description}}
+              </div>
+              <div>
+                <b *ngIf="tags.length==0">Nessun tag</b>
+              </div>
+              <div>
+                <b *ngIf="quarters.length==0">Non ancora pubblicato</b>
+              </div>
+              <div>
+                <b *ngIf="tags.length>0">Tags: {{tags}}</b>
+              </div>
+              <div>
+                <b *ngIf="quarters.length>0">Pubblicato su: {{quarters}}</b>
+              </div>
+          </div>
+      </tab>
       <tab>
         <template tabHeading>Commenti</template>
         <div class="panel panel-default">

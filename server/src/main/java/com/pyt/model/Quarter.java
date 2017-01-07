@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,10 +35,10 @@ public class Quarter implements Serializable{
     @NotEmpty
     private String name;
     
-	@ManyToMany(mappedBy = "quarters")
+	@ManyToMany(mappedBy = "quarters", fetch=FetchType.LAZY)
 	private Set<Announcement> announcements;
 	
-	@OneToMany(mappedBy="quarter")
+	@OneToMany(mappedBy="quarter",fetch=FetchType.LAZY)
 	private Set<Member> members;
 	
 	@Transient

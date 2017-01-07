@@ -34,7 +34,7 @@ public class LikeDao extends BaseDao<Like, Like_>{
 		Root<Like> like = query.from(Like.class);
 		List<Predicate> conditions= new ArrayList<Predicate>();
 		conditions.add(cb.equal(like.get(Like_.announcement).get(Announcement_.idAnnouncement), announcementId));
-		conditions.add(cb.equal(like.get(Like_.announcement).get(Announcement_.creator).get(Member_.id), memberId));
+		conditions.add(cb.equal(like.get(Like_.member).get(Member_.id), memberId));
 		query.select(like)
 			.where(conditions.toArray(new Predicate[]{}));
 		try{

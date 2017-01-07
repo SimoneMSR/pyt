@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import com.pyt.model.Announcement;
+import com.pyt.model.Announcement_;
 import com.pyt.rest.authorization.KnockKnock;
 import com.pyt.rest.converter.AnnouncementConverter;
 import com.pyt.rest.converter.TagConverter;
@@ -46,7 +47,6 @@ public class AnnouncementController extends BaseController {
 			@QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy,
 			@QueryParam("title") String title){
-		log.info(Thread.currentThread().getName());
 		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy,title);
 		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
 	}
@@ -86,7 +86,8 @@ public class AnnouncementController extends BaseController {
 		if(announcement.id==0)
 			entity.setCreator(getCurrentUser());
 		else{
-			Announcement currentEntity = announcementService.getById(announcement.id);
+			Announcement currentEntity = announcementService.getById(announcement.id,Announcement_.creator);
+			announcementService.checkAnnouncementOwnership(currentEntity,getCurrentUser());
 			currentEntity.setTitle(entity.getTitle());
 			currentEntity.setCathegory(entity.getCathegory());
 			currentEntity.setDescription(entity.getDescription());

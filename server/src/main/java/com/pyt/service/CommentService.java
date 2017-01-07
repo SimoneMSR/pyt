@@ -42,7 +42,7 @@ public class CommentService {
 	}
 
 	public List<CommentDto> getByAnnouncement(int announcementId) {
-		Announcement announcement = announcementDao.getById((long) announcementId);
-		return (List<CommentDto>) CommentConverter.to(announcement.getComments());
+		List<Comment> comments = announcementDao.getCommentsById((long) announcementId);
+		return (List<CommentDto>) CommentConverter.to(comments);
 	}
 }
