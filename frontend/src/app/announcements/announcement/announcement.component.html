@@ -1,10 +1,14 @@
 <div class="announcement" [ngStyle]="{'background-color' : announcement.color}">
 
 	<object class="rushpin col-xs-12" type="image/svg+xml" data="assets/images/rushpin.svg"></object>
-	<h4 class="title">
-	  {{announcement.title}}
-	</h4>
-	<span>{{announcement.creator.name}}</span>
+	<div class="title">
+		<span>
+		  {{announcement.title}}
+		</span>
+	</div>
+	<div  class="creatorName">
+		<span >{{announcement.creator.name}}</span>	
+	</div>
 	<div class="description">
 	  {{announcement.description}}
 	</div>

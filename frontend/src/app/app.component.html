@@ -1,4 +1,4 @@
-<div class="col-md-8 col-xs-offset-2 map" *ngIf="isLoggedIn">
+<div class="map" *ngIf="isLoggedIn">
 	<app-map [(visible)]=mapVisible></app-map>
 </div>
 <div class='main-page' [ngClass]="{'opaco' : mapVisible}" (click)="closeMap()">

@@ -1,5 +1,5 @@
 
-<div class="col-xs-2 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
+<div class="col-xs-3 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
 	<div>
 		<h3> {{ quartiere }} </h3>
 		<ul class="list-group">
@@ -9,7 +9,7 @@
 		</ul>
 	</div>
 </div>
-<div class="col-xs-8">
+<div class="col-xs-4">
 	<h4 class="quarter-name-over" [ngClass]="{ 'invisible' : !_visible}">
 		{{quartiereOnMap}}
 	</h4>
@@ -99,7 +99,7 @@
 		    ' glyphicon-chevron-up' : _visible}" (click)="toggleMap()"></button>
 	</div>
 </div>
-<div class="col-xs-2 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
+<div class="col-xs-3 announcements-list-wrapper" [ngClass]="{ 'invisible' : !_visible}">
 	<div>
 		<h3> {{ quartiere }} </h3>
 	</div>

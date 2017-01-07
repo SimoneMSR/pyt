@@ -6,3 +6,13 @@
 .like {
 	display : inline;
 }
+
+.title{
+	font-size: 2em;
+	display:inline-block;
+}
+
+.creatorName {
+	float: right;
+	display: inline-block;
+}
