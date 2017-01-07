@@ -4,9 +4,12 @@ import { AnnouncementComponent} from './announcement/announcement.component';
 import { AnnouncementsComponent } from './announcements.component';
 import { AnnouncementsService, LikeService} from './';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers : [
   	AnnouncementsService,

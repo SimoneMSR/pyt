@@ -11,7 +11,6 @@ import { AnnouncementModalComponent, AnnouncementModalDirective} from './';
   entryComponents : [AnnouncementModalComponent]
 })
 export class BulletinBoardComponent implements OnInit {
-  public grid : boolean = true; // variabile per vista lista / grid 
   public modalData : any;
   private viewContainerRef: ViewContainerRef;
   public filterCathegory : any;
@@ -19,7 +18,7 @@ export class BulletinBoardComponent implements OnInit {
   public ideaDisabled : boolean;
   public proposalDisabled : boolean;
   public problemDisabled : boolean;
-  public searchInput : string;
+  public searchInput ="";s
   constructor(private announcementsService : AnnouncementsService,
     viewContainerRef:ViewContainerRef) { 
     
@@ -105,7 +104,7 @@ export class BulletinBoardComponent implements OnInit {
       this.searchInput="";
       this.announcementsService.refreshAnnouncementsByCurrentQuarter();
     }else{
-      this.search();
+      this.search(undefined);
     }
   }
 
@@ -114,9 +113,9 @@ export class BulletinBoardComponent implements OnInit {
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
   }
 
-  search(){
+  search(string){
     this.filterCathegory.Title=true;
-    this.announcementsService.params.title=this.searchInput;
+    this.announcementsService.params.title=string;
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
     // this.announcementsService.announcementsByCurrentQuarter.subscribe(() => {
     //       delete this.announcementsService.params.title;
