@@ -7,6 +7,7 @@ import { CoreModule} from './core/core.module';
 import { RouterModule, Routes } from '@angular/router'; 
 import { BulletinBoardModule} from './bulletin-board/bulletin-board.module';
 import { MapModule} from './map/map.module';
+import { HomeModule} from "./home";
 
 
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     CoreModule,
     MapModule,
     BulletinBoardModule,
+    HomeModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
