@@ -19,6 +19,9 @@
               <a class="glyphicon glyphicon-thumbs-up" (click)="like(false)"></a>
               {{announcement.likes}}        
           </div>
+          <div class="like "  *ngIf="announcement.id!=0" >
+              <a class="glyphicon glyphicon-star" [ngClass]="{'favourited' : isFavourited }" (click)="archive()"></a>
+          </div>
         <tabset>
         <tab heading='Riassunto'>
           <form *ngIf="canModify" (ngSubmit)="createOrUpdate()" #form="ngForm">

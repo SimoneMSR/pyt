@@ -70,6 +70,9 @@ public class Member implements Serializable {
     
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="member")
 	private List<Like> likes;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="member")
+	private List<Favourite> favourites;
 
     public Quarter getQuarter() {
 		return quarter;
@@ -125,6 +128,16 @@ public class Member implements Serializable {
     public Member(Long id){
     	this.id = id;
     }
+
+	public List<Favourite> getFavourites() {
+		return favourites;
+	}
+
+	public void setFavourites(List<Favourite> favourites) {
+		this.favourites = favourites;
+	}
+    
+    
     
     
 }

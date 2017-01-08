@@ -3,6 +3,7 @@ import {BaseService} from "../core";
 import { Http, Response } from '@angular/http';
 import {Observable} from "rxjs/Rx";
 import { Announcement} from "./";
+
 @Injectable()
 export class LikeService extends BaseService{
 

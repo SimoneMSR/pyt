@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Table(name = "Announcement")
+@Table(name = "Favourite")
 public class Favourite implements Serializable{
 	
 	/** Default value included to remove warning. Remove or modify at will. **/

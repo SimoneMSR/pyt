@@ -19,6 +19,7 @@ package com.pyt.dao;
 import com.pyt.model.Member;
 import com.pyt.model.Member_;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -28,7 +29,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@Stateless
 public class MemberDao extends BaseDao<Member,Member_> {
 
     @Inject

@@ -14,3 +14,8 @@ body {
 .announcements-list-wrapper .rushpin{
 	visibility:	hidden;
 }
+
+.favourited{
+	color: yellow;
+	font-size: 1.5em;
+}

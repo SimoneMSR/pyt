@@ -17,6 +17,9 @@
 			<span class="label" [ngStyle]="{'background-color': tag.color }">{{tag.name}}</span>
 		</span>
 	</div>
+	      <div class="like "  *ngIf="isFavourited" >
+              <span class="favourited glyphicon glyphicon-star" ></span>
+          </div>
           <div class="like" (click)="click()">
               <span class="glyphicon glyphicon-thumbs-up"></span>
               {{announcement.likes}}        

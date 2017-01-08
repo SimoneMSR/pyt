@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnnouncementComponent} from './announcement/announcement.component';
 import { AnnouncementsComponent } from './announcements.component';
-import { AnnouncementsService, LikeService} from './';
+import { AnnouncementsService, LikeService, FavouriteService} from './';
 
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   ],
   providers : [
   	AnnouncementsService,
-  	LikeService
+  	LikeService,
+  	FavouriteService
   ],
   exports : [AnnouncementsComponent, AnnouncementComponent],
   declarations: [AnnouncementsComponent, AnnouncementComponent]

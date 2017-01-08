@@ -1,4 +1,5 @@
 import { Component, OnInit , Input} from '@angular/core';
+import {FavouriteService} from "../";
 
 @Component({
   selector: 'app-announcement',
@@ -6,8 +7,8 @@ import { Component, OnInit , Input} from '@angular/core';
   styleUrls: ['./announcement.component.css']
 })
 export class AnnouncementComponent implements OnInit {
-
-  constructor() { }
+  public isFavourited : boolean;
+  constructor(private favouriteService : FavouriteService) { }
 
   ngOnInit() {
   	for( let tag of this.announcement.tags){
@@ -19,7 +20,9 @@ export class AnnouncementComponent implements OnInit {
   		case 'PROPOSAL' : {this.announcement.color = '#FF9933'; break}
       default : {this.announcement.color = '#C0C0C0';}
   	}
-
+    this.favouriteService.favouritesObservable.subscribe(favs => {
+      this.isFavourited = this.favouriteService.favourites.indexOf(this.announcement.id)>=0;
+    });
   }
 
 private djb2(str){

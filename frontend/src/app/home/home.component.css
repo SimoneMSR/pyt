@@ -1,8 +1,10 @@
 .myAnnouncements{
-		overflow-y: auto;
+	overflow-y: auto;
     max-height: 45vh;
 }
 .myFavourites{
+	overflow-y: auto;
+    max-height: 45vh;
 }
 .myConversations{
 }

@@ -12,7 +12,7 @@ import { Directive,
 	Injector} from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 import { Tag} from '../../announcements/announcement/tag.model';
-import { Announcement, AnnouncementsService, LikeService} from '../../announcements';
+import { Announcement, AnnouncementsService, LikeService, FavouriteService} from '../../announcements';
 import { QuarterService} from "../../quarters";
 import { CommentPyt, CommentsService} from "../../comments";
 import {LoginService} from "../../login";
@@ -33,6 +33,7 @@ export class AnnouncementModalComponent implements OnInit {
   public comments : CommentPyt[];
   public comment : CommentPyt;
   public canModify : boolean;
+  public isFavourited : boolean;
 	@ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
   	@Input() announcementInput : Announcement;
 
@@ -48,7 +49,8 @@ export class AnnouncementModalComponent implements OnInit {
       private quarterService : QuarterService,
       private commentsService : CommentsService,
       private likeService : LikeService,
-      private loginService : LoginService) { 
+      private loginService : LoginService,
+      private favoruiteService : FavouriteService) { 
     this.cathegories = [{'label' : 'Idea', 'value' : 'IDEA'},
       {'label' : 'Proposal', 'value' : 'PROPOSAL'},
       {'label' : 'Problem', 'value' : 'PROBLEM'}];
@@ -64,6 +66,10 @@ export class AnnouncementModalComponent implements OnInit {
               this.announcementInput = this.injector.get('announcementInput');
               this.canModify = this.announcementInput != undefined ? this.announcementInput.creator.id == this.loginService.user.id : true;
               this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement(null);
+              if(this.announcementInput != undefined){
+                this.isFavourited = this.favoruiteService.favourites.indexOf(this.announcementInput.id)>=0;
+              }else
+                this.isFavourited = false;
               this.refreshComments();
               this.tags = this.announcement.tags ? Announcement.extractTags(this.announcement.tags) :[];
               this.quarters = this.announcement.tags ? this.quarterService.Quarters.filter(q=> this.announcement.quarters.indexOf(q.id)>=0).map(q=>q.name) : [];
@@ -138,6 +144,13 @@ export class AnnouncementModalComponent implements OnInit {
             alert(error);
           });
 
+  }
+
+  public archive(){
+    this.favoruiteService.postFavourite(this.announcement.id).subscribe( result => {
+      this.favoruiteService.refreshFavourites();
+      this.isFavourited = !this.isFavourited;
+    });
   }
 
 }
