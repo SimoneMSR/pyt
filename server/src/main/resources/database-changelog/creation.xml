@@ -178,5 +178,34 @@
 	            referencedColumnNames="idAnnouncement"
 	            referencedTableName="Announcement"/>
 	</changeSet>
+	<changeSet id="9" author="Simone D'Amario">
+		<comment>Aggiungo tabella Favourite</comment>
+		<createTable tableName="Favourite">
+			<column name="idFavourite" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+			<column name="memberId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="announcementId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="deleted" type="DATETIME">
+			</column> 
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="memberId"
+	            baseTableName="Favourite"
+	            constraintName="fk_favourite_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	    <addForeignKeyConstraint baseColumnNames="announcementId"
+	            baseTableName="Favourite"
+	            constraintName="fk_favourite_announcement"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+	</changeSet>
         
 </databaseChangeLog>
