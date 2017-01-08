@@ -6,7 +6,9 @@
 		  <a id="grid" (click)="grid= false" class="btn btn-default btn-sm input-group-addon">
 		  	<span class="glyphicon glyphicon-th"></span>Grid
 		  </a>
-		  <input type="text" class="form-control" [(ngModel)]="searchString">
+		  <form  (ngSubmit)="search()">
+		  	<input type="text" name="searchName" class="form-control" [(ngModel)]="searchString">
+		  </form>
 		  <a (click)="search()" class="input-group-addon">
 		  	<span class="glyphicon glyphicon-search"></span>
 		  </a>

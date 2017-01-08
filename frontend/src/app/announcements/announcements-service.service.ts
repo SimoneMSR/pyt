@@ -121,7 +121,7 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement[]>res.json());
   }
 
-  private static extractParams(params) : String{
+  public static extractParams(params) : String{
     let thisParams= "";
     if(params!=null){
       if(params.filterBy)

@@ -27,4 +27,16 @@ export class HomeComponent implements OnInit {
 
   }
 
+  searchMines(string){
+    this.announcementsService.getByCreatorId(this.loginService.user.id,{"title" : string}).subscribe(result => {
+  		this.myAnnouncements=result;
+  	});
+  }
+
+  searchFavourites(string){
+  	this.favouriteService.getFavourites({"title" : string}).subscribe (result => {
+  		this.myFavourites = result;
+  	});
+  }
+
 }

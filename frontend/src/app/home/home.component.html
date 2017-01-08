@@ -1,11 +1,11 @@
 <div class="home">
 	<div class="col-xs-12 col-lg-6 myAnnouncements">
 		Creati da me
-		<app-announcements [announcementsList]="myAnnouncements"></app-announcements>
+		<app-announcements [announcementsList]="myAnnouncements" (onSearch)="searchMines($event)"></app-announcements>
 	</div>
 	<div class="col-xs-12 col-lg-6  myFavourites">
 		Preferiti
-		<app-announcements [announcementsList]="myFavourites"></app-announcements>
+		<app-announcements [announcementsList]="myFavourites" (onSearch)="searchFavourites($event)"></app-announcements>
 	</div>
 	<div class="col-xs-12 col-lg-6  myConversations">
 		Conversazioni

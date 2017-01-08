@@ -117,9 +117,5 @@ export class BulletinBoardComponent implements OnInit {
     this.filterCathegory.Title=true;
     this.announcementsService.params.title=string;
     this.announcementsService.refreshAnnouncementsByCurrentQuarter();
-    // this.announcementsService.announcementsByCurrentQuarter.subscribe(() => {
-    //       delete this.announcementsService.params.title;
-    //       this.searchInput="";
-    // }).unsubscribe();
   }
 }

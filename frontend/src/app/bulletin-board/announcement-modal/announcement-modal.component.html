@@ -96,7 +96,7 @@
             </div>
         </div>
       </tab>
-      <tab>
+      <tab *ngIf="!canModify && announcement.id!=0">
         <template tabHeading>Contatta</template>
         Tab 2 content
       </tab>
