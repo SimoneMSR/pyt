@@ -207,5 +207,84 @@
 	            referencedColumnNames="idAnnouncement"
 	            referencedTableName="Announcement"/>
 	</changeSet>
-        
+	<changeSet id="10" author="Simone D'Amario">
+		<comment>Aggiungo tabelle per Mail</comment>
+		<createTable tableName="Message">
+			<column name="idMessage" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="creatorId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="subject" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="object" type="clob">
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="creatorId"
+	            baseTableName="Message"
+	            constraintName="fk_message_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	            
+		<createTable tableName="MessageRecipient">
+			<column name="messageId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="recipientId" type="INT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="hidden" type="BOOLEAN"> </column>
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="messageId"
+	            baseTableName="MessageRecipient"
+	            constraintName="fk_messageRecipient_message"
+	            referencedColumnNames="idMessage"
+	            referencedTableName="Message"/>
+	    <addForeignKeyConstraint baseColumnNames="recipientId"
+	            baseTableName="MessageRecipient"
+	            constraintName="fk_messageRecipient_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	            
+		<createTable tableName="Inbox">
+			<column name="messageId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="receiverId" type="INT" >
+				<constraints nullable="false"  primaryKey="true"/>
+			</column>
+			<column name="deleted" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="messageId"
+	            baseTableName="Inbox"
+	            constraintName="fk_inbox_message"
+	            referencedColumnNames="idMessage"
+	            referencedTableName="Message"/>
+	    <addForeignKeyConstraint baseColumnNames="receiverId"
+	            baseTableName="Inbox"
+	            constraintName="fk_inbox_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
+	            
+		<createTable tableName="Outbox">
+			<column name="messageId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="deleted" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="messageId"
+	            baseTableName="Outbox"
+	            constraintName="fk_outbox_message"
+	            referencedColumnNames="idMessage"
+	            referencedTableName="Message"/>
+	</changeSet>        
 </databaseChangeLog>
