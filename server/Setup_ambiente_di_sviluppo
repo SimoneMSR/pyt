@@ -1,6 +1,9 @@
 BACKEND
 1) Scaricare java
 2) Scaricare eclipse
+2.1) installare plugin per maven
+2.2) importare progetto maven dal file server/pom.xml
+2.3) project-> java build path -> sourcer -> add (target/generated-sources/annotations) 
 3) Scaricare wildfly
 4)Scaricare mysql (all'utente root dare password: simone)
 4.1) avviare servizio mysql

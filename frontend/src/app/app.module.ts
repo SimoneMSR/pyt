@@ -26,7 +26,6 @@ import { AUTH_PROVIDERS }      from 'angular2-jwt';
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: '', component: AppComponent }
-
 ]; 
 
 @NgModule({

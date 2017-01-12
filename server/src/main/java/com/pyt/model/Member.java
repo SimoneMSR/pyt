@@ -18,6 +18,7 @@ package com.pyt.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,40 +40,51 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-@Table(name = "Member", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "Member", uniqueConstraints = @UniqueConstraint(columnNames = "email") )
 public class Member implements Serializable {
-    /** Default value included to remove warning. Remove or modify at will. **/
-    private static final long serialVersionUID = 1L;
+	/** Default value included to remove warning. Remove or modify at will. **/
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    //@Size(min = 1, max = 25, message = "1-25 letters and spaces")
-    //@Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
-    private String name;
+	@NotNull
+	// @Size(min = 1, max = 25, message = "1-25 letters and spaces")
+	// @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
+	private String name;
 
-    @NotNull
-    @NotEmpty
-    //@Email(message = "Invalid format")
-    private String email;
+	@NotNull
+	@NotEmpty
+	// @Email(message = "Invalid format")
+	private String email;
 
-    @NotNull
-    //@Size(min = 10, max = 12, message = "10-12 Numbers")
-    //@Digits(fraction = 0, integer = 12, message = "Not valid")
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    
-   
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="quarterId", insertable=false)
-    private Quarter quarter;
-    
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="member")
+	@NotNull
+	// @Size(min = 10, max = 12, message = "10-12 Numbers")
+	// @Digits(fraction = 0, integer = 12, message = "Not valid")
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "quarterId", insertable = false)
+	private Quarter quarter;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
 	private List<Like> likes;
 
-    public Quarter getQuarter() {
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="Inbox",
+	        joinColumns=@JoinColumn(name="messageId"),
+	        inverseJoinColumns=@JoinColumn(name="receiverId"))
+	private List<Message> inbox;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="Outbox",
+	        joinColumns=@JoinColumn(name="messageId"),
+	        inverseJoinColumns=@JoinColumn(name="senderId"))
+	private List<Message> outbox;
+	
+	public Quarter getQuarter() {
 		return quarter;
 	}
 
@@ -88,43 +101,61 @@ public class Member implements Serializable {
 	}
 
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    
-    public Member(){
-    	
-    }
-    public Member(Long id){
-    	this.id = id;
-    }
-    
-    
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Member() {
+
+	}
+
+	public Member(Long id) {
+		this.id = id;
+	}
+
+	public List<Message> getInbox() {
+		return inbox;
+	}
+
+	public void setInbox(List<Message> inbox) {
+		this.inbox = inbox;
+	}
+
+	public List<Message> getOutbox() {
+		return outbox;
+	}
+
+	public void setOutbox(List<Message> outbox) {
+		this.outbox = outbox;
+	}
+	
+	
+
 }
