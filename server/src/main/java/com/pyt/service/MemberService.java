@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -55,5 +56,10 @@ public class MemberService {
 
 	public Member findByEmail(String email) {
 		return dao.getByEmail(email);
+	}
+	
+	public Collection<Member> getMultipleByIds(int ids[]){
+		return dao.getMultipleById(ids);
+		
 	}
 }

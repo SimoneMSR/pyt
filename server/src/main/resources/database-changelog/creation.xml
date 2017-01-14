@@ -259,7 +259,7 @@
 				<constraints nullable="false"  primaryKey="true"/>
 			</column>
 			<column name="deleted" type="DATETIME">
-				<constraints nullable="false" />
+				<constraints />
 			</column> 
 		</createTable>
 	    <addForeignKeyConstraint baseColumnNames="messageId"
@@ -277,8 +277,11 @@
 			<column name="messageId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
+			<column name="senderId" type="INT" >
+				<constraints nullable="false"  primaryKey="true"/>
+			</column>
 			<column name="deleted" type="DATETIME">
-				<constraints nullable="false" />
+				<constraints />
 			</column> 
 		</createTable>
 	    <addForeignKeyConstraint baseColumnNames="messageId"

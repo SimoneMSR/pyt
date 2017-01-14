@@ -16,6 +16,12 @@ public class BaseDao<T, T_> {
 	public void Save(T entity) {
 		em.persist(entity);
 	}
+	
+	public T insert(T entity){
+		em.persist(entity);
+		em.refresh(entity);
+		return entity;
+	}
 
 	public void merge(T object) {
 		em.merge(object);

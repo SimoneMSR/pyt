@@ -1,8 +1,8 @@
 package com.pyt.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +37,7 @@ public class Message implements Serializable{
 	@JoinTable(name="MessageRecipient",
 	        joinColumns=@JoinColumn(name="messageId"),
 	        inverseJoinColumns=@JoinColumn(name="recipientId"))
-	private Set<Member> recipients;
+	private Collection<Member> recipients;
     
     @NotNull
     private String subject;
@@ -83,11 +83,11 @@ public class Message implements Serializable{
 		return idMessage;
 	}
 
-	public Set<Member> getRecipients() {
+	public Collection<Member> getRecipients() {
 		return recipients;
 	}
 
-	public void setRecipients(Set<Member> recipients) {
+	public void setRecipients(Collection<Member> recipients) {
 		this.recipients = recipients;
 	}
 	
