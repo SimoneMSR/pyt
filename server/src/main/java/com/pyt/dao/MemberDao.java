@@ -22,10 +22,15 @@ import com.pyt.model.Member_;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -48,6 +53,23 @@ public class MemberDao extends BaseDao<Member,Member_> {
         }catch(Exception e){
         	log.warning(e.getMessage());
         	return null;
+        }
+    }
+    
+    public Collection<Member> getMultipleById(int ids[]){
+    	Long[] objLong = new Long[ids.length];
+    	for(int index = 0; index < ids.length; index++)
+    	{
+    		objLong[index] = (long)ids[index];
+    	}
+    	CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
+        Root<Member> member = criteria.from(Member.class);
+        criteria.select(member).where(member.get(Member_.id).in(objLong));
+        try{
+        	return em.createQuery(criteria).getResultList();
+        }catch(NoResultException e){
+        	return new HashSet<Member>();
         }
     }
 

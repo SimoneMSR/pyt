@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +28,7 @@ public class Inbox implements Serializable{
     
      @Id
      private int receiverId;
-     
+        
      private Date deleted;
 
 	public int getMessageId() {
@@ -52,5 +55,5 @@ public class Inbox implements Serializable{
 		this.deleted = deleted;
 	}
      
-     
+    
 }
