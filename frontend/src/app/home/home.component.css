@@ -7,6 +7,8 @@
     max-height: 45vh;
 }
 .myConversations{
+	overflow-y: auto;
+    max-height: 45vh;
 }
 #se{top: 50%; left: 50%; right: 0; bottom: 0}
 

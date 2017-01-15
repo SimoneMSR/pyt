@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import {Login, Member} from './';
+import {Login} from './login-form/login.model';
+import {Member} from "../member/member.model";
 import {BaseService} from '../core/base.service';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class LoginService  extends BaseService{

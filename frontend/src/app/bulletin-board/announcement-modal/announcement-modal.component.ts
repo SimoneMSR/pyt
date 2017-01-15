@@ -16,6 +16,7 @@ import { Announcement, AnnouncementsService, LikeService, FavouriteService} from
 import { QuarterService} from "../../quarters";
 import { CommentPyt, CommentsService} from "../../comments";
 import {LoginService} from "../../login";
+import {Message, MessagesService} from "../../home";
 
 @Component({
   selector: 'app-announcement-modal',
@@ -34,6 +35,7 @@ export class AnnouncementModalComponent implements OnInit {
   public comment : CommentPyt;
   public canModify : boolean;
   public isFavourited : boolean;
+  public contact : Message;
 	@ViewChild('newAnnouncementModal') public newAnnouncementModal:ModalDirective;
   	@Input() announcementInput : Announcement;
 
@@ -50,10 +52,12 @@ export class AnnouncementModalComponent implements OnInit {
       private commentsService : CommentsService,
       private likeService : LikeService,
       private loginService : LoginService,
-      private favoruiteService : FavouriteService) { 
+      private favoruiteService : FavouriteService,
+      private messageService : MessagesService) { 
     this.cathegories = [{'label' : 'Idea', 'value' : 'IDEA'},
       {'label' : 'Proposal', 'value' : 'PROPOSAL'},
       {'label' : 'Problem', 'value' : 'PROBLEM'}];
+      this.contact = new Message();
   }
 
   ngOnInit(){
@@ -68,6 +72,7 @@ export class AnnouncementModalComponent implements OnInit {
               this.announcement = this.announcementInput != undefined ? this.announcementInput : new Announcement(null);
               if(this.announcementInput != undefined){
                 this.isFavourited = this.favoruiteService.favourites.indexOf(this.announcementInput.id)>=0;
+                this.contact.object = this.announcementInput.title;
               }else
                 this.isFavourited = false;
               this.refreshComments();
@@ -150,6 +155,15 @@ export class AnnouncementModalComponent implements OnInit {
     this.favoruiteService.postFavourite(this.announcement.id).subscribe( result => {
       this.favoruiteService.refreshFavourites();
       this.isFavourited = !this.isFavourited;
+    });
+  }
+
+  public sendMessage(){
+    this.contact.creatorId=this.loginService.user.id;
+    this.contact.date = new Date();
+    this.contact.recipients = [this.announcement.creator.id];
+    this.messageService.sendMessage(this.contact).subscribe(result => {
+      this.close.emit('event');
     });
   }
 

@@ -1,13 +1,15 @@
 <div class="home">
 	<div class="col-xs-12 col-lg-6 myAnnouncements">
-		Creati da me
+		<h3>Creati da me</h3>
 		<app-announcements [announcementsList]="myAnnouncements" (onSearch)="searchMines($event)"></app-announcements>
 	</div>
 	<div class="col-xs-12 col-lg-6  myFavourites">
-		Preferiti
+		<h3>Preferiti</h3>
 		<app-announcements [announcementsList]="myFavourites" (onSearch)="searchFavourites($event)"></app-announcements>
 	</div>
 	<div class="col-xs-12 col-lg-6  myConversations">
-		Conversazioni
+		<h3>Conversazioni</h3>
+		<app-messages [messages]="messages">
+		</app-messages>
 	</div>
 </div>

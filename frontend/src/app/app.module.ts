@@ -7,7 +7,8 @@ import { CoreModule} from './core/core.module';
 import { RouterModule, Routes } from '@angular/router'; 
 import { BulletinBoardModule} from './bulletin-board/bulletin-board.module';
 import { MapModule} from './map/map.module';
-import { HomeModule} from "./home";
+import { HomeModule} from "./home/home.module";
+import {MemberModule} from "./member/member.module";
 
 
 import { AppComponent } from './app.component';
@@ -39,12 +40,13 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
+    HomeModule,
     LoginModule,
     CoreModule,
     MapModule,
     BulletinBoardModule,
-    HomeModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MemberModule
   ],
   providers: [
     LoginGuard,

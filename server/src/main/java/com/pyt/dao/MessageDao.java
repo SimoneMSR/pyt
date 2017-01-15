@@ -39,6 +39,19 @@ public class MessageDao extends BaseDao<Message, Message_> {
 			}
 	}
 	
+	public int countInboxMessages(int memberId){
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
+		Root<Inbox> messageTo = criteria.from(Inbox.class);
+		criteria.select(cb.count(messageTo))
+			.where(cb.equal(messageTo.get(Inbox_.receiverId),memberId));
+		try{
+			return em.createQuery(criteria).getSingleResult().intValue();
+		}catch(Exception e){
+			return 0;
+		}
+	}
+	
 	private Collection<Integer> getInboxIdsByReceiverId(int memberId){
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Integer> criteria = cb.createQuery(Integer.class);
@@ -47,7 +60,7 @@ public class MessageDao extends BaseDao<Message, Message_> {
 			.where(cb.equal(messageTo.get(Inbox_.receiverId),memberId));
 		try{
 			return em.createQuery(criteria).getResultList();
-		}catch(NoResultException e ){
+		}catch(Exception e ){
 			return new ArrayList<Integer>();
 		}
 	}

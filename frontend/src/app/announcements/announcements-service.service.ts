@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Announcement} from './announcement/announcement.model';
 import { BaseService} from '../core';
-import { LoginService, Member} from "../login";
+import { LoginService} from "../login";
+import {Member} from "../member";
 import {Quarter} from '../quarters/';
 import { Http, Response } from '@angular/http';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';

@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +25,7 @@ public class MessageController extends BaseController{
 	@Inject
 	private MessageService service;
 	
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendMessage(MessageDto message){
 		service.sendMessage(message, getCurrentUser());
@@ -37,6 +37,13 @@ public class MessageController extends BaseController{
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<MessageDto> getInbox(){
 		return MessageConverter.to(service.getInboxOrderebByReceiverId(getCurrentUser().getId().intValue()));
+	}
+	
+	@GET
+	@Path("inbox/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int countInbox(){
+		return service.inboxCount(getCurrentUser().getId().intValue());
 	}
 	
 

@@ -35,5 +35,9 @@ public class MessageService {
 	public List<Message> getInboxOrderebByReceiverId(int memberId){
 		return dao.getInboxOrderebByReceiverId(memberId);
 	}
+	
+	public int inboxCount(int memberId){
+		return dao.countInboxMessages(memberId);
+	}
 
 }

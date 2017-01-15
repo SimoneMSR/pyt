@@ -1,5 +1,5 @@
 import { Tag} from './tag.model';
-import {Member} from "../../login";
+import {Member} from "../../member";
 
 export class Announcement{
 	public id : number;
