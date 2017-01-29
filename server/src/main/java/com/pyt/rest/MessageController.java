@@ -1,5 +1,6 @@
 package com.pyt.rest;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,12 +10,18 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import com.pyt.rest.authorization.KnockKnock;
+import com.pyt.rest.converter.ConversationConverter;
 import com.pyt.rest.converter.MessageConverter;
+import com.pyt.rest.dto.ConversationDto;
 import com.pyt.rest.dto.MessageDto;
+import com.pyt.rest.queryParams.BaseQueryParams;
 import com.pyt.service.MessageService;
 
 @Stateless
@@ -44,6 +51,19 @@ public class MessageController extends BaseController{
 	@Produces(MediaType.APPLICATION_JSON)
 	public int countInbox(){
 		return service.inboxCount(getCurrentUser().getId().intValue());
+	}
+	
+	@GET
+	@Path("conversation")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<ConversationDto> getConversations(@Context UriInfo ui){
+		MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+		BaseQueryParams params = new BaseQueryParams(
+				queryParams.getFirst(BaseQueryParams.TOP_TITLE),
+				queryParams.getFirst(BaseQueryParams.SKIP_TITLE),
+				queryParams.getFirst(BaseQueryParams.ORERBY_TITLE)
+				); 
+		return ConversationConverter.to(service.getConversationByMemberId(getCurrentUser().getId().intValue(), params));
 	}
 	
 

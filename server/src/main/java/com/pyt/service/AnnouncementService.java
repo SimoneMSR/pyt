@@ -15,7 +15,7 @@ import com.pyt.dao.TagDao;
 import com.pyt.model.Announcement;
 import com.pyt.model.Member;
 import com.pyt.model.Tag;
-import com.pyt.rest.queryParams.AnnouncementParams;
+import com.pyt.rest.queryParams.AnnouncementQueryParams;
 
 @Stateless
 public class AnnouncementService {
@@ -28,7 +28,7 @@ public class AnnouncementService {
 	@Inject
 	private TagDao tagDao;
 	
-	public Collection<Announcement> getByQuaterId(int quarterId, AnnouncementParams params){
+	public Collection<Announcement> getByQuaterId(int quarterId, AnnouncementQueryParams params){
 		Collection<Announcement> retval = dao.getByQuarterId((long)quarterId,params);
 		for(Announcement a : retval){
 			a.likesCount=likeDao.countLike(a.getIdAnnouncement(), false);
@@ -62,7 +62,7 @@ public class AnnouncementService {
 			throw new WebApplicationException(Response.Status.FORBIDDEN);
 	}
 
-	public Collection<Announcement> getByCreatorId(Integer creatorId, AnnouncementParams p) {
+	public Collection<Announcement> getByCreatorId(Integer creatorId, AnnouncementQueryParams p) {
 		Collection<Announcement> retval = dao.getByCreatorId((long)creatorId,p);
 		for(Announcement a : retval){
 			a.likesCount=likeDao.countLike(a.getIdAnnouncement(), false);

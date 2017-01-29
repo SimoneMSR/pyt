@@ -21,7 +21,7 @@ import com.pyt.rest.converter.AnnouncementConverter;
 import com.pyt.rest.converter.TagConverter;
 import com.pyt.rest.dto.AnnouncementDto;
 import com.pyt.rest.dto.TagDto;
-import com.pyt.rest.queryParams.AnnouncementParams;
+import com.pyt.rest.queryParams.AnnouncementQueryParams;
 import com.pyt.service.AnnouncementService;
 import com.pyt.service.QuarterService;
 
@@ -47,7 +47,7 @@ public class AnnouncementController extends BaseController {
 			@QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy,
 			@QueryParam("title") String title){
-		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy,title);
+		AnnouncementQueryParams p = new AnnouncementQueryParams(top,skip,filterBy,orderBy,title);
 		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
 	}
 	
@@ -60,7 +60,7 @@ public class AnnouncementController extends BaseController {
 			@QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy,
 			@QueryParam("title") String title){
-		AnnouncementParams p = new AnnouncementParams(top,skip,filterBy,orderBy,title);
+		AnnouncementQueryParams p = new AnnouncementQueryParams(top,skip,filterBy,orderBy,title);
 		return AnnouncementConverter.to(announcementService.getByCreatorId(creatorId,p));
 	}
 	

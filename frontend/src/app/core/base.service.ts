@@ -29,5 +29,23 @@ export class BaseService {
     return headers;
   }
 
+  public static extractParams(params) : String{
+    let thisParams= "";
+    if(params!=null){
+      if(params.filterBy)
+        thisParams = thisParams + "&filterBy=" + params.filterBy;
+      if(params.orderBy)
+        thisParams = thisParams + "&orderBy=" + params.orderBy;
+      if(params.top)
+        thisParams = thisParams + "&top=" + params.top;
+      if(params.skip)
+        thisParams = thisParams + "&skip=" + params.skip;
+      if(params.title)
+        thisParams = thisParams + "&title=" +params.title;
+    }
+    
+    return thisParams;
+    }
+
 
 }

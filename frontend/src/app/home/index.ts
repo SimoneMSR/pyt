@@ -3,3 +3,4 @@ export {MessageComponent} from "./messages/message.component";
 export {MessagesComponent} from "./messages/messages.component";
 export {MessagesService} from "./messages/messages.service";
 export {Message} from "./messages/message.model";
+export {Conversation} from "./messages/conversation.model";

@@ -289,5 +289,27 @@
 	            constraintName="fk_outbox_message"
 	            referencedColumnNames="idMessage"
 	            referencedTableName="Message"/>
-	</changeSet>        
+	</changeSet>  
+	<changeSet id="11" author="Simone D'Amario">
+		<comment>Aggiungo tabella Conversation, e campo conversationId ai Message</comment>
+		<createTable tableName="Conversation">
+			<column name="idConversation" type="INT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="subject" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="lastMessageDate" type="DATETIME">
+				<constraints nullable="false" />
+			</column> 
+		</createTable>
+		<addColumn tableName="Message">
+    	    <column name="conversationId" type="INT"/>
+	    </addColumn>
+	    <addForeignKeyConstraint baseColumnNames="conversationId"
+	            baseTableName="Message"
+	            constraintName="fk_message_conversation"
+	            referencedColumnNames="idConversation"
+	            referencedTableName="Conversation"/>
+	</changeSet>      
 </databaseChangeLog>

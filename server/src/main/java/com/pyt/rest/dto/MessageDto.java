@@ -10,5 +10,5 @@ public class MessageDto {
 	public String object;
 	public int recipients[];
 	public Date date;
-
+	public Integer conversationId;
 }

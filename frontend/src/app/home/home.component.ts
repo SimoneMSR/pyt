@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
   	this.messagesService.getMessagesOrdered().subscribe(result => {
   		this.messages=result;
   	})
+  	this.messagesService.getConversation().subscribe(result => {
+  		
+  	});
 
   }
 

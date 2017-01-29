@@ -18,6 +18,7 @@ public class MessageConverter {
 		dto.object=entity.getObject();
 		dto.subject = entity.getSubject();
 		dto.date = entity.getDate();
+		dto.conversationId = entity.getConversationId();
 		return dto;
 	}
 	

@@ -1,17 +1,17 @@
 package com.pyt.rest.queryParams;
 
 
-public class AnnouncementParams extends BaseParams{
+public class AnnouncementQueryParams extends BaseQueryParams{
 	public String filterBy;
-	public String orderBy;
+
 	public String title;
 	
-	public AnnouncementParams(Integer top,Integer skip, 
+	public static final String ORDERBY_TITLE = "title";
+	
+	public AnnouncementQueryParams(Integer top,Integer skip, 
 			String filterBy, String orderBy,String title){
-		this.top=top;
-		this.skip = skip;
+		super(top,skip,orderBy);
 		this.filterBy = filterBy;
-		this.orderBy = orderBy;
 		this.title= title;
 	}
 	

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BaseService} from "../../core";
 import { Observable} from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
-import {Message} from "../";
+import {Message, Conversation} from "../";
 
 @Injectable()
 export class MessagesService extends BaseService{
@@ -28,5 +28,11 @@ export class MessagesService extends BaseService{
   	return this.http
   		.get(this.url + "/inbox/count", {headers : this.getHeaders()})
   		.map(res => <number>res.json());
+  }
+
+  public getConversation(params ? ) : Observable<Conversation[]>{
+  	return this.http
+  		.get(this.url + "/conversation", {headers : this.getHeaders()})
+  		.map(res => <Conversation[]>res.json());
   }
 }

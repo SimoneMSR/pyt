@@ -46,6 +46,18 @@ public class Message implements Serializable{
     
     @NotNull
     private Date date;
+    
+    private Integer conversationId;
+   
+    
+
+	public int getConversationId() {
+		return conversationId;
+	}
+
+	public void setConversationId(int conversationId) {
+		this.conversationId = conversationId;
+	}
 
 	public Member getCreator() {
 		return creator;
