@@ -34,7 +34,7 @@ public class LoginController extends BaseController{
 	@Consumes(MediaType.APPLICATION_JSON)
 	public MemberDto login(LoginDto credentials) throws EmailNotVerifyedException{
 		Member user = memberService.findByEmail(credentials.email);
-		if(user == null)
+		if(user == null || !user.getPassword().equals(credentials.password))
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		if(!user.isVerified())
 			throw new EmailNotVerifyedException("Email not verifyed.");

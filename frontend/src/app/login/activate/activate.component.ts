@@ -22,7 +22,7 @@ export class ActivateComponent implements OnInit {
   		}, error => {
   			alert("An error occured during activation of " + email + "!");
   		});
-    }
+    });
   }
 
 }
