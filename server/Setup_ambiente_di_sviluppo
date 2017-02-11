@@ -33,3 +33,17 @@ FRONTEND
 6) fare il build usando questo comando 
 	ng build --target=production --environment=prod --base-href /dist/
 
+Setup server
+1) installare java
+2)installare wildfly
+3)installare mysql
+4) creare il database pyt
+5)Scaricare il connettore mysql-connector (file *.bin.jar)
+6)Aggiungere utente amministratore a wildfly (/bin/add_user.sh)
+7)Loggarsi a wildfly con l'utente creato e
+7.1) aggiungere il connettore ai deployments
+7.2) spostarsi sulla cartella di installazione di wildfly
+7.3) bin/jboss-cli --connect --controller=localhost:9990
+7.4) data-source add --name=pyt --jndi-name=java:jboss/datasources/pyt 
+	--driver-name=mysql-connector-java-5.1.40-bin.jar_com.mysql.jdbc.Driver_5_1 
+	--connection-url=jdbc:mysql://localhost:3306/pyt --user-name=root --password=mysql
