@@ -34,6 +34,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DefaultValue;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -58,8 +59,13 @@ public class Member implements Serializable {
 	@NotEmpty
 	// @Email(message = "Invalid format")
 	private String email;
+	
+	private String password;
+	
+	private String hash;
+	
+	private boolean verified;
 
-	@NotNull
 	// @Size(min = 10, max = 12, message = "10-12 Numbers")
 	// @Digits(fraction = 0, integer = 12, message = "Not valid")
 	@Column(name = "phone_number")
@@ -87,6 +93,24 @@ public class Member implements Serializable {
 	        inverseJoinColumns=@JoinColumn(name="senderId"))
 	private List<Message> outbox;
 	
+	
+	
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Quarter getQuarter() {
 		return quarter;
 	}
@@ -167,5 +191,15 @@ public class Member implements Serializable {
 	public void setOutbox(List<Message> outbox) {
 		this.outbox = outbox;
 	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+	
+	
 	
 }

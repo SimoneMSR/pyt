@@ -35,6 +35,7 @@
 		    <column name="name" value="administrator"/>
 		    <column name="email" value="pyt@pyt.it"/>
 		    <column name="phone_number" value="0123456789"/>
+		    <column name="password" value="password"/>
 		    <column name="quarterId" value="1"/>
 		</insert>
 	</changeSet>
@@ -44,6 +45,7 @@
 		    <column name="name" value="user"/>
 		    <column name="email" value="user@pyt.it"/>
 		    <column name="phone_number" value="0123456789"/>
+		    <column name="password" value="password"/>
 		    <column name="quarterId" value="2"/>
 		</insert>
 	</changeSet>

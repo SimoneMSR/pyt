@@ -10,7 +10,11 @@ public class MemberConverter {
 			dto.id = entity.getId().intValue();
 			dto.name = entity.getName();
 			dto.email = entity.getEmail();
-			dto.quarterId = entity.getQuarter().getId().intValue();
+			try{
+				dto.quarterId = entity.getQuarter().getId().intValue();				
+			}catch(NullPointerException e ){
+				dto.quarterId= -1;
+			}
 		}
 		return dto;
 	}

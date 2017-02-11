@@ -6,9 +6,11 @@ import { AuthModule } from '../core/auth/auth.module';
 import { RouterModule, Routes } from '@angular/router'; 
 import { CoreModule} from '../core/core.module';
 import { FormsModule } from '@angular/forms';
+import { ActivateComponent } from './activate/activate.component';
 
 const appRoutes: Routes = [
-{ path: 'login', component: LoginComponent }
+{ path: 'login', component: LoginComponent },
+{ path: 'activate', component : ActivateComponent}
 ];
 
 @NgModule({
@@ -23,6 +25,6 @@ const appRoutes: Routes = [
   providers : [
   	LoginService
   ],
-  declarations: [ LoginComponent, LoginFormComponent]
+  declarations: [ LoginComponent, LoginFormComponent, ActivateComponent]
 })
 export class LoginModule { }
