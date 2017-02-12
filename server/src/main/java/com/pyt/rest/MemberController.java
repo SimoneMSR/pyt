@@ -43,7 +43,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.pyt.model.Member;
+import com.pyt.rest.dto.LoginDto;
+import com.pyt.rest.exception.DuplicateKeyException;
 import com.pyt.service.MemberService;
+
+
 
 /**
  * JAX-RS Example
@@ -78,42 +82,21 @@ public class MemberController extends BaseController {
         return member;
     }
 
-    /**
-     * Creates a new member from the values provided. Performs validation, and will return a JAX-RS response with either 200 ok,
-     * or with a map of fields, and related errors.
-     */
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("register")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createMember(Member member) {
-
-        Response.ResponseBuilder builder = null;
-
-        try {
-            // Validates member using bean validation
-            validateMember(member);
-
-            memberService.register(member);
-
-            // Create an "ok" response
-            builder = Response.ok().entity(member);
-        } catch (ConstraintViolationException ce) {
-            // Handle bean validation issues
-            builder = createViolationResponse(ce.getConstraintViolations());
-        } catch (ValidationException e) {
-            // Handle the unique constrain violation
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "Email taken");
-            builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
-        } catch (Exception e) {
-            // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("error", e.getMessage());
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        }
-
-        return builder.build();
-    }
+	public Response register(LoginDto user) throws DuplicateKeyException {
+		try{
+			Member entity = new Member();
+			entity.setPassword(user.password);
+			entity.setEmail(user.email);
+			entity.setName(user.email);
+			memberService.register(entity);
+			return Response.ok().build();
+		}catch(WebApplicationException e1){
+			throw e1;
+		}
+	}
 
     /**
      * <p>

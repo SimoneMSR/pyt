@@ -3,12 +3,11 @@ import {Login} from './login-form/login.model';
 import {Member} from "../member/member.model";
 import {BaseService} from '../core/base.service';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class LoginService  extends BaseService{
 
-	private apiUrl : string;
 	public user : Member;
 	public userObservable : BehaviorSubject<Member>;
 	public static readonly USERKEY = 'pyt-user';
@@ -17,7 +16,7 @@ export class LoginService  extends BaseService{
 	public static readonly IDKEY = "pyt-id";
   constructor(private http : Http) { 
   	super();
-  	this.apiUrl = this.baseUrl + '/login';
+  	this.url = this.baseUrl + '/login';
   	if(localStorage.getItem(LoginService.USERKEY) !=null){
   		this.user = new Member("","");
   		this.user.name=localStorage.getItem(LoginService.USERKEY);
@@ -30,8 +29,9 @@ export class LoginService  extends BaseService{
   }
 
   login(credentials : Login) : Observable<Response>{
-  		return this.http.post(this.apiUrl,credentials,{headers: this.getHeaders()});
+  		return this.http.post(this.url,credentials,{headers: this.getHeaders()});
   }
+
 
   logout(){
   	localStorage.removeItem(LoginService.USERKEY);
@@ -49,6 +49,14 @@ export class LoginService  extends BaseService{
   	localStorage.setItem(LoginService.EMAILKEY, user.email);
   	localStorage.setItem(LoginService.QUARTERKEY, user.quarterId.toString());
   	localStorage.setItem(LoginService.IDKEY, user.id.toString());
+  }
+
+  activate(email : string, hash : string) : Observable<Response>{
+  	let body = new URLSearchParams();
+    body.set("email",email);
+    body.set("hash", hash);
+  	return this.http.post(this.url + "/activate", body, {'headers' : new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'})});
   }
 
 }

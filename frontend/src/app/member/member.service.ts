@@ -3,6 +3,7 @@ import {BaseService} from "../core";
 import {Observable} from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
 import {Member} from "./";
+import {Login} from "../login";
 
 @Injectable()
 export class MemberService extends BaseService{
@@ -34,6 +35,10 @@ export class MemberService extends BaseService{
   			this.viewedMembers[member.id]=member;
   		});
   	}
+  }
+
+  register(credentials : Login) : Observable<Response>{
+  	return this.http.post(this.url + "/register", credentials, {headers : this.getHeaders()} );
   }
 
 

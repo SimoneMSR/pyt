@@ -311,5 +311,22 @@
 	            constraintName="fk_message_conversation"
 	            referencedColumnNames="idConversation"
 	            referencedTableName="Conversation"/>
-	</changeSet>      
+	</changeSet> 
+	<changeSet id="12" author="Simone D'Amario">
+		<comment>Aggiungo colonna password, hash e verified alla tabella Member</comment>
+		<addColumn tableName="Member">
+			<column name="password" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="Member">
+			<column name="hash" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="Member">
+			<column name="verified" type="BOOLEAN"/>
+		</addColumn>
+	    <addDefaultValue
+            columnDataType="BOOLEAN"
+            columnName="verified"
+            defaultValueBoolean="false"
+            tableName="Member"/>
+	</changeSet>
 </databaseChangeLog>

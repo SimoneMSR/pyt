@@ -18,6 +18,7 @@ package com.pyt.dao;
 
 import com.pyt.model.Member;
 import com.pyt.model.Member_;
+import com.pyt.util.CodeUtils;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
@@ -28,17 +29,20 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Stateless
 public class MemberDao extends BaseDao<Member,Member_> {
 
-    @Inject
-    private Logger log;
+
+    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     public Member getById(Long id) {
         return em.find(Member.class, id);
@@ -52,7 +56,7 @@ public class MemberDao extends BaseDao<Member,Member_> {
         try{
         	return em.createQuery(criteria).getSingleResult();        	
         }catch(Exception e){
-        	log.warning(e.getMessage());
+        	logger.warn(e.getMessage());
         	return null;
         }
     }
@@ -73,6 +77,11 @@ public class MemberDao extends BaseDao<Member,Member_> {
         	return new HashSet<Member>();
         }
     }
+    
+    private Member getByHash(String code) {
+    	// TODO Auto-generated method stub
+    	return null;
+    }
 
     public List<Member> getAllOrderedByName() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -81,4 +90,25 @@ public class MemberDao extends BaseDao<Member,Member_> {
         criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
         return em.createQuery(criteria).getResultList();
     }
+
+		public String getFreeHash() {
+
+		for (int i = 0; i < 20; i++) {
+
+			String code = CodeUtils.generaCode();
+
+			if (getByHash(code) == null)
+				return code;
+
+			if (i > 2 && i < 5)
+				logger.warn("Too many hash on Reservation, enlarge hash! cachted {}.", code);
+			else if (i > 6)
+				logger.error("Too many hash on Reservation, enlarge hash! cachted {}.", code);
+
+		}
+
+		return null;
+
+	}
+
 }
