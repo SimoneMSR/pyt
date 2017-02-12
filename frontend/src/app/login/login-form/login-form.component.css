@@ -4,3 +4,44 @@
     left: 80%;
     transform: translate(-20%);
 }
+.form-control{
+		background : #102D3E;
+	background : rgba(16, 45, 62, 1);
+
+}
+.form-head{
+	background: #102D3E;
+	text-align: center;
+	color: white;
+	top: 0px;
+    margin: 0px;
+    padding: 20px 20px 20px 20px;
+}
+.login
+{
+	background-color: rgba(31, 74, 92, .83);
+	padding: 0px;
+	color: white;
+}
+.form
+{
+	color: white;
+	padding: 20px;
+}
+label {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    text-align: right;
+}
+@media only screen and (min-width : 992px) {
+
+	.login{
+		top:30%;
+		position: absolute;
+	}
+
+	
+}
+	
