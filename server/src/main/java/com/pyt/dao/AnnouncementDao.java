@@ -81,9 +81,8 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
 
 	}
 	
-	public List<Announcement> getByQuarterId(Long quarterId, AnnouncementQueryParams params){
+	public List<Announcement> get(AnnouncementQueryParams params){
 		Quarter quarter = new Quarter();
-		quarter.setId(quarterId);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> criteria = cb.createQuery(Announcement.class);
         Root<Announcement> announcement = criteria.from(Announcement.class);

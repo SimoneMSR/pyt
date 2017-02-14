@@ -58,6 +58,18 @@ public class Announcement implements Serializable{
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="announcement")
 	private List<Comment> comments;
 	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="AnnouncementForDepartment",
+	        joinColumns=@JoinColumn(name="idAnnouncement"),
+	        inverseJoinColumns=@JoinColumn(name="idDepartment"))
+	private Collection<Department> departments;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="AnnouncementForBeing",
+	        joinColumns=@JoinColumn(name="idAnnouncement"),
+	        inverseJoinColumns=@JoinColumn(name="idDepartment"))
+	private Collection<Being> beings;
+	
 	private int cathegory;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

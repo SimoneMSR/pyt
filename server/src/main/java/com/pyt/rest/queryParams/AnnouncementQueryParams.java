@@ -1,17 +1,20 @@
 package com.pyt.rest.queryParams;
 
+import Enums.Being;
+import Enums.Department;
 
 public class AnnouncementQueryParams extends BaseQueryParams{
-	public String filterBy;
-
+	public Being[] createdBy;
+	public Being[] targets;
+	public Department[] departmentTargets;
 	public String title;
+	public String location;
+	public String[] tags;
 	
 	public static final String ORDERBY_TITLE = "title";
 	
-	public AnnouncementQueryParams(Integer top,Integer skip, 
-			String filterBy, String orderBy,String title){
+	public AnnouncementQueryParams(Integer top,Integer skip, String orderBy,String title){
 		super(top,skip,orderBy);
-		this.filterBy = filterBy;
 		this.title= title;
 	}
 	

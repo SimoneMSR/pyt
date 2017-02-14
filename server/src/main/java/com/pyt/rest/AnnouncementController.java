@@ -39,16 +39,11 @@ public class AnnouncementController extends BaseController {
 	@Inject
 	private Logger log;
 	
-	@GET
+	@POST
+	@Path("get")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<AnnouncementDto> getByQuarterId(@QueryParam("quarterId") Integer quarterId, 
-			@QueryParam("top") Integer top, 
-			@QueryParam("skip") Integer skip, 
-			@QueryParam("filterBy") String filterBy,
-			@QueryParam("orderBy") String orderBy,
-			@QueryParam("title") String title){
-		AnnouncementQueryParams p = new AnnouncementQueryParams(top,skip,filterBy,orderBy,title);
-		return AnnouncementConverter.to(announcementService.getByQuaterId(quarterId,p));
+	public Collection<AnnouncementDto> get(AnnouncementQueryParams p){
+		return AnnouncementConverter.to(announcementService.get(p));
 	}
 	
 	@GET
@@ -57,10 +52,9 @@ public class AnnouncementController extends BaseController {
 	public Collection<AnnouncementDto> getByreatorId(@QueryParam("creatorId") Integer creatorId, 
 			@QueryParam("top") Integer top, 
 			@QueryParam("skip") Integer skip, 
-			@QueryParam("filterBy") String filterBy,
 			@QueryParam("orderBy") String orderBy,
 			@QueryParam("title") String title){
-		AnnouncementQueryParams p = new AnnouncementQueryParams(top,skip,filterBy,orderBy,title);
+		AnnouncementQueryParams p = new AnnouncementQueryParams(top,skip,orderBy,title);
 		return AnnouncementConverter.to(announcementService.getByCreatorId(creatorId,p));
 	}
 	

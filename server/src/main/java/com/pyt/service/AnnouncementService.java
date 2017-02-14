@@ -28,8 +28,8 @@ public class AnnouncementService {
 	@Inject
 	private TagDao tagDao;
 	
-	public Collection<Announcement> getByQuaterId(int quarterId, AnnouncementQueryParams params){
-		Collection<Announcement> retval = dao.getByQuarterId((long)quarterId,params);
+	public Collection<Announcement> get(AnnouncementQueryParams params){
+		Collection<Announcement> retval = dao.get(params);
 		for(Announcement a : retval){
 			a.likesCount=likeDao.countLike(a.getIdAnnouncement(), false);
 			a.dislikeCount = likeDao.countLike(a.getIdAnnouncement(), true);

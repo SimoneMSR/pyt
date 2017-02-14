@@ -52,7 +52,7 @@ export class AnnouncementsService extends  BaseService{
   public  getAll(quarterId : number, params?): Observable<Announcement[]>{
 
     return this.http
-      .get(this.url+"?quarterId="+quarterId +
+      .post(this.url+"/get",
         AnnouncementsService.extractParams(params)
         , {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());

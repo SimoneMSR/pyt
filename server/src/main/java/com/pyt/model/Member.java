@@ -57,7 +57,6 @@ public class Member implements Serializable {
 
 	@NotNull
 	@NotEmpty
-	// @Email(message = "Invalid format")
 	private String email;
 	
 	private String password;
@@ -66,8 +65,6 @@ public class Member implements Serializable {
 	
 	private boolean verified;
 
-	// @Size(min = 10, max = 12, message = "10-12 Numbers")
-	// @Digits(fraction = 0, integer = 12, message = "Not valid")
 	@Column(name = "phone_number")
 	private String phoneNumber;
 

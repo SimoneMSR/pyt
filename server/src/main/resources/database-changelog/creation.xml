@@ -289,6 +289,11 @@
 	            constraintName="fk_outbox_message"
 	            referencedColumnNames="idMessage"
 	            referencedTableName="Message"/>
+	    <addForeignKeyConstraint baseColumnNames="senderId"
+	            baseTableName="Outbox"
+	            constraintName="fk_outbox_member"
+	            referencedColumnNames="id"
+	            referencedTableName="Member"/>
 	</changeSet>  
 	<changeSet id="11" author="Simone D'Amario">
 		<comment>Aggiungo tabella Conversation, e campo conversationId ai Message</comment>
@@ -328,5 +333,60 @@
             columnName="verified"
             defaultValueBoolean="false"
             tableName="Member"/>
+	</changeSet>
+	<changeSet id="13" author="Simone D'Amario">
+		<comment>Aggiungo tabelle Being e Department e associazioni con Announcement</comment>
+		<createTable tableName="Being">
+			<column name="idBeing" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)" >
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<createTable tableName="Department">
+			<column name="idDepartment" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)" >
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<createTable tableName="AnnouncementForDepartment">
+			<column name="announcementId" type="INT" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="departmentId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="departmentId"
+	            baseTableName="AnnouncementForDepartment"
+	            constraintName="fk_announcement_department"
+	            referencedColumnNames="idDepartment"
+	            referencedTableName="Department"/>
+	    <addForeignKeyConstraint baseColumnNames="announcementId"
+	            baseTableName="AnnouncementForDepartment"
+	            constraintName="fk_department_announcement"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>
+		<createTable tableName="AnnouncementForBeing">
+			<column name="announcementId" type="INT" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="beingId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+		</createTable>
+	    <addForeignKeyConstraint baseColumnNames="beingId"
+	            baseTableName="AnnouncementForBeing"
+	            constraintName="fk_announcement_being"
+	            referencedColumnNames="idBeing"
+	            referencedTableName="Being"/>
+	    <addForeignKeyConstraint baseColumnNames="announcementId"
+	            baseTableName="AnnouncementForBeing"
+	            constraintName="fk_being_announcement"
+	            referencedColumnNames="idAnnouncement"
+	            referencedTableName="Announcement"/>  
 	</changeSet>
 </databaseChangeLog>

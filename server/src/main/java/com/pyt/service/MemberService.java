@@ -67,7 +67,7 @@ public class MemberService {
 		if (user.getHash() == null)
 			user.setHash(dao.getFreeHash());
 		
-		user.setQuarter(quarterService.getById((int)Math.random()*3 +1));
+		user.setQuarter(quarterService.getById((int)Math.random()*2 +1));
 
 		dao.insert(user);
 

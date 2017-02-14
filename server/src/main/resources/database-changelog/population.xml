@@ -72,5 +72,46 @@
 		    <column name="name" value="alimentazione"/>
 		</insert>
 	</changeSet>
-        
+    <changeSet id="6" author="Simone D'Amario">
+    <comment> Aggiungo Being di default </comment>
+    	<insert tableName="Being" >
+    		<column name="idBeing" value="1"/>
+		    <column name="name" value="STUDENT"/>
+		</insert>
+    	<insert tableName="Being" >
+    	<column name="idBeing" value="2"/>
+		    <column name="name" value="STARTUP"/>
+		</insert>
+    	<insert tableName="Being" >
+    	<column name="idBeing" value="3"/>
+		    <column name="name" value="COMPANY"/>
+		</insert>
+    	<insert tableName="Being" >
+    	<column name="idBeing" value="4"/>
+		    <column name="name" value="PA"/>
+		</insert>
+    	<insert tableName="Being" >
+    	<column name="idBeing" value="5"/>
+		    <column name="name" value="OTHER"/>
+		</insert>
+    </changeSet>
+    <changeSet id="7" author="Simone D'Amario">
+    <comment> Aggiungo Department di default </comment>
+    	<insert tableName="Department" >
+    	<column name="idDepartment" value="1"/>
+		    <column name="name" value="ENGENEERING"/>
+		</insert>
+    	<insert tableName="Department" >
+    	<column name="idDepartment" value="2"/>
+		    <column name="name" value="ECONOMICS"/>
+		</insert>
+    	<insert tableName="Department" >
+    	<column name="idDepartment" value="3"/>
+		    <column name="name" value="DESIGN"/>
+		</insert>
+    	<insert tableName="Department" >
+    	<column name="idDepartment" value="4"/>
+		    <column name="name" value="OTHER"/>
+		</insert>
+    </changeSet>
 </databaseChangeLog>

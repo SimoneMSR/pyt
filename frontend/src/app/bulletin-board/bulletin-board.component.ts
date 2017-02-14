@@ -28,7 +28,6 @@ export class BulletinBoardComponent implements OnInit {
       this.announcements = list;
     });
     this.ideaDisabled= this.problemDisabled = this.problemDisabled = false;
-    //this.announcements = this.announcementsService.Announcements;
   }
 
   ngOnInit() {

@@ -3,6 +3,8 @@ package com.pyt.rest.dto;
 import java.util.Collection;
 
 import Enums.AnnouncementCathegory;
+import Enums.Being;
+import Enums.Department;
 
 public class AnnouncementDto {
 	
@@ -15,6 +17,9 @@ public class AnnouncementDto {
 	public int likes;
 	public int dislikes;
 	public MemberDto creator;
+	public Collection<Being> targets;
+	public Collection<Department> departmentTargets;
+	public String location;
 	
     @Override
     public String toString() {
