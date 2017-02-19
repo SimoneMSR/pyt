@@ -108,7 +108,7 @@ export class MapComponent implements OnInit {
   }
 
   private refreshAnnouncements(){
-    this.announcementsService.getAll(this.quarterService.currentQuarter.id,{top : 10}).subscribe(list =>{
+    this.announcementsService.getAll({top : 10}).subscribe(list =>{
       this.announcements = list;
     });
   }

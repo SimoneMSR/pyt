@@ -24,13 +24,23 @@ export class BulletinBoardComponent implements OnInit {
     
     this.viewContainerRef = viewContainerRef;
     this.filterCathegory = { Idea : true, Proposal : true, Problem : true, Title : false};
-    this.announcementsService.getAllForQuarter().subscribe( list => {
-      this.announcements = list;
-    });
+    this.refreshAnnouncements();
     this.ideaDisabled= this.problemDisabled = this.problemDisabled = false;
   }
 
   ngOnInit() {
+  }
+
+  private refreshAnnouncements(){
+    this.announcementsService.getAll().subscribe( list => {
+      this.announcements = list;
+    });
+  }
+
+  private listenToServicesEvents(){
+    this.announcementsService.announcementChanged.subscribe(() =>{
+      this.refreshAnnouncements();
+    });
   }
 
 
@@ -93,7 +103,7 @@ export class BulletinBoardComponent implements OnInit {
     else
       this.problemDisabled=false;
     this.announcementsService.params.filterBy = filter;
-    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+    this.refreshAnnouncements();
   }
 
 
@@ -101,7 +111,7 @@ export class BulletinBoardComponent implements OnInit {
     if(!show){
       delete this.announcementsService.params.title;
       this.searchInput="";
-      this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+      this.refreshAnnouncements();
     }else{
       this.search(undefined);
     }
@@ -109,12 +119,12 @@ export class BulletinBoardComponent implements OnInit {
 
   orderBy(criterium){
     this.announcementsService.params.orderBy = criterium;
-    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+    this.refreshAnnouncements();
   }
 
   search(string){
     this.filterCathegory.Title=true;
     this.announcementsService.params.title=string;
-    this.announcementsService.refreshAnnouncementsByCurrentQuarter();
+    this.refreshAnnouncements();
   }
 }

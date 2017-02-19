@@ -143,7 +143,7 @@ export class AnnouncementModalComponent implements OnInit {
                   this.announcement.dislikes=announcement.dislikes;
                   this.announcement.likes=announcement.likes;
               });
-              this.service.refreshAnnouncementsByCurrentQuarter(); 
+              this.service.announcementChanged.next(true); 
           },
           error => {
             alert(error);

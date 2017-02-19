@@ -16,8 +16,8 @@ export class AnnouncementsService extends  BaseService{
   public Announcements : Announcement[];
   public Tags : Tag[];
   public serviceInitialized : BehaviorSubject<boolean>;
+  public announcementChanged : BehaviorSubject<boolean>;
   public announcementByUser : BehaviorSubject<Announcement[]>;
-  public announcementsByCurrentQuarter : BehaviorSubject<Announcement[]>;
   public params;
 
   constructor(private http : Http,
@@ -27,8 +27,8 @@ export class AnnouncementsService extends  BaseService{
     this.params={};
   	this.url=this.baseUrl + '/announcement';
   	this.announcementByUser = new BehaviorSubject([]);
-    this.announcementsByCurrentQuarter = new BehaviorSubject([]);
     this.serviceInitialized = new BehaviorSubject<boolean>(false);
+    this.announcementChanged = new BehaviorSubject<boolean>(false);
     this.initialize();
     this.setupObservables();
 
@@ -49,7 +49,7 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement>res.json());
   }
 
-  public  getAll(quarterId : number, params?): Observable<Announcement[]>{
+  public  getAll(params?): Observable<Announcement[]>{
 
     return this.http
       .post(this.url+"/get",
@@ -58,22 +58,15 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement[]>res.json());
   }
 
-  public getAllForQuarter() : Observable<Announcement[]>{
-  	return this.announcementsByCurrentQuarter;
-  }
-
   public getAllTags() : Observable<Tag[]> {
   	return this.http
       .get(this.url+"/tags", {headers: this.getHeaders()})
       .map(res => <Tag[]>res.json());
   }
 
-  private createOrUpdatePrivate(form: Announcement){
+  private createOrUpdatePrivate(form: Announcement) : Observable<Response>{
   	return this.http
   		.put(this.url,form, {headers: this.getHeaders()})
-      ._do( () =>{
-          this.refreshAnnouncementsByCurrentQuarter();
-      });
   }
 
   public createOrUpdate(form: Announcement, quarterId : number){
@@ -85,15 +78,11 @@ export class AnnouncementsService extends  BaseService{
         if(quarterId == this.quarterService.currentQuarter.id){
               this.quarterService.currentQuarterObservable.next(this.quarterService.currentQuarter);
         }
+        this.announcementChanged.next(true);
       });
   }
 
-  private setupObservables(){
-    //annunciQ -> currentQuarter
-      this.quarterService.currentQuarterObservable.subscribe(quarter => {
-          this.refreshAnnouncementsByCurrentQuarter();
-      });
-      
+  private setupObservables(){  
     //annunciU -> currentUser
     this.loginService.userObservable.subscribe(user => {
       if(user != null)
@@ -105,13 +94,6 @@ export class AnnouncementsService extends  BaseService{
           this.getAll(user.quarterId).subscribe(announcements =>{
             this.announcementByUser.next(announcements);
           });
-  }
-
-  public refreshAnnouncementsByCurrentQuarter(){
-        this.getAll(this.quarterService.currentQuarter.id,this.params)
-            .subscribe(announcements => {
-            this.announcementsByCurrentQuarter.next(announcements);
-    });
   }
 
   public getByCreatorId(creatorId : number,params?) : Observable<Announcement[]>{
