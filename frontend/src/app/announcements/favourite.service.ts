@@ -28,7 +28,7 @@ export class FavouriteService extends BaseService{
 
   public getFavourites(params?) : Observable<Announcement[]>{
   	return this.http
-  			.get(this.url + AnnouncementsService.extractParams(params), {headers : this.getHeaders()})
+  			.get(this.url , {headers : this.getHeaders()})
   			.map(res => <Announcement[]>res.json());
   }
 

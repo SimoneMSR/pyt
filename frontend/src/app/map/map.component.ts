@@ -8,7 +8,7 @@ import { Component,
 	  transition,
 	  animate,
     EventEmitter } from '@angular/core';
-import { AnnouncementsService} from '../announcements/announcements-service.service';
+import { AnnouncementsService} from '../announcements';
 import { Announcement} from '../announcements/announcement/announcement.model';
 import {Quarter} from '../quarters';
 import {QuarterService} from '../quarters';

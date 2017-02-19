@@ -3,7 +3,7 @@ import { Component,
   Input, 
   Output,
   EventEmitter} from '@angular/core';
-import { AnnouncementsService} from './announcements-service.service';
+import { AnnouncementsService} from './';
 import { Announcement} from './announcement/announcement.model';
 
 @Component({
