@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
-import { Announcement, AnnouncementsService} from '../announcements';
+import { Announcement, AnnouncementsService, AnnouncementQueryParam } from '../announcements';
 import { AnnouncementModalComponent, AnnouncementModalDirective} from './';
+import {Being, Department} from "../core";
 
 
 @Component({
@@ -13,26 +14,42 @@ import { AnnouncementModalComponent, AnnouncementModalDirective} from './';
 export class BulletinBoardComponent implements OnInit {
   public modalData : any;
   private viewContainerRef: ViewContainerRef;
-  public filterCathegory : any;
+  public queryParams : AnnouncementQueryParam;
   public announcements : Announcement[];
-  public ideaDisabled : boolean;
-  public proposalDisabled : boolean;
-  public problemDisabled : boolean;
-  public searchInput ="";s
+  public searchInput : string;
+  public creatorBeingsFilter :any[];
+  public targetBeingsFilter :any[];
+  public departmentFilter : any[];
+  public titleFilter : boolean;
+  public Being;
+  public Department;
   constructor(private announcementsService : AnnouncementsService,
     viewContainerRef:ViewContainerRef) { 
-    
     this.viewContainerRef = viewContainerRef;
-    this.filterCathegory = { Idea : true, Proposal : true, Problem : true, Title : false};
-    this.refreshAnnouncements();
-    this.ideaDisabled= this.problemDisabled = this.problemDisabled = false;
   }
 
   ngOnInit() {
+    this.Being = Being;
+    this.Department = Department;
+    this.searchInput="";
+    this.creatorBeingsFilter = [{name: Being.STARTUP},{name:Being.STUDENT},{name:Being.COMPANY}, {name:Being.PA},{name: Being.OTHER}];
+    this.targetBeingsFilter = [{name: Being.STARTUP},{name:Being.STUDENT},{name:Being.COMPANY}, {name:Being.PA},{name: Being.OTHER}];
+    this.departmentFilter = [{name: Department.DESIGN}, {name: Department.ECONOMICS}, {name: Department.ENGENEERING}, {name: Department.OTHER}];
+    this.titleFilter=false;
+    this.queryParams = new AnnouncementQueryParam();
+    this.announcements=[];
+    this.refreshAnnouncements();
+  }
+
+  public applyParams(){
+    this.queryParams.createdBy = this.creatorBeingsFilter.filter( e => e.selected).map(e=> e.name);
+    this.queryParams.targets = this.targetBeingsFilter.filter( e => e.selected).map(e=> e.name);
+    this.queryParams.departmentTargets = this.departmentFilter.filter( e => e.selected).map(e=> e.name);
+    this.refreshAnnouncements();
   }
 
   private refreshAnnouncements(){
-    this.announcementsService.getAll().subscribe( list => {
+    this.announcementsService.getAll(this.queryParams).subscribe( list => {
       this.announcements = list;
     });
   }
@@ -59,7 +76,7 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   create(){
-     this.modalData = {
+    this.modalData = {
       component : AnnouncementModalComponent,
       inputs : {
         announcementInput : undefined
@@ -67,49 +84,10 @@ export class BulletinBoardComponent implements OnInit {
     };
   }
 
-  toggleIdeas(show){
-    this.filterCathegory.Idea=show;
-    this.applyFilter();
-  }
-
-  toggleProposals(show){
-    this.filterCathegory.Proposal=show;
-    this.applyFilter();
-  }
-
-  toggleProblems(show){
-    this.filterCathegory.Problem=show;
-    this.applyFilter();
-  }
-
-  private applyFilter(){
-    let filter="";
-    if(this.filterCathegory.Idea)
-      filter=filter+"IDEA";
-    if(this.filterCathegory.Proposal)
-      filter=filter+"PROPOSAL";
-    if(this.filterCathegory.Problem)
-      filter=filter+"PROBLEM";
-    if(filter=="IDEA")
-      this.ideaDisabled=true;
-    else
-      this.ideaDisabled=false;
-    if(filter =="PROPOSAL")
-      this.proposalDisabled=true;
-    else
-      this.proposalDisabled=false;
-    if(filter=="PROBLEM")
-      this.problemDisabled=true;
-    else
-      this.problemDisabled=false;
-    this.announcementsService.params.filterBy = filter;
-    this.refreshAnnouncements();
-  }
-
 
   toggleSearch(show){
     if(!show){
-      delete this.announcementsService.params.title;
+      delete this.queryParams.title;
       this.searchInput="";
       this.refreshAnnouncements();
     }else{
@@ -118,13 +96,13 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   orderBy(criterium){
-    this.announcementsService.params.orderBy = criterium;
+    this.queryParams.orderBy = criterium;
     this.refreshAnnouncements();
   }
 
   search(string){
-    this.filterCathegory.Title=true;
-    this.announcementsService.params.title=string;
+    if(string)
+      this.queryParams.title=string;
     this.refreshAnnouncements();
   }
 }

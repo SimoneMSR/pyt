@@ -58,11 +58,10 @@ public class MessageController extends BaseController{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<ConversationDto> getConversations(@Context UriInfo ui){
 		MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
-		BaseQueryParams params = new BaseQueryParams(
-				queryParams.getFirst(BaseQueryParams.TOP_TITLE),
-				queryParams.getFirst(BaseQueryParams.SKIP_TITLE),
-				queryParams.getFirst(BaseQueryParams.ORERBY_TITLE)
-				); 
+		BaseQueryParams params = new BaseQueryParams();
+		params.top=Integer.parseInt(queryParams.getFirst(BaseQueryParams.TOP_TITLE));
+		params.skip=Integer.parseInt(queryParams.getFirst(BaseQueryParams.SKIP_TITLE));
+		params.orderBy=	queryParams.getFirst(BaseQueryParams.ORERBY_TITLE);
 		return ConversationConverter.to(service.getConversationByMemberId(getCurrentUser().getId().intValue(), params));
 	}
 	

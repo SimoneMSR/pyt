@@ -42,6 +42,7 @@ public class AnnouncementController extends BaseController {
 	@POST
 	@Path("get")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Collection<AnnouncementDto> get(AnnouncementQueryParams p){
 		return AnnouncementConverter.to(announcementService.get(p));
 	}

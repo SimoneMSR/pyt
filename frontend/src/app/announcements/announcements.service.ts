@@ -50,13 +50,10 @@ export class AnnouncementsService extends  BaseService{
       .map(res => <Announcement>res.json());
   }
 
-  public  getAll(params?): Observable<Announcement[]>{
-    var _params : AnnouncementQueryParam;
-    if(params !=null)
-      _params = <AnnouncementQueryParam>params;
+  public  getAll(params?  : AnnouncementQueryParam ): Observable<Announcement[]>{
     return this.http
       .post(this.url+"/get",
-        _params
+        params
         , {headers: this.getHeaders()})
       .map(res => <Announcement[]>res.json());
   }
@@ -87,16 +84,6 @@ export class AnnouncementsService extends  BaseService{
 
   private setupObservables(){  
     //annunciU -> currentUser
-    this.loginService.userObservable.subscribe(user => {
-      if(user != null)
-        this.refreshAnnouncementsByUser(user);
-    });
-  }
-
-  private refreshAnnouncementsByUser(user : Member){
-          this.getAll(user.quarterId).subscribe(announcements =>{
-            this.announcementByUser.next(announcements);
-          });
   }
 
   public getByCreatorId(creatorId : number,params?) : Observable<Announcement[]>{

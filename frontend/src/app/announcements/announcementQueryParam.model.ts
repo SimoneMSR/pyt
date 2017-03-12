@@ -7,4 +7,12 @@ export class AnnouncementQueryParam extends BaseQueryParam {
 	public title : string;
 	public location : string ;
 	public tags : string[];
+
+	constructor(){
+		super();
+		this.createdBy = [];
+		this.targets = [];
+		this.departmentTargets = [];
+		this.tags = [];
+	}
 }

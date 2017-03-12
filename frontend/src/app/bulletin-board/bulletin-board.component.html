@@ -7,23 +7,31 @@
 		</ul>
 		<h3>Filter by</h3>
 		<div class="panel">
-			<div class="cathegory-filter-container">
-				<label>Idea</label>
-				<ui-switch size="small" color="#66FF66" [disabled]="ideaDisabled==true"  (ngModelChange)="toggleIdeas($event)" [(ngModel)]="filterCathegory.Idea" class="cathegory-filter"></ui-switch>
-			</div>
-			<div class="cathegory-filter-container">
-				<label>Proposal</label>
-				<ui-switch size="small" color ='#FF9933' [disabled]="proposalDisabled==true" (ngModelChange)="toggleProposals($event)" [(ngModel)]="filterCathegory.Proposal" class="cathegory-filter"></ui-switch>
-			</div>
-			<div class="cathegory-filter-container">
-				<label>Problem</label>
-				<ui-switch size="small" color="#66B2FF" [disabled]="problemDisabled==true" (ngModelChange)="toggleProblems($event)" [(ngModel)]="filterCathegory.Problem" class="cathegory-filter"></ui-switch>
+			Created by
+			<div *ngFor="let creator of creatorBeingsFilter" class="cathegory-filter-container">
+				<label>{{Being[creator.name]}}</label>
+				<ui-switch size="small" color="#66FF66" (ngModelChange)="applyParams($event)" [(ngModel)]="creator.selected" class="cathegory-filter"></ui-switch>
 			</div>
 		</div>
 		<div class="panel">
+			Directed to
+			<div *ngFor="let target of targetBeingsFilter" class="cathegory-filter-container">
+				<label>{{Being[target.name]}}</label>
+				<ui-switch size="small" color="#66FF66" (ngModelChange)="applyParams($event)" [(ngModel)]="target.selected" class="cathegory-filter"></ui-switch>
+			</div>
+		</div>
+		<div *ngIf="creatorBeingsFilter[1].selected" class="panel">
+			Student departments
+			<div *ngFor="let department of departmentsFilter" class="cathegory-filter-container">
+				<label>{{Department[department.name]}}</label>
+				<ui-switch size="small" color="#66FF66" (ngModelChange)="applyParams($event)" [(ngModel)]="department.selected" class="cathegory-filter"></ui-switch>
+			</div>
+		</div>
+		<div class="panel">
+			Other
 			<div class="cathegory-filter-container">
 				<label>Title</label>
-				<ui-switch size="small" color="red"   (ngModelChange)="toggleSearch($event)" [(ngModel)]="filterCathegory.Title" class="cathegory-filter"></ui-switch>
+				<ui-switch size="small" color="red"   (ngModelChange)="toggleSearch($event)" [(ngModel)]="queryParams.title" class="cathegory-filter"></ui-switch>
 			</div>
 		</div>
 	</div>

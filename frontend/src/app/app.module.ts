@@ -6,7 +6,6 @@ import { LoginModule} from './login/login.module';
 import { CoreModule} from './core/core.module';
 import { RouterModule, Routes } from '@angular/router'; 
 import { BulletinBoardModule} from './bulletin-board/bulletin-board.module';
-import { MapModule} from './map/map.module';
 import { HomeModule} from "./home/home.module";
 import {MemberModule} from "./member/member.module";
 
@@ -43,7 +42,6 @@ const appRoutes: Routes = [
     HomeModule,
     LoginModule,
     CoreModule,
-    MapModule,
     BulletinBoardModule,
     RouterModule.forRoot(appRoutes),
     MemberModule

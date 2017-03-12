@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-        
-    <changeSet id="1" author="Simone D'Amario">
+
+	<changeSet id="1" author="Simone D'Amario">
 		<comment>Creazione tabella Member</comment>
 		<createTable tableName="Member">
 			<column name="id" type="INT" autoIncrement="true">
@@ -12,25 +12,26 @@
 			</column>
 			<column name="name" type="VARCHAR(255)">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="email" type="VARCHAR(255)">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="phone_number" type="VARCHAR(50)">
-			</column> 
-			
+			</column>
+
 		</createTable>
-	</changeSet>  
-	
-    <changeSet id="2" author="Simone D'Amario">
-		<comment>Creazione tabelle Quartieri, Annunci, QuartieriAnnunci</comment>
+	</changeSet>
+
+	<changeSet id="2" author="Simone D'Amario">
+		<comment>Creazione tabelle Quartieri, Annunci, QuartieriAnnunci
+		</comment>
 		<createTable tableName="Quarter">
 			<column name="idQuarter" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="name" type="VARCHAR(255)">
 				<constraints nullable="false" />
-			</column> 			
+			</column>
 		</createTable>
 		<createTable tableName="Announcement">
 			<column name="idAnnouncement" type="INT" autoIncrement="true">
@@ -41,7 +42,7 @@
 			</column>
 			<column name="description" type="clob">
 				<constraints nullable="false" />
-			</column> 			
+			</column>
 		</createTable>
 		<createTable tableName="QuarterAnnouncement">
 			<column name="idQuarter" type="INT">
@@ -49,21 +50,17 @@
 			</column>
 			<column name="idAnnouncement" type="INT">
 				<constraints nullable="false" primaryKey="true" />
-			</column>		
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="idQuarter"
-	            baseTableName="QuarterAnnouncement"
-	            constraintName="fk_quarter_id"
-	            referencedColumnNames="idQuarter"
-	            referencedTableName="Quarter"/>
-	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
-	            baseTableName="QuarterAnnouncement"
-	            constraintName="fk_announcement_id"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
-	</changeSet>  
-	
-	 <changeSet id="3" author="Simone D'Amario">
+		<addForeignKeyConstraint baseColumnNames="idQuarter"
+			baseTableName="QuarterAnnouncement" constraintName="fk_quarter_id"
+			referencedColumnNames="idQuarter" referencedTableName="Quarter" />
+		<addForeignKeyConstraint baseColumnNames="idAnnouncement"
+			baseTableName="QuarterAnnouncement" constraintName="fk_announcement_id"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
+	</changeSet>
+
+	<changeSet id="3" author="Simone D'Amario">
 		<comment>Creazione tabelle Tag, AnnunciTag</comment>
 		<createTable tableName="Tag">
 			<column name="idTag" type="INT" autoIncrement="true">
@@ -71,7 +68,7 @@
 			</column>
 			<column name="name" type="VARCHAR(255)">
 				<constraints nullable="false" />
-			</column> 			
+			</column>
 		</createTable>
 		<createTable tableName="AnnouncementTag">
 			<column name="idAnnouncement" type="INT">
@@ -79,74 +76,63 @@
 			</column>
 			<column name="idTag" type="INT">
 				<constraints nullable="false" primaryKey="true" />
-			</column>		
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="idAnnouncement"
-	            baseTableName="AnnouncementTag"
-	            constraintName="fk_tag_announcement_id"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
-	    <addForeignKeyConstraint baseColumnNames="idTag"
-	            baseTableName="AnnouncementTag"
-	            constraintName="fk_tag_id"
-	            referencedColumnNames="idTag"
-	            referencedTableName="Tag"/>
+		<addForeignKeyConstraint baseColumnNames="idAnnouncement"
+			baseTableName="AnnouncementTag" constraintName="fk_tag_announcement_id"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
+		<addForeignKeyConstraint baseColumnNames="idTag"
+			baseTableName="AnnouncementTag" constraintName="fk_tag_id"
+			referencedColumnNames="idTag" referencedTableName="Tag" />
 	</changeSet>
 	<changeSet id="4" author="Simone D'Amario">
 		<comment>Aggiungo colonna quarterId alla tabella Member</comment>
 		<addColumn tableName="Member">
-    	    <column name="quarterId" type="INT"/>
-	    </addColumn>
-	    <addForeignKeyConstraint baseColumnNames="quarterId"
-	            baseTableName="Member"
-	            constraintName="fk_member_quarter"
-	            referencedColumnNames="idQuarter"
-	            referencedTableName="Quarter"/>
+			<column name="quarterId" type="INT" />
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="quarterId"
+			baseTableName="Member" constraintName="fk_member_quarter"
+			referencedColumnNames="idQuarter" referencedTableName="Quarter" />
 	</changeSet>
 	<changeSet id="5" author="Simone D'Amario">
 		<comment> Aggiungo colonna categoria e creatore all'annuncio</comment>
 		<addColumn tableName="Announcement">
-			<column name="cathegory" type="INT"/>
-			<column name="creatorId" type="INT"/>
+			<column name="cathegory" type="INT" />
+			<column name="creatorId" type="INT" />
 		</addColumn>
-	    <addForeignKeyConstraint baseColumnNames="creatorId"
-	            baseTableName="Announcement"
-	            constraintName="fk_announcement_mermberId"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
+		<addForeignKeyConstraint baseColumnNames="creatorId"
+			baseTableName="Announcement" constraintName="fk_announcement_mermberId"
+			referencedColumnNames="id" referencedTableName="Member" />
 	</changeSet>
 	<changeSet id="6" author="Simone D'Amario">
-	<comment>Creazione tabella Comment</comment>
+		<comment>Creazione tabella Comment</comment>
 		<createTable tableName="Comment">
 			<column name="idComment" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="content" type="clob">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="creatorId" type="INT">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="creatorId"
-	            baseTableName="Comment"
-	            constraintName="fk_comment_memberId"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
+			baseTableName="Comment" constraintName="fk_comment_memberId"
+			referencedColumnNames="id" referencedTableName="Member" />
 	</changeSet>
 	<changeSet id="7" author="Simone D'Amario">
-		<comment>Aggiungo colonna announcementId alla tabella Comment</comment>
+		<comment>Aggiungo colonna announcementId alla tabella Comment
+		</comment>
 		<addColumn tableName="Comment">
-			<column name="announcementId" type="INT"/>
+			<column name="announcementId" type="INT" />
 		</addColumn>
-	    <addForeignKeyConstraint baseColumnNames="announcementId"
-	            baseTableName="Comment"
-	            constraintName="fk_comment_announcementId"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
+		<addForeignKeyConstraint baseColumnNames="announcementId"
+			baseTableName="Comment" constraintName="fk_comment_announcementId"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
 	</changeSet>
 	<changeSet id="8" author="Simone D'Amario">
 		<comment>Aggiungo tabella Like</comment>
@@ -154,12 +140,12 @@
 			<column name="idLike" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="dislike" type="BOOLEAN" >
-				<constraints nullable="false"/>
+			<column name="dislike" type="BOOLEAN">
+				<constraints nullable="false" />
 			</column>
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="memberId" type="INT">
 				<constraints nullable="false" />
 			</column>
@@ -167,16 +153,12 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="memberId"
-	            baseTableName="LikeVote"
-	            constraintName="fk_like_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	    <addForeignKeyConstraint baseColumnNames="announcementId"
-	            baseTableName="LikeVote"
-	            constraintName="fk_like_announcement"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
+		<addForeignKeyConstraint baseColumnNames="memberId"
+			baseTableName="LikeVote" constraintName="fk_like_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+		<addForeignKeyConstraint baseColumnNames="announcementId"
+			baseTableName="LikeVote" constraintName="fk_like_announcement"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
 	</changeSet>
 	<changeSet id="9" author="Simone D'Amario">
 		<comment>Aggiungo tabella Favourite</comment>
@@ -186,7 +168,7 @@
 			</column>
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 			<column name="memberId" type="INT">
 				<constraints nullable="false" />
 			</column>
@@ -194,18 +176,14 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="deleted" type="DATETIME">
-			</column> 
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="memberId"
-	            baseTableName="Favourite"
-	            constraintName="fk_favourite_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	    <addForeignKeyConstraint baseColumnNames="announcementId"
-	            baseTableName="Favourite"
-	            constraintName="fk_favourite_announcement"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
+		<addForeignKeyConstraint baseColumnNames="memberId"
+			baseTableName="Favourite" constraintName="fk_favourite_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+		<addForeignKeyConstraint baseColumnNames="announcementId"
+			baseTableName="Favourite" constraintName="fk_favourite_announcement"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
 	</changeSet>
 	<changeSet id="10" author="Simone D'Amario">
 		<comment>Aggiungo tabelle per Mail</comment>
@@ -223,80 +201,69 @@
 			</column>
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="creatorId"
-	            baseTableName="Message"
-	            constraintName="fk_message_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	            
+		<addForeignKeyConstraint baseColumnNames="creatorId"
+			baseTableName="Message" constraintName="fk_message_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+
 		<createTable tableName="MessageRecipient">
 			<column name="messageId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="recipientId" type="INT">
-				<constraints nullable="false" primaryKey="true"/>
+				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="hidden" type="BOOLEAN"> </column>
+			<column name="hidden" type="BOOLEAN">
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="messageId"
-	            baseTableName="MessageRecipient"
-	            constraintName="fk_messageRecipient_message"
-	            referencedColumnNames="idMessage"
-	            referencedTableName="Message"/>
-	    <addForeignKeyConstraint baseColumnNames="recipientId"
-	            baseTableName="MessageRecipient"
-	            constraintName="fk_messageRecipient_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	            
+		<addForeignKeyConstraint baseColumnNames="messageId"
+			baseTableName="MessageRecipient" constraintName="fk_messageRecipient_message"
+			referencedColumnNames="idMessage" referencedTableName="Message" />
+		<addForeignKeyConstraint baseColumnNames="recipientId"
+			baseTableName="MessageRecipient" constraintName="fk_messageRecipient_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+
 		<createTable tableName="Inbox">
 			<column name="messageId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="receiverId" type="INT" >
-				<constraints nullable="false"  primaryKey="true"/>
+			<column name="receiverId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="deleted" type="DATETIME">
 				<constraints />
-			</column> 
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="messageId"
-	            baseTableName="Inbox"
-	            constraintName="fk_inbox_message"
-	            referencedColumnNames="idMessage"
-	            referencedTableName="Message"/>
-	    <addForeignKeyConstraint baseColumnNames="receiverId"
-	            baseTableName="Inbox"
-	            constraintName="fk_inbox_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	            
+		<addForeignKeyConstraint baseColumnNames="messageId"
+			baseTableName="Inbox" constraintName="fk_inbox_message"
+			referencedColumnNames="idMessage" referencedTableName="Message" />
+		<addForeignKeyConstraint baseColumnNames="receiverId"
+			baseTableName="Inbox" constraintName="fk_inbox_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+
 		<createTable tableName="Outbox">
 			<column name="messageId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="senderId" type="INT" >
-				<constraints nullable="false"  primaryKey="true"/>
+			<column name="senderId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="deleted" type="DATETIME">
 				<constraints />
-			</column> 
+			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="messageId"
-	            baseTableName="Outbox"
-	            constraintName="fk_outbox_message"
-	            referencedColumnNames="idMessage"
-	            referencedTableName="Message"/>
-	    <addForeignKeyConstraint baseColumnNames="senderId"
-	            baseTableName="Outbox"
-	            constraintName="fk_outbox_member"
-	            referencedColumnNames="id"
-	            referencedTableName="Member"/>
-	</changeSet>  
+		<addForeignKeyConstraint baseColumnNames="messageId"
+			baseTableName="Outbox" constraintName="fk_outbox_message"
+			referencedColumnNames="idMessage" referencedTableName="Message" />
+		<addForeignKeyConstraint baseColumnNames="senderId"
+			baseTableName="Outbox" constraintName="fk_outbox_member"
+			referencedColumnNames="id" referencedTableName="Member" />
+	</changeSet>
 	<changeSet id="11" author="Simone D'Amario">
-		<comment>Aggiungo tabella Conversation, e campo conversationId ai Message</comment>
+		<comment>Aggiungo tabella Conversation, e campo conversationId ai
+			Message
+		</comment>
 		<createTable tableName="Conversation">
 			<column name="idConversation" type="INT" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />
@@ -306,87 +273,87 @@
 			</column>
 			<column name="lastMessageDate" type="DATETIME">
 				<constraints nullable="false" />
-			</column> 
+			</column>
 		</createTable>
 		<addColumn tableName="Message">
-    	    <column name="conversationId" type="INT"/>
-	    </addColumn>
-	    <addForeignKeyConstraint baseColumnNames="conversationId"
-	            baseTableName="Message"
-	            constraintName="fk_message_conversation"
-	            referencedColumnNames="idConversation"
-	            referencedTableName="Conversation"/>
-	</changeSet> 
+			<column name="conversationId" type="INT" />
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="conversationId"
+			baseTableName="Message" constraintName="fk_message_conversation"
+			referencedColumnNames="idConversation" referencedTableName="Conversation" />
+	</changeSet>
 	<changeSet id="12" author="Simone D'Amario">
-		<comment>Aggiungo colonna password, hash e verified alla tabella Member</comment>
+		<comment>Aggiungo colonna password, hash e verified alla tabella
+			Member
+		</comment>
 		<addColumn tableName="Member">
-			<column name="password" type="VARCHAR(255)"/>
+			<column name="password" type="VARCHAR(255)" />
 		</addColumn>
 		<addColumn tableName="Member">
-			<column name="hash" type="VARCHAR(255)"/>
+			<column name="hash" type="VARCHAR(255)" />
 		</addColumn>
 		<addColumn tableName="Member">
-			<column name="verified" type="BOOLEAN"/>
+			<column name="verified" type="BOOLEAN" />
 		</addColumn>
-	    <addDefaultValue
-            columnDataType="BOOLEAN"
-            columnName="verified"
-            defaultValueBoolean="false"
-            tableName="Member"/>
+		<addDefaultValue columnDataType="BOOLEAN" columnName="verified"
+			defaultValueBoolean="false" tableName="Member" />
 	</changeSet>
 	<changeSet id="13" author="Simone D'Amario">
-		<comment>Aggiungo tabelle Being e Department e associazioni con Announcement</comment>
+		<comment>Aggiungo tabelle Being e Department e associazioni con
+			Announcement
+		</comment>
 		<createTable tableName="Being">
 			<column name="idBeing" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="name" type="VARCHAR(255)" >
-				<constraints nullable="false"/>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
 			</column>
 		</createTable>
 		<createTable tableName="Department">
 			<column name="idDepartment" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="name" type="VARCHAR(255)" >
-				<constraints nullable="false"/>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
 			</column>
 		</createTable>
 		<createTable tableName="AnnouncementForDepartment">
-			<column name="announcementId" type="INT" >
-				<constraints nullable="false" primaryKey="true"/>
+			<column name="announcementId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="departmentId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="departmentId"
-	            baseTableName="AnnouncementForDepartment"
-	            constraintName="fk_announcement_department"
-	            referencedColumnNames="idDepartment"
-	            referencedTableName="Department"/>
-	    <addForeignKeyConstraint baseColumnNames="announcementId"
-	            baseTableName="AnnouncementForDepartment"
-	            constraintName="fk_department_announcement"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>
+		<addForeignKeyConstraint baseColumnNames="departmentId"
+			baseTableName="AnnouncementForDepartment" constraintName="fk_announcement_department"
+			referencedColumnNames="idDepartment" referencedTableName="Department" />
+		<addForeignKeyConstraint baseColumnNames="announcementId"
+			baseTableName="AnnouncementForDepartment" constraintName="fk_department_announcement"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
 		<createTable tableName="AnnouncementForBeing">
-			<column name="announcementId" type="INT" >
-				<constraints nullable="false" primaryKey="true"/>
+			<column name="announcementId" type="INT">
+				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="beingId" type="INT">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 		</createTable>
-	    <addForeignKeyConstraint baseColumnNames="beingId"
-	            baseTableName="AnnouncementForBeing"
-	            constraintName="fk_announcement_being"
-	            referencedColumnNames="idBeing"
-	            referencedTableName="Being"/>
-	    <addForeignKeyConstraint baseColumnNames="announcementId"
-	            baseTableName="AnnouncementForBeing"
-	            constraintName="fk_being_announcement"
-	            referencedColumnNames="idAnnouncement"
-	            referencedTableName="Announcement"/>  
+		<addForeignKeyConstraint baseColumnNames="beingId"
+			baseTableName="AnnouncementForBeing" constraintName="fk_announcement_being"
+			referencedColumnNames="idBeing" referencedTableName="Being" />
+		<addForeignKeyConstraint baseColumnNames="announcementId"
+			baseTableName="AnnouncementForBeing" constraintName="fk_being_announcement"
+			referencedColumnNames="idAnnouncement" referencedTableName="Announcement" />
+	</changeSet>
+	<changeSet id="14" author="Simone D'Amario">
+		<comment>Aggiungo colonna role a Member</comment>
+		<addColumn tableName="Member">
+			<column name="role" type="INT" />
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="role"
+			baseTableName="Member" constraintName="fk_member_role"
+			referencedColumnNames="idBeing" referencedTableName="Being" />
 	</changeSet>
 </databaseChangeLog>

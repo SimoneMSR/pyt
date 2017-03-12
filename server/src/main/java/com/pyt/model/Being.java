@@ -2,6 +2,8 @@ package com.pyt.model;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +43,10 @@ public class Being {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getIdBeing() {
+		return idBeing;
 	}
 	
 	

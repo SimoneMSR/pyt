@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,6 +58,10 @@ public class Announcement implements Serializable{
 	        inverseJoinColumns=@JoinColumn(name="idTag"))
 	private Set<Tag> tags;
 	
+	@Transient
+	@Access(AccessType.PROPERTY)
+	private Collection<Integer> tagsIds;
+	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="announcement")
 	private List<Comment> comments;
 	
@@ -64,11 +71,19 @@ public class Announcement implements Serializable{
 	        inverseJoinColumns=@JoinColumn(name="idDepartment"))
 	private Collection<Department> departments;
 	
+	@Transient
+	@Access(AccessType.PROPERTY)
+	private Collection<Integer> departmentsIds;
+	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="AnnouncementForBeing",
 	        joinColumns=@JoinColumn(name="idAnnouncement"),
 	        inverseJoinColumns=@JoinColumn(name="idDepartment"))
 	private Collection<Being> beings;
+	
+	@Transient
+	@Access(AccessType.PROPERTY)
+	private Collection<Integer> beingsIds;
 	
 	private int cathegory;
 	
@@ -162,6 +177,42 @@ public class Announcement implements Serializable{
 
 	public List<Like> getLikes() {
 		return likes;
+	}
+
+	public Collection<Department> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(Collection<Department> departments) {
+		this.departments = departments;
+	}
+
+	public Collection<Being> getBeings() {
+		return beings;
+	}
+
+	public void setBeings(Collection<Being> beings) {
+		this.beings = beings;
+	}
+
+	public Collection<Integer> getTagsIds() {
+		return tags.stream().map(t -> t.getIdTag()).collect(Collectors.toList());
+	}
+
+	public Collection<Integer> getDepartmentsIds() {
+		return departments.stream().map(d -> d.getIdDepartment()).collect(Collectors.toList());
+	}
+
+	public Collection<Integer> getBeingsIds() {
+		return beings.stream().map(b -> b.getIdBeing()).collect(Collectors.toList());
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
 	}
 	
 	

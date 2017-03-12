@@ -21,10 +21,13 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import com.pyt.model.Announcement;
 import com.pyt.model.Announcement_;
+import com.pyt.model.Being;
+import com.pyt.model.Being_;
 import com.pyt.model.Comment;
 import com.pyt.model.Member_;
 import com.pyt.model.Quarter;
 import com.pyt.model.Quarter_;
+import com.pyt.model.Tag;
 import com.pyt.rest.queryParams.AnnouncementQueryParams;
 
 import Enums.AnnouncementCathegory;
@@ -94,7 +97,7 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
             criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
             return applyQueryParams(criteria,params,cb,announcement);
         }catch(Exception e){
-        	return null;
+        	return new ArrayList<Announcement>();
         }
 	}
 	
@@ -108,23 +111,50 @@ public class AnnouncementDao extends BaseDao<Announcement,Announcement_>{
         criteria.select(announcement).where(whereParams.toArray(new Predicate[]{}));
         return applyQueryParams(criteria,p,cb,announcement);
         }catch(Exception e){
-        	return null;
+        	return new ArrayList<Announcement>();
         }
 	}
 	
 	public List<Predicate> applyParamsFilter(CriteriaBuilder cb,CriteriaQuery<Announcement> query,AnnouncementQueryParams params,Root<Announcement> announcement){
 		List<Predicate> retval = new ArrayList<Predicate>();
 		if(params != null){
-			//order
-			if(params.filterBy !=null && !params.filterBy.isEmpty()){
-				List<Integer> cathegories = new ArrayList<Integer>();
-				if(params.filterBy.indexOf(AnnouncementCathegory.IDEA.name())>=0)
-					cathegories.add(AnnouncementCathegory.IDEA.code);
-				if(params.filterBy.indexOf(AnnouncementCathegory.PROBLEM.name())>=0)
-					cathegories.add(AnnouncementCathegory.PROBLEM.code);
-				if(params.filterBy.indexOf(AnnouncementCathegory.PROPOSAL.name())>=0)
-					cathegories.add(AnnouncementCathegory.PROPOSAL.code);
-				retval.add(announcement.get(Announcement_.cathegory).in(cathegories));
+			//created by
+			if(params.createdBy != null && params.createdBy.length>0){
+				Predicate[] createdByPredicate = new Predicate[params.createdBy.length];
+				int i=0;
+				for(Enums.Being b : params.createdBy)
+					createdByPredicate[i++]=cb.equal(announcement.get(Announcement_.creator).get(Member_.role).get(Being_.idBeing),b.code);
+				retval.add(cb.or(createdByPredicate));	
+			}
+			//target
+			if(params.targets != null && params.targets.length>0){
+				Predicate[] targetPredicate = new Predicate[params.targets.length];
+				int i=0;
+				boolean hasStudentTarget=false;
+				for(Enums.Being t : params.targets){
+					targetPredicate[i++]=cb.literal(t).in(announcement.get(Announcement_.beings));
+					if(t == Enums.Being.STUDENT)
+						hasStudentTarget=true;
+				}
+				retval.add(cb.or(targetPredicate));
+				//department target
+				if(hasStudentTarget && params.departmentTargets!=null && params.departmentTargets.length>0){
+					i=0;
+					Predicate[] departmentPredicate = new Predicate[params.departmentTargets.length];
+					for(Enums.Department d : params.departmentTargets){
+						departmentPredicate[i++] =cb.literal(d).in(announcement.get(Announcement_.departments));
+					}
+					retval.add(cb.or(departmentPredicate));
+				}
+			}
+			//tags
+			if(params.tags != null && params.tags.length>0){
+				Predicate[] tagsPredicate = new Predicate[params.tags.length];
+				int i=0;
+				for(String t : params.tags){
+					tagsPredicate[i++]= cb.literal(t).in(announcement.get(Announcement_.tags));
+				}
+				retval.add(cb.or(tagsPredicate));
 			}
 			if(params.title != null && !params.title.isEmpty()){
 				retval.add(cb.like(announcement.get(Announcement_.title),"%"+params.title+"%"));

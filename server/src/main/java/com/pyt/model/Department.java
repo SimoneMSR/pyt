@@ -20,7 +20,7 @@ public class Department {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idFaculty;
+	private int idDepartment;
     
     private String name;
     
@@ -42,5 +42,11 @@ public class Department {
 	public void setAnnouncements(Collection<Announcement> announcements) {
 		this.announcements = announcements;
 	}
+
+	public int getIdDepartment() {
+		return idDepartment;
+	}
+	
+	
 	
 }

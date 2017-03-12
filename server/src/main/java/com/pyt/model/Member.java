@@ -90,7 +90,9 @@ public class Member implements Serializable {
 	        inverseJoinColumns=@JoinColumn(name="senderId"))
 	private List<Message> outbox;
 	
-	
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="role", updatable=false)
+    private Being role;
 	
 	public String getHash() {
 		return hash;
@@ -196,6 +198,16 @@ public class Member implements Serializable {
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
+
+	public Being getRole() {
+		return role;
+	}
+
+	public void setRole(Being role) {
+		this.role = role;
+	}
+	
+	
 	
 	
 	

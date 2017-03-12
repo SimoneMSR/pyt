@@ -1,6 +1,3 @@
-<div class="map" *ngIf="isLoggedIn">
-	<app-map [(visible)]=mapVisible></app-map>
-</div>
 <div class='main-page' [ngClass]="{'opaco' : mapVisible}" (click)="closeMap()">
  	<app-navbar *ngIf="isLoggedIn"></app-navbar>
 	<div id='wrapper'>

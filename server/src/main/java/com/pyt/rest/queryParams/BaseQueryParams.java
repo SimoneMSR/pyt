@@ -9,16 +9,4 @@ public class BaseQueryParams {
 	public static final String SKIP_TITLE = "skip";
 	public static final String ORERBY_TITLE = "orderBy";
 	
-	public BaseQueryParams(Integer top, Integer skip, String orderBy){
-		this.top=top;
-		this.skip = skip;
-		this.orderBy = orderBy;
-	}
-	public BaseQueryParams(String top, String skip, String orderBy){
-		if(top !=null)
-			this.top = Integer.parseInt(top);
-		if(skip !=null)
-			this.top = Integer.parseInt(skip);
-		this.orderBy=orderBy;
-	}
 }
